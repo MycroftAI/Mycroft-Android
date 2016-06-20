@@ -27,6 +27,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import static mycroft.ai.R.id.textSpeechInput;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Mycroft" ;
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         ttsManager = new TTSManager();
         ttsManager.init(this);
-        txtSpeechInput = (TextView) findViewById(R.id.textSpeechInput);
+        txtSpeechInput = (TextView) findViewById(textSpeechInput);
 
     }
 
@@ -108,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onOpen(ServerHandshake serverHandshake) {
                 Log.i("Websocket", "Opened");
-                mWebSocketClient.send("Hello from " + Build.MANUFACTURER + " " + Build.MODEL);
             }
 
             @Override
@@ -118,8 +119,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Log.i(TAG, message);
-                        // TextView textView = (TextView)findViewById(R.id.messages);
-                        // textView.setText(textView.getText() + "\n" + message);
+                        txtSpeechInput.setText(message);
                     }
                 });
             }
@@ -137,10 +137,13 @@ public class MainActivity extends AppCompatActivity {
         mWebSocketClient.connect();
     }
 
-    public void sendMessage(View view) {
-        //EditText editText = (EditText)findViewById(R.id.message);
-        //mWebSocketClient.send(editText.getText().toString());
-        //editText.setText("");
+    public void sendMessage(String msg) {
+        // Message format is
+        // {"message_type": "recognizer_loop:utterance", "context": null, "metadata": {"utterances": ["tell me a joke"]}};
+        // make a JSON object to send
+
+        //mWebSocketClient.send(jsonString.toString());
+        txtSpeechInput.setText(msg);
     }
 
     /**
@@ -176,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     txtSpeechInput.setText(result.get(0));
+                    sendMessage(result.get(0));
                 }
                 break;
             }
