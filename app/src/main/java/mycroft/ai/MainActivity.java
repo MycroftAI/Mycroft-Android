@@ -3,6 +3,7 @@ package mycroft.ai;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -19,8 +20,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URI;
@@ -32,7 +39,7 @@ import static mycroft.ai.R.id.textSpeechInput;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "Mycroft" ;
+    private static final String TAG = "Mycroft";
     private WebSocketClient mWebSocketClient;
     public static final String PREFS_NAME = "MycroftPrefs";
     private String wsip;
@@ -40,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
     private final int REQ_CODE_SPEECH_INPUT = 100;
     TTSManager ttsManager = null;
     private TextView txtSpeechInput;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +73,10 @@ public class MainActivity extends AppCompatActivity {
         // Restore preferences
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         wsip = sharedPref.getString("ip", "");
-        if(wsip.isEmpty()) {
+        if (wsip.isEmpty()) {
             // eep, show the settings intent!
             startActivity(new Intent(this, SettingsActivity.class));
-        }
-        else {
+        } else {
             connectWebSocket();
         }
 
@@ -73,6 +84,9 @@ public class MainActivity extends AppCompatActivity {
         ttsManager.init(this);
         txtSpeechInput = (TextView) findViewById(textSpeechInput);
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -120,7 +134,20 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Log.i(TAG, message);
-                        txtSpeechInput.setText(message);
+                        try {
+                            JSONObject obj = new JSONObject(message);
+                            Log.e(TAG, obj.toString());
+                            String msgType =  obj.getString("message_type");
+                            if(msgType.equals("speak")) {
+                                String ret = obj.getJSONObject("metadata").getString("utterance");
+                                txtSpeechInput.setText(ret);
+                                ttsManager.initQueue(ret);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 });
             }
@@ -146,11 +173,11 @@ public class MainActivity extends AppCompatActivity {
         // let's keep it simple eh?
         String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [\"" + msg + "\"]}}";
         //try {
-            //JSONObject obj = new JSONObject(json);
-            //Log.d(TAG, obj.toString());
+        //JSONObject obj = new JSONObject(json);
+        //Log.d(TAG, obj.toString());
 
-         mWebSocketClient.send(json);
-         txtSpeechInput.setText(msg);
+        mWebSocketClient.send(json);
+        txtSpeechInput.setText(msg);
         //} catch (Throwable t) {
         //    Log.e(TAG, "Could not parse malformed JSON: \"" + json + "\"");
         //}
@@ -158,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Showing google speech input dialog
-     * */
+     */
     private void promptSpeechInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -177,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Receiving speech input
-     * */
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -201,5 +228,41 @@ public class MainActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         ttsManager.shutDown();
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("Main Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
     }
 }
