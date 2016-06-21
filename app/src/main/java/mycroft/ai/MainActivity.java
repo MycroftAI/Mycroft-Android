@@ -144,16 +144,16 @@ public class MainActivity extends AppCompatActivity {
         // make a JSON object to send
 
         // let's keep it simple eh?
-        String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [" + msg + "] }}";
-        try {
-            JSONObject obj = new JSONObject(json);
-            Log.d(TAG, obj.toString());
+        String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [\"" + msg + "\"]}}";
+        //try {
+            //JSONObject obj = new JSONObject(json);
+            //Log.d(TAG, obj.toString());
 
-            mWebSocketClient.send(obj.toString());
-            txtSpeechInput.setText(msg);
-        } catch (Throwable t) {
-            Log.e(TAG, "Could not parse malformed JSON: \"" + json + "\"");
-        }
+         mWebSocketClient.send(json);
+         txtSpeechInput.setText(msg);
+        //} catch (Throwable t) {
+        //    Log.e(TAG, "Could not parse malformed JSON: \"" + json + "\"");
+        //}
     }
 
     /**
