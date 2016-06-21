@@ -148,11 +148,12 @@ public class MainActivity extends AppCompatActivity {
         try {
             JSONObject obj = new JSONObject(json);
             Log.d(TAG, obj.toString());
+
+            mWebSocketClient.send(obj.toString());
+            txtSpeechInput.setText(msg);
         } catch (Throwable t) {
             Log.e(TAG, "Could not parse malformed JSON: \"" + json + "\"");
         }
-        mWebSocketClient.send(json.toString());
-        txtSpeechInput.setText(msg);
     }
 
     /**
