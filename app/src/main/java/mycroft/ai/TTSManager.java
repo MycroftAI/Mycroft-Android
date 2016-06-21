@@ -5,6 +5,7 @@ import android.app.Service;
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.Locale;
@@ -39,12 +40,27 @@ public class TTSManager {
     private boolean isLoaded = false;
 
 	/**
+     * External listener for error and success events. May be null.
+     */
+    @Nullable
+    private TTSListener mTTSListener;
+
+	/**
      * Create a new TTSManager attached to the given context.
      *
      * @param context any non-null context.
      */
     protected TTSManager(@NonNull Context context) {
         mTts = new TextToSpeech(context, onInitListener);
+    }
+
+	/**
+	 * Special overload of constructor for testing purposes.
+     *
+     * @param textToSpeech the internal TTS this object will manage
+     */
+    protected TTSManager(@NonNull TextToSpeech textToSpeech) {
+        mTts = textToSpeech;
     }
 
     private TextToSpeech.OnInitListener onInitListener = new TextToSpeech.OnInitListener() {
@@ -56,13 +72,17 @@ public class TTSManager {
                 Log.i(TAG, "TTS initialized");
 
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Log.e(TAG, "This Language is not supported");
+                    logError("This Language is not supported");
                 }
             } else {
-                Log.e(TAG, "Initialization Failed!");
+                logError("Initialization Failed!");
             }
         }
     };
+
+    public void setTTSListener(TTSListener mTTSListener) {
+        this.mTTSListener = mTTSListener;
+    }
 
 	/**
      * Wrapper for {@link TextToSpeech#shutdown()}
@@ -74,8 +94,9 @@ public class TTSManager {
     public void addQueue(String text) {
         if (isLoaded)
             mTts.speak(text, TextToSpeech.QUEUE_ADD, null);
-        else
-            Log.e(TAG, "TTS Not Initialized");
+        else {
+            logError("TTS Not Initialized");
+        }
     }
 
     public void initQueue(String text) {
@@ -83,6 +104,23 @@ public class TTSManager {
         if (isLoaded)
             mTts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
         else
-            Log.e(TAG, "TTS Not Initialized");
+            logError("TTS Not Initialized");
+    }
+
+	/**
+     * Wrapper around {@link Log#e(String, String)} that also notifies
+     * the {@link #setTTSListener(TTSListener)}, if present.
+     *
+     * @param msg any non-null message
+     */
+    private void logError(@NonNull String msg) {
+        if (mTTSListener != null) {
+            mTTSListener.onError(msg);
+        }
+        Log.e(TAG, msg);
+    }
+
+    interface TTSListener {
+        void onError(String message);
     }
 }
