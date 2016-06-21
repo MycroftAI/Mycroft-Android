@@ -63,7 +63,7 @@ public class TTSManager {
         mTts = textToSpeech;
     }
 
-    private TextToSpeech.OnInitListener onInitListener = new TextToSpeech.OnInitListener() {
+    /* package local */ TextToSpeech.OnInitListener onInitListener = new TextToSpeech.OnInitListener() {
         @Override
         public void onInit(int status) {
             if (status == TextToSpeech.SUCCESS) {
