@@ -80,8 +80,7 @@ public class MainActivity extends AppCompatActivity {
             connectWebSocket();
         }
 
-        ttsManager = new TTSManager();
-        ttsManager.init(this);
+        ttsManager = new TTSManager(this);
         txtSpeechInput = (TextView) findViewById(textSpeechInput);
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
