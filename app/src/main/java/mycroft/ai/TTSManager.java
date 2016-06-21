@@ -1,5 +1,7 @@
 package mycroft.ai;
 
+import android.app.Activity;
+import android.app.Service;
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -8,13 +10,30 @@ import java.util.Locale;
 
 
 /**
- * Created by paul on 2016/06/20.
+ * TTSManager is a wrapper around the Android System's Text-To-Speech ('TTS')
+ * API.
+ * <p>
+ *     Start off by calling {@link #init(Context)} with a non-null, non-application context.
+ *     Make sure to clean up with {@link #shutDown()} when the context's
+ *     {@link Activity#onDestroy()} or {@link Service#onDestroy()} method is called.
+ * </p>
+ *
+ * @see TextToSpeech
+ *
+ * @author Paul Scott
  */
 
 public class TTSManager {
 
     private static final String TAG = "TTSManager";
+
+	/**
+	 * Backing TTS for this instance. Should not (ever) be null.
+     */
     private TextToSpeech mTts = null;
+	/**
+     * Whether the TTS is available for use (i.e. loaded into memory)
+     */
     private boolean isLoaded = false;
 
     public void init(Context context) {
@@ -42,6 +61,9 @@ public class TTSManager {
         }
     };
 
+	/**
+     * Wrapper for {@link TextToSpeech#shutdown()}
+     */
     public void shutDown() {
         mTts.shutdown();
     }
