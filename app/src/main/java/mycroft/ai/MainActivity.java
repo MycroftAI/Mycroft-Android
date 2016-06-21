@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
+import org.json.JSONObject;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -142,7 +143,15 @@ public class MainActivity extends AppCompatActivity {
         // {"message_type": "recognizer_loop:utterance", "context": null, "metadata": {"utterances": ["tell me a joke"]}};
         // make a JSON object to send
 
-        //mWebSocketClient.send(jsonString.toString());
+        // let's keep it simple eh?
+        String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [" + msg + "] }}";
+        try {
+            JSONObject obj = new JSONObject(json);
+            Log.d(TAG, obj.toString());
+        } catch (Throwable t) {
+            Log.e(TAG, "Could not parse malformed JSON: \"" + json + "\"");
+        }
+        mWebSocketClient.send(json.toString());
         txtSpeechInput.setText(msg);
     }
 
