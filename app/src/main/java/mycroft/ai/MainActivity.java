@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private final int REQ_CODE_SPEECH_INPUT = 100;
     TTSManager ttsManager = null;
 
-    private List<MycroftUtterances> utterances = new ArrayList<MycroftUtterances>();
+    private List<MycroftUtterances> utterances = new ArrayList<>();
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -130,55 +131,79 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        boolean consumed = false;
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
-            return true;
+            consumed = true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return consumed && super.onOptionsItemSelected(item);
     }
 
     public void connectWebSocket() {
-        URI uri;
-        try {
-            uri = new URI("ws://" + wsip + ":8000/events/ws");
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return;
+        URI uri = deriveURI();
+
+        if (uri != null) {
+            mWebSocketClient = new WebSocketClient(uri) {
+                @Override
+                public void onOpen(ServerHandshake serverHandshake) {
+                    Log.i("Websocket", "Opened");
+                }
+
+                @Override
+                public void onMessage(String s) {
+                    runOnUiThread(new MessageParser(s, new SafeCallback<MycroftUtterances>() {
+                        @Override
+                        public void call(@NonNull MycroftUtterances mu) {
+                            utterances.add(mu);
+                            ma.notifyDataSetChanged();
+                            ttsManager.initQueue(mu.utterance);
+                        }
+                    }));
+
+                }
+
+                @Override
+                public void onClose(int i, String s, boolean b) {
+                    Log.i("Websocket", "Closed " + s);
+
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    Log.i("Websocket", "Error " + e.getMessage());
+                }
+            };
+            mWebSocketClient.connect();
         }
+    }
 
-        mWebSocketClient = new WebSocketClient(uri) {
-            @Override
-            public void onOpen(ServerHandshake serverHandshake) {
-                Log.i("Websocket", "Opened");
+	/**
+     * This method will attach the correct path to the
+     * {@link #wsip} hostname to allow for communication
+     * with a Mycroft instance at that address.
+     * <p>
+     *     If {@link #wsip} cannot be used as a hostname
+     *     in a {@link URI} (e.g. because it's null), then
+     *     this method will return null.
+     * </p>
+     *
+     * @return a valid uri, or null
+     */
+    @Nullable
+    private URI deriveURI() {
+        URI uri = null;
+
+        if (wsip != null && !wsip.isEmpty()) {
+            try {
+                uri = new URI("ws://" + wsip + ":8000/events/ws");
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
             }
-
-            @Override
-            public void onMessage(String s) {
-                runOnUiThread(new MessageParser(s, new SafeCallback<MycroftUtterances>() {
-                    @Override
-                    public void call(@NonNull MycroftUtterances mu) {
-                        utterances.add(mu);
-                        ma.notifyDataSetChanged();
-                        ttsManager.initQueue(mu.utterance);
-                    }
-                }));
-
-            }
-
-            @Override
-            public void onClose(int i, String s, boolean b) {
-                Log.i("Websocket", "Closed " + s);
-
-            }
-
-            @Override
-            public void onError(Exception e) {
-                Log.i("Websocket", "Error " + e.getMessage());
-            }
-        };
-        mWebSocketClient.connect();
+        } else {
+            uri = null;
+        }
+        return uri;
     }
 
     public void sendMessage(String msg) {
