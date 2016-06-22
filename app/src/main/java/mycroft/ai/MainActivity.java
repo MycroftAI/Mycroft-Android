@@ -2,6 +2,7 @@ package mycroft.ai;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
@@ -36,12 +37,15 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import mycroft.ai.receivers.NetworkChangeReceiver;
+import mycroft.ai.utils.NetworkUtil;
+
 import static mycroft.ai.R.id.textSpeechInput;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Mycroft";
-    private WebSocketClient mWebSocketClient;
+    public WebSocketClient mWebSocketClient;
     public static final String PREFS_NAME = "MycroftPrefs";
     private String wsip;
 
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    private int status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +75,15 @@ public class MainActivity extends AppCompatActivity {
                 promptSpeechInput();
             }
         });
+
+        // set up the dynamic broadcast receiver for maintaining the socket
+        NetworkChangeReceiver receiver = new NetworkChangeReceiver();
+        receiver.setMainActivityHandler(this);
+        // set up the intent filters
+        IntentFilter connChange = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
+        IntentFilter wifiChange = new IntentFilter("android.net.wifi.WIFI_STATE_CHANGED");
+        registerReceiver(receiver, connChange);
+        registerReceiver(receiver, wifiChange);
 
         // Restore preferences
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -112,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void connectWebSocket() {
+    public void connectWebSocket() {
         URI uri;
         try {
             uri = new URI("ws://" + wsip + ":8000/events/ws");
@@ -155,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClose(int i, String s, boolean b) {
                 Log.i("Websocket", "Closed " + s);
+
             }
 
             @Override
@@ -169,6 +184,12 @@ public class MainActivity extends AppCompatActivity {
         // let's keep it simple eh?
         String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [\"" + msg + "\"]}}";
         try {
+            if(mWebSocketClient.getConnection().isClosed()) {
+                // try and reconnect
+                if (status == NetworkUtil.NETWORK_STATUS_WIFI) {
+                    connectWebSocket();
+                }
+            }
             mWebSocketClient.send(json);
             txtSpeechInput.setText(msg);
         } catch(WebsocketNotConnectedException e) {
@@ -258,5 +279,11 @@ public class MainActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        connectWebSocket();
     }
 }
