@@ -17,6 +17,8 @@
         app:layout_constraintLeft_toLeftOf="@+id/content_setup"
         app:layout_constraintTop_toTopOf="@+id/content_setup"
         app:layout_constraintRight_toRightOf="@+id/content_setup"
-        app:layout_constraintBottom_toBottomOf="@+id/content_setup" />
+        app:layout_constraintBottom_toBottomOf="@+id/content_setup"
+        android:src="@drawable/mycroft_big"
+        android:scaleType = "centerCrop" />
 
 </android.support.constraint.ConstraintLayout>

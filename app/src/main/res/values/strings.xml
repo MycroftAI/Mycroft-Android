@@ -81,5 +81,8 @@
 
     <string name="speech_prompt">Say something to Mycroft&#8230;</string>
     <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
+    <string name="websocket_connected">Connected to Mycroft!</string>
+    <string name="websocket_closed">Connection to Mycroft has closed! Please re-connect and check connection settings!</string>
+    <string name="websocket_error">Connection error! Please ensure Mycroft is available and on the same network as your device!</string>
 
 </resources>

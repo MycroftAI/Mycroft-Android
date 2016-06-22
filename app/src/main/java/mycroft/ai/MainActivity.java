@@ -26,6 +26,7 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.exceptions.WebsocketNotConnectedException;
 import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -165,21 +166,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendMessage(String msg) {
-        // Message format is
-        // {"message_type": "recognizer_loop:utterance", "context": null, "metadata": {"utterances": ["tell me a joke"]}};
-        // make a JSON object to send
-
         // let's keep it simple eh?
         String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [\"" + msg + "\"]}}";
-        //try {
-        //JSONObject obj = new JSONObject(json);
-        //Log.d(TAG, obj.toString());
-
-        mWebSocketClient.send(json);
-        txtSpeechInput.setText(msg);
-        //} catch (Throwable t) {
-        //    Log.e(TAG, "Could not parse malformed JSON: \"" + json + "\"");
-        //}
+        try {
+            mWebSocketClient.send(json);
+            txtSpeechInput.setText(msg);
+        } catch(WebsocketNotConnectedException e) {
+            // Log.e(TAG, e.getMessage());
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.websocket_closed), Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -237,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
         Thing object = new Thing.Builder()
                 .setName("Main Page") // TODO: Define a title for the content shown.
                 // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .setUrl(Uri.parse("http://mycroft.ai"))
                 .build();
         return new Action.Builder(Action.TYPE_VIEW)
                 .setObject(object)
