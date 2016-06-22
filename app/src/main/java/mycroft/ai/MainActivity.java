@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,8 +30,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.exceptions.WebsocketNotConnectedException;
 import org.java_websocket.handshake.ServerHandshake;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private final int REQ_CODE_SPEECH_INPUT = 100;
     TTSManager ttsManager = null;
 
-    private List<MycroftUtterances> utterances = new ArrayList<MycroftUtterances>();
+    private List<MycroftUtterances> utterances = new ArrayList<>();
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -131,70 +131,79 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        boolean consumed = false;
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
-            return true;
+            consumed = true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return consumed && super.onOptionsItemSelected(item);
     }
 
     public void connectWebSocket() {
-        URI uri;
-        try {
-            uri = new URI("ws://" + wsip + ":8000/events/ws");
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return;
-        }
+        URI uri = deriveURI();
 
-        mWebSocketClient = new WebSocketClient(uri) {
-            @Override
-            public void onOpen(ServerHandshake serverHandshake) {
-                Log.i("Websocket", "Opened");
-            }
+        if (uri != null) {
+            mWebSocketClient = new WebSocketClient(uri) {
+                @Override
+                public void onOpen(ServerHandshake serverHandshake) {
+                    Log.i("Websocket", "Opened");
+                }
 
-            @Override
-            public void onMessage(String s) {
-                final String message = s;
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.i(TAG, message);
-                        try {
-                            JSONObject obj = new JSONObject(message);
-                            String msgType = obj.getString("message_type");
-                            if (msgType.equals("speak")) {
-                                String ret = obj.getJSONObject("metadata").getString("utterance");
-                                MycroftUtterances mu = new MycroftUtterances();
-                                mu.utterance = ret;
-                                utterances.add(mu);
-                                ma.notifyDataSetChanged();
-                                ttsManager.initQueue(ret);
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                @Override
+                public void onMessage(String s) {
+                    runOnUiThread(new MessageParser(s, new SafeCallback<MycroftUtterances>() {
+                        @Override
+                        public void call(@NonNull MycroftUtterances mu) {
+                            utterances.add(mu);
+                            ma.notifyDataSetChanged();
+                            ttsManager.initQueue(mu.utterance);
                         }
+                    }));
 
-                    }
-                });
+                }
 
+                @Override
+                public void onClose(int i, String s, boolean b) {
+                    Log.i("Websocket", "Closed " + s);
+
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    Log.i("Websocket", "Error " + e.getMessage());
+                }
+            };
+            mWebSocketClient.connect();
+        }
+    }
+
+	/**
+     * This method will attach the correct path to the
+     * {@link #wsip} hostname to allow for communication
+     * with a Mycroft instance at that address.
+     * <p>
+     *     If {@link #wsip} cannot be used as a hostname
+     *     in a {@link URI} (e.g. because it's null), then
+     *     this method will return null.
+     * </p>
+     *
+     * @return a valid uri, or null
+     */
+    @Nullable
+    private URI deriveURI() {
+        URI uri = null;
+
+        if (wsip != null && !wsip.isEmpty()) {
+            try {
+                uri = new URI("ws://" + wsip + ":8000/events/ws");
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
             }
-
-            @Override
-            public void onClose(int i, String s, boolean b) {
-                Log.i("Websocket", "Closed " + s);
-
-            }
-
-            @Override
-            public void onError(Exception e) {
-                Log.i("Websocket", "Error " + e.getMessage());
-            }
-        };
-        mWebSocketClient.connect();
+        } else {
+            uri = null;
+        }
+        return uri;
     }
 
     public void sendMessage(String msg) {
