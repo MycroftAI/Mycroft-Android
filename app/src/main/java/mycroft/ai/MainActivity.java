@@ -14,10 +14,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -26,7 +25,6 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import io.fabric.sdk.android.Fabric;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.exceptions.WebsocketNotConnectedException;
 import org.java_websocket.handshake.ServerHandshake;
@@ -39,36 +37,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import io.fabric.sdk.android.Fabric;
 import mycroft.ai.adapters.MycroftAdapter;
 import mycroft.ai.receivers.NetworkChangeReceiver;
 import mycroft.ai.utils.NetworkUtil;
-
-// import static mycroft.ai.R.id.textSpeechInput;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Mycroft";
     public WebSocketClient mWebSocketClient;
-    public static final String PREFS_NAME = "MycroftPrefs";
     private String wsip;
-
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
 
     private final int REQ_CODE_SPEECH_INPUT = 100;
     TTSManager ttsManager = null;
-    private TextView txtSpeechInput;
 
     private List<MycroftUtterances> utterances = new ArrayList<MycroftUtterances>();
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-    private int status;
 
     MycroftAdapter ma = new MycroftAdapter(utterances);
+    private int status;
+
+    NetworkChangeReceiver receiver = new NetworkChangeReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,12 +88,12 @@ public class MainActivity extends AppCompatActivity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
 
-
         recList.setAdapter(ma);
 
         // set up the dynamic broadcast receiver for maintaining the socket
-        NetworkChangeReceiver receiver = new NetworkChangeReceiver();
+
         receiver.setMainActivityHandler(this);
+
         // set up the intent filters
         IntentFilter connChange = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
         IntentFilter wifiChange = new IntentFilter("android.net.wifi.WIFI_STATE_CHANGED");
@@ -117,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ttsManager = new TTSManager(this);
-        //txtSpeechInput = (TextView) findViewById(textSpeechInput);
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -171,11 +164,9 @@ public class MainActivity extends AppCompatActivity {
                         Log.i(TAG, message);
                         try {
                             JSONObject obj = new JSONObject(message);
-                            Log.e(TAG, obj.toString());
-                            String msgType =  obj.getString("message_type");
-                            if(msgType.equals("speak")) {
+                            String msgType = obj.getString("message_type");
+                            if (msgType.equals("speak")) {
                                 String ret = obj.getJSONObject("metadata").getString("utterance");
-                                //txtSpeechInput.setText(ret);
                                 MycroftUtterances mu = new MycroftUtterances();
                                 mu.utterance = ret;
                                 utterances.add(mu);
@@ -189,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
             }
 
             @Override
@@ -209,16 +201,14 @@ public class MainActivity extends AppCompatActivity {
         // let's keep it simple eh?
         String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [\"" + msg + "\"]}}";
         try {
-            if(mWebSocketClient.getConnection().isClosed()) {
+            if (mWebSocketClient.getConnection().isClosed()) {
                 // try and reconnect
                 if (status == NetworkUtil.NETWORK_STATUS_WIFI) {
                     connectWebSocket();
                 }
             }
             mWebSocketClient.send(json);
-            //txtSpeechInput.setText(msg);
-        } catch(WebsocketNotConnectedException e) {
-            // Log.e(TAG, e.getMessage());
+        } catch (WebsocketNotConnectedException e) {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.websocket_closed), Toast.LENGTH_SHORT).show();
         }
     }
@@ -304,6 +294,7 @@ public class MainActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+        unregisterReceiver(receiver);
     }
 
     @Override
