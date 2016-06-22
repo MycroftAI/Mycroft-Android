@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     MycroftAdapter ma = new MycroftAdapter(utterances);
     private int status;
 
-    NetworkChangeReceiver receiver = new NetworkChangeReceiver();
+    NetworkChangeReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         recList.setAdapter(ma);
 
         // set up the dynamic broadcast receiver for maintaining the socket
-
+        receiver = new NetworkChangeReceiver();
         receiver.setMainActivityHandler(this);
 
         // set up the intent filters
