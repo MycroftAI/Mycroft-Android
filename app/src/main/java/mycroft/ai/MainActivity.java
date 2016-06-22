@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
     private final int REQ_CODE_SPEECH_INPUT = 100;
     TTSManager ttsManager = null;
 
-    private List<MycroftUtterances> utterances = new ArrayList<>();
+    @NonNull
+    private final List<MycroftUtterances> utterances = new ArrayList<>();
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -156,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void call(@NonNull MycroftUtterances mu) {
                             utterances.add(mu);
-                            ma.notifyDataSetChanged();
+                            ma.notifyItemInserted(utterances.size() - 1);
                             ttsManager.initQueue(mu.utterance);
                         }
                     }));
