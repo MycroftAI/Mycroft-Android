@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,8 +29,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.exceptions.WebsocketNotConnectedException;
 import org.java_websocket.handshake.ServerHandshake;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -157,29 +156,14 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onMessage(String s) {
-                final String message = s;
-                runOnUiThread(new Runnable() {
+                runOnUiThread(new MessageParser(s, new SafeCallback<MycroftUtterances>() {
                     @Override
-                    public void run() {
-                        Log.i(TAG, message);
-                        try {
-                            JSONObject obj = new JSONObject(message);
-                            String msgType = obj.getString("message_type");
-                            if (msgType.equals("speak")) {
-                                String ret = obj.getJSONObject("metadata").getString("utterance");
-                                MycroftUtterances mu = new MycroftUtterances();
-                                mu.utterance = ret;
-                                utterances.add(mu);
-                                ma.notifyDataSetChanged();
-                                ttsManager.initQueue(ret);
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
+                    public void call(@NonNull MycroftUtterances mu) {
+                        utterances.add(mu);
+                        ma.notifyDataSetChanged();
+                        ttsManager.initQueue(mu.utterance);
                     }
-                });
+                }));
 
             }
 
