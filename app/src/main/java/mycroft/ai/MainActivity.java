@@ -79,8 +79,6 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Snackbar.make(view, "Press to talk to Mycroft!", Snackbar.LENGTH_LONG)
-                //        .setAction("Action", null).show();
                 promptSpeechInput();
             }
         });
