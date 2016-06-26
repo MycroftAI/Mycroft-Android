@@ -11,6 +11,7 @@ import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,12 +23,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.exceptions.WebsocketNotConnectedException;
@@ -56,16 +51,12 @@ public class MainActivity extends AppCompatActivity {
     @NonNull
     private final List<MycroftUtterances> utterances = new ArrayList<>();
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
-
     MycroftAdapter ma = new MycroftAdapter(utterances);
     private int status;
 
     NetworkChangeReceiver receiver;
+
+    private boolean isReceiverRegistered;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,15 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
         recList.setAdapter(ma);
 
-        // set up the dynamic broadcast receiver for maintaining the socket
-        receiver = new NetworkChangeReceiver();
-        receiver.setMainActivityHandler(this);
-
-        // set up the intent filters
-        IntentFilter connChange = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
-        IntentFilter wifiChange = new IntentFilter("android.net.wifi.WIFI_STATE_CHANGED");
-        registerReceiver(receiver, connChange);
-        registerReceiver(receiver, wifiChange);
+        registerReceiver();
 
         // Restore preferences
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -112,10 +95,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ttsManager = new TTSManager(this);
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -176,6 +155,22 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
             mWebSocketClient.connect();
+        }
+    }
+
+    private void registerReceiver(){
+        if(!isReceiverRegistered) {
+            // set up the dynamic broadcast receiver for maintaining the socket
+            receiver = new NetworkChangeReceiver();
+            receiver.setMainActivityHandler(this);
+
+            // set up the intent filters
+            IntentFilter connChange = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
+            IntentFilter wifiChange = new IntentFilter("android.net.wifi.WIFI_STATE_CHANGED");
+            registerReceiver(receiver, connChange);
+            registerReceiver(receiver, wifiChange);
+
+            isReceiverRegistered = true;
         }
     }
 
@@ -268,50 +263,25 @@ public class MainActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         ttsManager.shutDown();
-    }
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("Mycroft Home") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://mycroft.ai"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
+        isReceiverRegistered = false;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+        registerReceiver();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
-        // unregisterReceiver(receiver);
+        isReceiverRegistered = false;
     }
 
     @Override
     public void onResume() {
         super.onResume();
         connectWebSocket();
+        registerReceiver();
     }
-
-
 }
