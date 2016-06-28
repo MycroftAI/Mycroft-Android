@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         if (wsip.isEmpty()) {
             // eep, show the settings intent!
             startActivity(new Intent(this, SettingsActivity.class));
-        } else {
+        } else if (mWebSocketClient == null || mWebSocketClient.getConnection().isClosed()) {
             connectWebSocket();
         }
 
@@ -132,15 +132,13 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onMessage(String s) {
+                    // Log.i(TAG, s);
                     runOnUiThread(new MessageParser(s, new SafeCallback<MycroftUtterances>() {
                         @Override
                         public void call(@NonNull MycroftUtterances mu) {
-                            utterances.add(mu);
-                            ma.notifyItemInserted(utterances.size() - 1);
-                            ttsManager.initQueue(mu.utterance);
+                            addData(mu);
                         }
                     }));
-
                 }
 
                 @Override
@@ -156,6 +154,12 @@ public class MainActivity extends AppCompatActivity {
             };
             mWebSocketClient.connect();
         }
+    }
+
+    private void addData(MycroftUtterances mu) {
+        utterances.add(mu);
+        ma.notifyItemInserted(utterances.size() - 1);
+        ttsManager.initQueue(mu.utterance);
     }
 
     private void registerReceiver(){
@@ -206,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
         // let's keep it simple eh?
         String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [\"" + msg + "\"]}}";
         try {
-            if (mWebSocketClient.getConnection().isClosed()) {
+            if (mWebSocketClient == null || mWebSocketClient.getConnection().isClosed()) {
                 // try and reconnect
                 if (status == NetworkUtil.NETWORK_STATUS_WIFI) {
                     connectWebSocket();
@@ -281,7 +285,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        connectWebSocket();
+        if(mWebSocketClient == null || mWebSocketClient.getConnection().isClosed()) {
+            connectWebSocket();
+        }
         registerReceiver();
     }
 }
