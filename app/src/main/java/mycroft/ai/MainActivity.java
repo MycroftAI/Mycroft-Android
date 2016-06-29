@@ -37,6 +37,7 @@ import java.util.Locale;
 import io.fabric.sdk.android.Fabric;
 import mycroft.ai.adapters.MycroftAdapter;
 import mycroft.ai.receivers.NetworkChangeReceiver;
+import mycroft.ai.utils.NetworkAutoDiscoveryUtil;
 import mycroft.ai.utils.NetworkUtil;
 
 public class MainActivity extends AppCompatActivity {

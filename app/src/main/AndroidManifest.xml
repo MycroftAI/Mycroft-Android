@@ -23,8 +23,14 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings">
-        </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="mycroft.ai.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mycroft.ai.MainActivity" />
+        </activity>
+
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
 
         <!-- receiver

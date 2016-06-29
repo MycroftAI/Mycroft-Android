@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_info_black_24dp"
         android:title="@string/pref_header_general" />
 
-    <header
+    <!-- header
         android:fragment="mycroft.ai.SettingsActivity$NotificationPreferenceFragment"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/pref_header_notifications" />
@@ -15,6 +15,6 @@
     <header
         android:fragment="mycroft.ai.SettingsActivity$DataSyncPreferenceFragment"
         android:icon="@drawable/ic_sync_black_24dp"
-        android:title="@string/pref_header_data_sync" />
+        android:title="@string/pref_header_data_sync" / -->
 
 </preference-headers>
