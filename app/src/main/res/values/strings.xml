@@ -85,4 +85,13 @@
     <string name="websocket_closed">Connection to Mycroft has closed! Please re-connect and check connection settings!</string>
     <string name="websocket_error">Connection error! Please ensure Mycroft is available and on the same network as your device!</string>
 
+    <string name="connect">Connect</string>
+    <string name="discover">Discover</string>
+    <string name="register">Register</string>
+    <string name="send">Send</string>
+
+    <string name="hello">Hello World!</string>
+    <string name="title">Hello Notification!</string>
+    <string name="notification_posted">Notification posted</string>
+
 </resources>

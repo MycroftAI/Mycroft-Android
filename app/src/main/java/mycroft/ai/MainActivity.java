@@ -96,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ttsManager = new TTSManager(this);
+
+        // start the discovery activity
+        // startActivity(new Intent(this, DiscoveryActivity.class));
+
     }
 
     @Override
