@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
     NetworkChangeReceiver receiver;
 
+    RecyclerView recList;
+
     private boolean isReceiverRegistered;
 
     @Override
@@ -75,9 +77,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView recList = (RecyclerView) findViewById(R.id.cardList);
+        recList = (RecyclerView) findViewById(R.id.cardList);
         recList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setStackFromEnd(true);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
 
@@ -165,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
         utterances.add(mu);
         ma.notifyItemInserted(utterances.size() - 1);
         ttsManager.initQueue(mu.utterance);
+        recList.smoothScrollToPosition(ma.getItemCount() - 1);
     }
 
     private void registerReceiver(){
