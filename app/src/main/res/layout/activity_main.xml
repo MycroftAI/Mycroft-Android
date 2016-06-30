@@ -32,6 +32,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_mycroft"
-        app:backgroundTint="@android:color/white" />
+        android:alpha="0.5"
+        app:backgroundTint="@android:color/holo_blue_light" />
 
 </android.support.design.widget.CoordinatorLayout>
