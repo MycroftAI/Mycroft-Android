@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         ttsManager = new TTSManager(this);
 
-        // start the discovery activity
+        // start the discovery activity (testing only)
         // startActivity(new Intent(this, DiscoveryActivity.class));
 
     }

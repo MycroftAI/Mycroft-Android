@@ -1,86 +1,115 @@
 package mycroft.ai;
 
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.content.pm.ServiceInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
-import mycroft.ai.utils.NetworkAutoDiscoveryUtil;
+import java.net.ServerSocket;
 
-public class DiscoveryActivity extends AppCompatActivity {
 
-    private Handler mUpdateHandler;
-    private TextView mStatusView;
-    public static final String TAG = "Discovery";
-    private NetworkAutoDiscoveryUtil mDiscoveryUtil;
+import android.net.nsd.NsdManager;
+import android.net.nsd.NsdManager.DiscoveryListener;
+import android.net.nsd.NsdManager.RegistrationListener;
+import android.net.nsd.NsdManager.ResolveListener;
+import android.net.nsd.NsdServiceInfo;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+
+@SuppressLint("NewApi")
+public class DiscoveryActivity extends Activity {
+
+    DiscoveryListener mDiscoveryListener;
+
+    String mServiceName;
+    NsdServiceInfo mServiceInfo;
+    ServerSocket mServerSocket;
+    int mLocalPort;
+
+    NsdManager mNsdManager;
+
+    final String TAG = "ServiceDiscovery";
+    final String SERVICE_TYPE = "_mycroft._tcp";
+    final String SERVICE_NAME = "MycroftAI Websocket";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_discovery);
+        setContentView(R.layout.activity_main);
 
-        mStatusView = (TextView) findViewById(R.id.status);
+        mNsdManager = (NsdManager) getApplicationContext().getSystemService(Context.NSD_SERVICE);
 
-        mDiscoveryUtil = new NetworkAutoDiscoveryUtil(this);
-        mDiscoveryUtil.initializeNsd();
-        // Register service
-        mDiscoveryUtil.registerService(8000);
+        initializeDiscoveryListener();
+
+        mNsdManager.discoverServices(
+                SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, mDiscoveryListener);
+
     }
 
-    public void clickDiscover(View v) {
-        mDiscoveryUtil.discoverServices();
+    public void initializeDiscoveryListener() {
+
+        // Instantiate a new DiscoveryListener
+        mDiscoveryListener = new NsdManager.DiscoveryListener() {
+
+            //  Called as soon as service discovery begins.
+            @Override
+            public void onDiscoveryStarted(String regType) {
+                Log.d(TAG, "Service discovery started");
+            }
+
+            @Override
+            public void onServiceFound(NsdServiceInfo service) {
+                // A service was found!  Do something with it.
+                Log.d(TAG, "Service discovery success: " + service);
+                if (!service.getServiceType().equals(SERVICE_TYPE)) {
+                    // Service type is the string containing the protocol and
+                    // transport layer for this service.
+                    Log.d(TAG, "Mycroft found!: " + service.getServiceType() + "  " + service.getHost() + "  " + service.getPort());
+                    resolveService(service);
+                }
+            }
+
+            @Override
+            public void onServiceLost(NsdServiceInfo service) {
+                // When the network service is no longer available.
+                // Internal bookkeeping code goes here.
+                Log.e(TAG, "service lost: " + service);
+            }
+
+            @Override
+            public void onDiscoveryStopped(String serviceType) {
+                Log.i(TAG, "Discovery stopped: " + serviceType);
+            }
+
+            @Override
+            public void onStartDiscoveryFailed(String serviceType, int errorCode) {
+                Log.e(TAG, "Discovery failed: Error code: " + errorCode);
+                mNsdManager.stopServiceDiscovery(this);
+            }
+
+            @Override
+            public void onStopDiscoveryFailed(String serviceType, int errorCode) {
+                Log.e(TAG, "Discovery failed: Error code: " + errorCode);
+                mNsdManager.stopServiceDiscovery(this);
+            }
+        };
     }
 
-    @Override
-    protected void onStart() {
-        Log.d(TAG, "Starting.");
+    private void resolveService(NsdServiceInfo service) {
+        mNsdManager.resolveService(service, new ResolveListener() {
 
-        mDiscoveryUtil = new NetworkAutoDiscoveryUtil(this);
-        mDiscoveryUtil.initializeNsd();
-        // Register service
-        mDiscoveryUtil.registerService(8000);
-        super.onStart();
-    }
+            @Override
+            public void onServiceResolved(NsdServiceInfo serviceInfo) {
+                Log.d(TAG, "Resolving service...");
+                Log.i(TAG, serviceInfo.getHost().toString());
+                Log.i(TAG, "Port: " + serviceInfo.getPort());
+            }
 
-    @Override
-    protected void onPause() {
-        Log.d(TAG, "Pausing.");
-        if (mDiscoveryUtil != null) {
-            mDiscoveryUtil.stopDiscovery();
-        }
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        Log.d(TAG, "Resuming.");
-        super.onResume();
-        if (mDiscoveryUtil != null) {
-            mDiscoveryUtil.discoverServices();
-        }
-    }
-
-    // For KitKat and earlier releases, it is necessary to remove the
-    // service registration when the application is stopped.  There's
-    // no guarantee that the onDestroy() method will be called (we're
-    // killable after onStop() returns) and the NSD service won't remove
-    // the registration for us if we're killed.
-    // In L and later, NsdService will automatically unregister us when
-    // our connection goes away when we're killed, so this step is
-    // optional (but recommended).
-    @Override
-    protected void onStop() {
-        Log.d(TAG, "Being stopped.");
-        mDiscoveryUtil.tearDown();
-        mDiscoveryUtil = null;
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log.d(TAG, "Being destroyed.");
-        super.onDestroy();
+            @Override
+            public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode) {
+                // TODO Auto-generated method stub
+                Log.d(TAG, "Service resolve failed!");
+            }
+        });
     }
 }
