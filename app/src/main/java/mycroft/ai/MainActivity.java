@@ -223,9 +223,12 @@ public class MainActivity extends AppCompatActivity {
                 // try and reconnect
                 if (status == NetworkUtil.NETWORK_STATUS_WIFI) {
                     connectWebSocket();
+                    mWebSocketClient.send(json);
+                } else {
+                    mWebSocketClient.send(json);
                 }
             }
-            mWebSocketClient.send(json);
+
         } catch (WebsocketNotConnectedException e) {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.websocket_closed), Toast.LENGTH_SHORT).show();
         }
