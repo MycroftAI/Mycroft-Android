@@ -20,6 +20,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -40,6 +42,9 @@ import mycroft.ai.receivers.NetworkChangeReceiver;
 import mycroft.ai.utils.NetworkAutoDiscoveryUtil;
 import mycroft.ai.utils.NetworkUtil;
 
+import android.widget.CompoundButton.OnCheckedChangeListener;
+
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Mycroft";
@@ -48,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
 
     private final int REQ_CODE_SPEECH_INPUT = 100;
     TTSManager ttsManager = null;
+    private Switch voxSwitch;
+    private boolean switchStatus;
+
 
     @NonNull
     private final List<MycroftUtterances> utterances = new ArrayList<>();
@@ -74,6 +82,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 promptSpeechInput();
+            }
+        });
+
+        voxSwitch = (Switch) findViewById(R.id.voxswitch);
+        //set the switch to ON
+        voxSwitch.setChecked(true);
+        //attach a listener to check for changes in state
+        voxSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+
+                if (isChecked) {
+                    switchStatus = true;
+                } else {
+                    switchStatus = false;
+                }
+
             }
         });
 
@@ -167,7 +194,9 @@ public class MainActivity extends AppCompatActivity {
     private void addData(MycroftUtterances mu) {
         utterances.add(mu);
         ma.notifyItemInserted(utterances.size() - 1);
-        ttsManager.initQueue(mu.utterance);
+        if (switchStatus == true) {
+            ttsManager.initQueue(mu.utterance);
+        }
         recList.smoothScrollToPosition(ma.getItemCount() - 1);
     }
 
