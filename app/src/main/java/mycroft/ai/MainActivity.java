@@ -87,8 +87,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         voxSwitch = (Switch) findViewById(R.id.voxswitch);
-        //set the switch to ON
-        voxSwitch.setChecked(true);
+
         //attach a listener to check for changes in state
         voxSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -304,9 +303,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-
         loadPreferences();
-
         registerReceiver();
     }
 
@@ -319,9 +316,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-
         loadPreferences();
-
         registerReceiver();
     }
 
