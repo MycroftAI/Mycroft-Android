@@ -61,13 +61,14 @@ public class MainActivity extends AppCompatActivity {
     private final List<MycroftUtterances> utterances = new ArrayList<>();
 
     MycroftAdapter ma = new MycroftAdapter(utterances);
-    private int status;
 
     NetworkChangeReceiver receiver;
 
     RecyclerView recList;
 
     private boolean isReceiverRegistered;
+
+    private SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,15 +93,15 @@ public class MainActivity extends AppCompatActivity {
         voxSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
             @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                                         boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putBoolean("appReaderSwitch", isChecked);
+                editor.commit();
 
-                if (isChecked) {
-                    switchStatus = true;
-                } else {
-                    switchStatus = false;
+                // stop tts from speaking if app reader disabled
+                if (isChecked == false) {
+                    ttsManager.initQueue("");
                 }
-
             }
         });
 
@@ -114,16 +115,6 @@ public class MainActivity extends AppCompatActivity {
         recList.setAdapter(ma);
 
         registerReceiver();
-
-        // Restore preferences
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        wsip = sharedPref.getString("ip", "");
-        if (wsip.isEmpty()) {
-            // eep, show the settings intent!
-            startActivity(new Intent(this, SettingsActivity.class));
-        } else if (mWebSocketClient == null || mWebSocketClient.getConnection().isClosed()) {
-            connectWebSocket();
-        }
 
         ttsManager = new TTSManager(this);
 
@@ -194,8 +185,8 @@ public class MainActivity extends AppCompatActivity {
     private void addData(MycroftUtterances mu) {
         utterances.add(mu);
         ma.notifyItemInserted(utterances.size() - 1);
-        if (switchStatus == true) {
-            ttsManager.initQueue(mu.utterance);
+        if (voxSwitch.isChecked()) {
+            ttsManager.addQueue(mu.utterance);
         }
         recList.smoothScrollToPosition(ma.getItemCount() - 1);
     }
@@ -250,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             if (mWebSocketClient == null || mWebSocketClient.getConnection().isClosed()) {
                 // try and reconnect
-                if (status == NetworkUtil.NETWORK_STATUS_WIFI) { //TODO: add config to specify wifi only.
+                if (NetworkUtil.getConnectivityStatus(this) == NetworkUtil.NETWORK_STATUS_WIFI) { //TODO: add config to specify wifi only.
                     connectWebSocket();
                 }
             }
@@ -325,9 +316,34 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if(mWebSocketClient == null || mWebSocketClient.getConnection().isClosed()) {
-            connectWebSocket();
-        }
+
+        loadPreferences();
+
         registerReceiver();
     }
+
+    private void loadPreferences(){
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // get mycroft-core ip address
+        wsip = sharedPref.getString("ip", "");
+        if (wsip.isEmpty()) {
+            // eep, show the settings intent!
+            startActivity(new Intent(this, SettingsActivity.class));
+        } else if (mWebSocketClient == null || mWebSocketClient.getConnection().isClosed()) {
+            connectWebSocket();
+        }
+
+        // set app reader setting
+        voxSwitch.setChecked(sharedPref.getBoolean("appReaderSwitch", true));
+
+        // determine if app reader should be visible
+        if (sharedPref.getBoolean("displayAppReaderSwitch", true)) {
+            voxSwitch.setVisibility(View.VISIBLE);
+        } else {
+            voxSwitch.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
 }
