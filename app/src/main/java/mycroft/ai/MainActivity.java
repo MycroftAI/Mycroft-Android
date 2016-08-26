@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private final int REQ_CODE_SPEECH_INPUT = 100;
     TTSManager ttsManager = null;
     private Switch voxSwitch;
-    private boolean switchStatus;
+
 
 
     @NonNull
@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean isReceiverRegistered;
 
     private SharedPreferences sharedPref;
+    boolean launchedFromWidget = false;
+    boolean autopromptForSpeech = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
 
         // start the discovery activity (testing only)
         // startActivity(new Intent(this, DiscoveryActivity.class));
-
     }
 
     @Override
@@ -289,7 +290,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             }
-
         }
     }
 
@@ -311,6 +311,11 @@ public class MainActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         isReceiverRegistered = false;
+
+        if (launchedFromWidget) {
+            autopromptForSpeech = true;
+        }
+
     }
 
     @Override
@@ -318,6 +323,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         loadPreferences();
         registerReceiver();
+        checkIfLaunchedFromWidget(getIntent());
     }
 
     private void loadPreferences(){
@@ -341,7 +347,19 @@ public class MainActivity extends AppCompatActivity {
         } else {
             voxSwitch.setVisibility(View.INVISIBLE);
         }
-
     }
 
+    protected void checkIfLaunchedFromWidget(Intent intent) {
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && extras.containsKey("launchedFromWidget") && extras.containsKey("launchedFromWidget")) {
+            launchedFromWidget = extras.getBoolean("launchedFromWidget");
+            autopromptForSpeech = extras.getBoolean("autopromptForSpeech");
+        }
+
+        if (autopromptForSpeech) {
+            promptSpeechInput();
+            intent.putExtra("autopromptForSpeech", false);
+        }
+    }
 }

@@ -13,9 +13,9 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="orientation|screenSize">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,7 +53,7 @@
             android:allowEmbedded="true"
             android:exported="true"
             android:taskAffinity=""
-            android:theme="@android:style/Theme.DeviceDefault.Light"></activity>
+            android:theme="@android:style/Theme.DeviceDefault.Light" />
 
         <receiver
             android:name=".wear.MycroftPostNotificationReceiver"
@@ -61,6 +61,15 @@
             <intent-filter>
                 <action android:name="mycroft.ai.wear.SHOW_NOTIFICATION" />
             </intent-filter>
+        </receiver>
+        <receiver android:name="layout.MycroftAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/mycroft_app_widget_info" />
         </receiver>
     </application>
 
