@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">Mycroft-Android</string>
-    <string name="speech_prompt">Say something to Mycroft&#8230;</string>
-    <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
-</resources>
