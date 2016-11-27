@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/tmp/tmp-deduplicated574725355717134199/third_party/java_src/android_libs/android_wear/wearable_support/java/android/support/wearable/res/values-v23/styles.xml -->
+    <eat-comment/>
+    <style name="CardText" parent="CardTextBase">
+        <item name="android:hyphenationFrequency">normal</item>
+        <item name="android:breakStrategy">balanced</item>
+    </style>
+    <style name="CardTitle" parent="CardTitleBase">
+        <item name="android:hyphenationFrequency">normal</item>
+        <item name="android:breakStrategy">balanced</item>
+    </style>
+</resources>

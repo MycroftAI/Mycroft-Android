@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/layout/navigation_drawer_item_view.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/layout/navigation_drawer_item_view.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/layout/activity_main.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/layout/action_drawer_peek_view.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/layout/action_drawer_peek_view.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/layout/navigation_drawer_view.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/layout/navigation_drawer_view.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/layout/alert_dialog_wearable.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/layout/alert_dialog_wearable.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/layout/error_layout.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/layout/error_layout.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/layout/action_drawer_item_view.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/layout/action_drawer_item_view.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/layout/overlay_confirmation.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/layout/overlay_confirmation.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/layout/wearable_drawer_view.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/layout/wearable_drawer_view.xml"
+    }
+]

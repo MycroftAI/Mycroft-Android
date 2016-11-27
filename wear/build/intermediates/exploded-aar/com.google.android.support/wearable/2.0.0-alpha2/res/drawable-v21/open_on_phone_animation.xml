@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/open_on_phone" >
+    <target
+        android:name="path_1"
+        android:animation="@anim/open_on_phone_path_1_animation" />
+    <target
+        android:name="arrow"
+        android:animation="@anim/open_on_phone_arrow_animation" />
+    <target
+        android:name="path_2"
+        android:animation="@anim/open_on_phone_path_2_animation" />
+</animated-vector>
+<!-- From: file:/tmp/tmp-deduplicated574725355717134199/third_party/java_src/android_libs/android_wear/wearable_support/java/android/support/wearable/res/drawable-v21/open_on_phone_animation.xml -->

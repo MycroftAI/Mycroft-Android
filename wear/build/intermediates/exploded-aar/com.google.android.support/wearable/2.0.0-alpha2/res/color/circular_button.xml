@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:color="@color/circular_button_disabled"
+        android:state_enabled="false" />
+    <item
+        android:color="@color/circular_button_normal" />
+</selector>
+<!-- From: file:/tmp/tmp-deduplicated574725355717134199/third_party/java_src/android_libs/android_wear/wearable_support/java/android/support/wearable/res/color/circular_button.xml -->

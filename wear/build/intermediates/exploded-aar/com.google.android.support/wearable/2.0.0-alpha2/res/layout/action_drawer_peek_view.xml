@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/wearable_support_action_drawer_peek_action_icon"
+        android:layout_width="@dimen/peek_drawer_icon_size"
+        android:layout_height="@dimen/peek_drawer_icon_size" />
+    <ImageView
+        android:id="@+id/wearable_support_action_drawer_peek_overflow_icon"
+        android:layout_width="@dimen/peek_drawer_icon_size"
+        android:layout_height="@dimen/peek_drawer_icon_size"
+        android:src="@drawable/ic_more_vert_24dp_wht" />
+
+</LinearLayout>
+
+<!-- From: file:/tmp/tmp-deduplicated574725355717134199/third_party/java_src/android_libs/android_wear/wearable_support/java/android/support/wearable/res/layout/action_drawer_peek_view.xml -->

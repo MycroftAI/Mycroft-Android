@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instant-run
+    abi="x86"
+    api-level="23"
+    density="280dpi"
+    format="8"
+    plugin-version="2.2.1"
+    timestamp="51941830393586"
+    token="-2840985622917641782"
+    verifier="FULL_BUILD_REQUESTED" >
+
+    <task
+        name="javac"
+        duration="618" />
+    <task
+        name="instant-run-dex"
+        duration="0" />
+    <task
+        name="instant-run-transform"
+        duration="291" />
+    <task
+        name="verifier"
+        duration="16" />
+
+    <artifact
+        location="/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/outputs/apk/wear-debug.apk"
+        type="MAIN" />
+
+    <build
+        timestamp="51941830393586"
+        verifier="FULL_BUILD_REQUESTED" >
+        <artifact
+            location="/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/outputs/apk/wear-debug.apk"
+            type="MAIN" />
+    </build>
+
+</instant-run>

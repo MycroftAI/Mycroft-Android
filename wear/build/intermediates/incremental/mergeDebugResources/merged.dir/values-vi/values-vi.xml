@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <plurals formatted="false" msgid="7742631289175833205" name="time_difference_short_days">
+      <item quantity="other"><ns1:g id="NUMBER_OF_DAYS_1">%d</ns1:g>ngày</item>
+      <item quantity="one"><ns1:g id="NUMBER_OF_DAYS_0">%d</ns1:g>ngày</item>
+    </plurals>
+    <plurals formatted="false" msgid="5517328857835062796" name="time_difference_short_hours">
+      <item quantity="other"><ns1:g id="NUMBER_OF_HOURS_1">%d</ns1:g>giờ</item>
+      <item quantity="one"><ns1:g id="NUMBER_OF_HOURS_0">%d</ns1:g>giờ</item>
+    </plurals>
+    <plurals formatted="false" msgid="7359384479137727610" name="time_difference_short_minutes">
+      <item quantity="other"><ns1:g id="NUMBER_OF_MINUTES_1">%d</ns1:g>ph</item>
+      <item quantity="one"><ns1:g id="NUMBER_OF_MINUTES_0">%d</ns1:g>ph</item>
+    </plurals>
+    <plurals formatted="false" msgid="2946369038647898503" name="time_difference_words_days">
+      <item quantity="other"><ns1:g id="NUMBER_OF_DAYS_1">%d</ns1:g> ngày</item>
+      <item quantity="one"><ns1:g id="NUMBER_OF_DAYS_0">%d</ns1:g> ngày</item>
+    </plurals>
+    <plurals formatted="false" msgid="54021993005249478" name="time_difference_words_hours">
+      <item quantity="other"><ns1:g id="NUMBER_OF_HOURS_1">%d</ns1:g> giờ</item>
+      <item quantity="one"><ns1:g id="NUMBER_OF_HOURS_0">%d</ns1:g> giờ</item>
+    </plurals>
+    <plurals formatted="false" msgid="6039601245972500593" name="time_difference_words_minutes">
+      <item quantity="other"><ns1:g id="NUMBER_OF_MINUTES_1">%d</ns1:g> phút</item>
+      <item quantity="one"><ns1:g id="NUMBER_OF_MINUTES_0">%d</ns1:g> phút</item>
+    </plurals>
+    <string msgid="8585111718777012708" name="common_google_play_services_enable_button">"Bật"</string>
+    <string msgid="7045129128108380659" name="common_google_play_services_enable_text">"<ns1:g id="APP_NAME">%1$s</ns1:g> sẽ không hoạt động nếu bạn không bật dịch vụ của Google Play."</string>
+    <string msgid="3147157405986503375" name="common_google_play_services_enable_title">"Bật dịch vụ của Google Play"</string>
+    <string msgid="7118643132557593940" name="common_google_play_services_install_button">"Cài đặt dịch vụ của Google Play"</string>
+    <string msgid="1666261992894286769" name="common_google_play_services_install_text_phone">"<ns1:g id="APP_NAME">%1$s</ns1:g> sẽ không chạy nếu không có dịch vụ của Google Play. Điện thoại của bạn bị thiếu dịch vụ này."</string>
+    <string msgid="1701766622451829291" name="common_google_play_services_install_text_tablet">"<ns1:g id="APP_NAME">%1$s</ns1:g> sẽ không chạy nếu không có dịch vụ của Google Play. Máy tính bảng của bạn bị thiếu dịch vụ này."</string>
+    <string msgid="7442193194585196676" name="common_google_play_services_install_title">"Cài đặt dịch vụ của Google Play"</string>
+    <string msgid="180394615667698242" name="common_google_play_services_notification_ticker">"Lỗi dịch vụ của Google Play"</string>
+    <string msgid="9089562800660647919" name="common_google_play_services_unknown_issue">"<ns1:g id="APP_NAME">%1$s</ns1:g> đang gặp sự cố với các dịch vụ của Google Play. Nếu sự cố còn tiếp diễn, vui lòng liên hệ với nhà phát triển để được trợ giúp."</string>
+    <string msgid="1064791666906610763" name="common_google_play_services_unsupported_text">"<ns1:g id="APP_NAME">%1$s</ns1:g> chạy trên dịch vụ của Google Play không được thiết bị của bạn hỗ trợ. Hãy liên hệ với nhà sản xuất để được hỗ trợ."</string>
+    <string msgid="539866123733096737" name="common_google_play_services_unsupported_title">"Dịch vụ của Google Play"</string>
+    <string msgid="8172070149091615356" name="common_google_play_services_update_button">"Cập nhật"</string>
+    <string msgid="7773943415006962566" name="common_google_play_services_update_text">"<ns1:g id="APP_NAME">%1$s</ns1:g> sẽ không chạy trừ khi bạn cập nhật Dịch vụ của Google Play."</string>
+    <string msgid="8706675115216073244" name="common_google_play_services_update_title">"Cập nhật dịch vụ của Google Play"</string>
+    <string msgid="7894275749778928941" name="common_google_play_services_updating_text">"<ns1:g id="APP_NAME">%1$s</ns1:g> sẽ không chạy nếu không có dịch vụ của Google Play. Dịch vụ này hiện đang cập nhật."</string>
+    <string msgid="2270671469198016014" name="common_google_play_services_updating_title">"Dịch vụ của Google Play đang cập nhật"</string>
+    <string msgid="2804989272736383918" name="common_google_play_services_wear_update_text">"Cần phiên bản mới của dịch vụ Google Play. Dịch vụ sẽ sớm tự động cập nhật."</string>
+    <string msgid="5201977337835724196" name="common_open_on_phone">"Mở trên điện thoại"</string>
+    <string msgid="3441753203274453993" name="common_signin_button_text">"Đăng nhập"</string>
+    <string msgid="669893613918351210" name="common_signin_button_text_long">"Đăng nhập bằng Google"</string>
+    <string msgid="8455537630633057684" name="dismiss_overlay_button_label">"Thoát"</string>
+    <string msgid="1674592248188350347" name="time_difference_now">"bây giờ"</string>
+    <string msgid="7277518582146396827" name="time_difference_short_days_and_hours">"<ns1:g id="SHORT_DAYS">%1$s</ns1:g> <ns1:g id="SHORT_HOURS">%2$s</ns1:g>"</string>
+    <string msgid="4986220553102177066" name="time_difference_short_hours_and_minutes">"<ns1:g id="SHORT_HOURS">%1$s</ns1:g> <ns1:g id="SHORT_MINUTES">%2$s</ns1:g>"</string>
+</resources>
