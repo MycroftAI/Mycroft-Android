@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/res/merged/debug/xml/mycroft_app_widget_info.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/src/main/res/xml/mycroft_app_widget_info.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/res/merged/debug/xml/pref_data_sync.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/src/main/res/xml/pref_data_sync.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/res/merged/debug/xml/pref_headers.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/src/main/res/xml/pref_headers.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/res/merged/debug/xml/pref_general.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/src/main/res/xml/pref_general.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/res/merged/debug/xml/pref_notification.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/src/main/res/xml/pref_notification.xml"
+    }
+]

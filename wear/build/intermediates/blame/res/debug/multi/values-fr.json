@@ -1,0 +1,589 @@
+[
+    {
+        "outputFile": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/incremental/mergeDebugResources/merged.dir/values-fr/values-fr.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endLine": 5,
+                    "endColumn": 14,
+                    "endOffset": 363
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 308,
+                        "endLine": 7,
+                        "endColumn": 14,
+                        "endOffset": 566
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 368,
+                    "endLine": 9,
+                    "endColumn": 14,
+                    "endOffset": 629
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 571,
+                        "endLine": 11,
+                        "endColumn": 14,
+                        "endOffset": 832
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 634,
+                    "endLine": 13,
+                    "endColumn": 14,
+                    "endOffset": 901
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 837,
+                        "endLine": 15,
+                        "endColumn": 14,
+                        "endOffset": 1104
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 906,
+                    "endLine": 17,
+                    "endColumn": 14,
+                    "endOffset": 1171
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 1109,
+                        "endLine": 19,
+                        "endColumn": 14,
+                        "endOffset": 1374
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1176,
+                    "endLine": 21,
+                    "endColumn": 14,
+                    "endOffset": 1444
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 1379,
+                        "endLine": 23,
+                        "endColumn": 14,
+                        "endOffset": 1647
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 1449,
+                    "endLine": 25,
+                    "endColumn": 14,
+                    "endOffset": 1720
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 1652,
+                        "endLine": 27,
+                        "endColumn": 14,
+                        "endOffset": 1923
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 1725,
+                    "endColumn": 107,
+                    "endOffset": 1828
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 329,
+                        "endColumn": 107,
+                        "endOffset": 432
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 1833,
+                    "endColumn": 211,
+                    "endOffset": 2040
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 437,
+                        "endColumn": 211,
+                        "endOffset": 644
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 28,
+                    "startColumn": 4,
+                    "startOffset": 2045,
+                    "endColumn": 131,
+                    "endOffset": 2172
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 649,
+                        "endColumn": 131,
+                        "endOffset": 776
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 29,
+                    "startColumn": 4,
+                    "startOffset": 2177,
+                    "endColumn": 135,
+                    "endOffset": 2308
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 781,
+                        "endColumn": 135,
+                        "endOffset": 912
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 30,
+                    "startColumn": 4,
+                    "startOffset": 2313,
+                    "endColumn": 236,
+                    "endOffset": 2545
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 917,
+                        "endColumn": 236,
+                        "endOffset": 1149
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 31,
+                    "startColumn": 4,
+                    "startOffset": 2550,
+                    "endColumn": 236,
+                    "endOffset": 2782
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 1154,
+                        "endColumn": 236,
+                        "endOffset": 1386
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 32,
+                    "startColumn": 4,
+                    "startOffset": 2787,
+                    "endColumn": 134,
+                    "endOffset": 2917
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 1391,
+                        "endColumn": 134,
+                        "endOffset": 1521
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 33,
+                    "startColumn": 4,
+                    "startOffset": 2922,
+                    "endColumn": 141,
+                    "endOffset": 3059
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 1526,
+                        "endColumn": 141,
+                        "endOffset": 1663
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 34,
+                    "startColumn": 4,
+                    "startOffset": 3064,
+                    "endColumn": 287,
+                    "endOffset": 3347
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 331,
+                        "endColumn": 287,
+                        "endOffset": 614
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 35,
+                    "startColumn": 4,
+                    "startOffset": 3352,
+                    "endColumn": 275,
+                    "endOffset": 3623
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 1668,
+                        "endColumn": 275,
+                        "endOffset": 1939
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 36,
+                    "startColumn": 4,
+                    "startOffset": 3628,
+                    "endColumn": 123,
+                    "endOffset": 3747
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 1944,
+                        "endColumn": 123,
+                        "endOffset": 2063
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 37,
+                    "startColumn": 4,
+                    "startOffset": 3752,
+                    "endColumn": 113,
+                    "endOffset": 3861
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 2068,
+                        "endColumn": 113,
+                        "endOffset": 2177
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 38,
+                    "startColumn": 4,
+                    "startOffset": 3866,
+                    "endColumn": 215,
+                    "endOffset": 4077
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 2182,
+                        "endColumn": 215,
+                        "endOffset": 2393
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 39,
+                    "startColumn": 4,
+                    "startOffset": 4082,
+                    "endColumn": 137,
+                    "endOffset": 4215
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 2398,
+                        "endColumn": 137,
+                        "endOffset": 2531
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 40,
+                    "startColumn": 4,
+                    "startOffset": 4220,
+                    "endColumn": 218,
+                    "endOffset": 4434
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 2536,
+                        "endColumn": 218,
+                        "endOffset": 2750
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 41,
+                    "startColumn": 4,
+                    "startOffset": 4439,
+                    "endColumn": 137,
+                    "endOffset": 4572
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 2755,
+                        "endColumn": 137,
+                        "endOffset": 2888
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 42,
+                    "startColumn": 4,
+                    "startOffset": 4577,
+                    "endColumn": 208,
+                    "endOffset": 4781
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 2893,
+                        "endColumn": 208,
+                        "endOffset": 3097
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 43,
+                    "startColumn": 4,
+                    "startOffset": 4786,
+                    "endColumn": 102,
+                    "endOffset": 4884
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 3102,
+                        "endColumn": 102,
+                        "endOffset": 3200
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 44,
+                    "startColumn": 4,
+                    "startOffset": 4889,
+                    "endColumn": 96,
+                    "endOffset": 4981
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 3205,
+                        "endColumn": 96,
+                        "endOffset": 3297
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 45,
+                    "startColumn": 4,
+                    "startOffset": 4986,
+                    "endColumn": 112,
+                    "endOffset": 5094
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 3302,
+                        "endColumn": 112,
+                        "endOffset": 3410
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 46,
+                    "startColumn": 4,
+                    "startOffset": 5099,
+                    "endColumn": 94,
+                    "endOffset": 5189
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 4,
+                        "startOffset": 1928,
+                        "endColumn": 94,
+                        "endOffset": 2018
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 47,
+                    "startColumn": 4,
+                    "startOffset": 5194,
+                    "endColumn": 86,
+                    "endOffset": 5276
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 4,
+                        "startOffset": 2023,
+                        "endColumn": 86,
+                        "endOffset": 2105
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 48,
+                    "startColumn": 4,
+                    "startOffset": 5281,
+                    "endColumn": 170,
+                    "endOffset": 5447
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 30,
+                        "startColumn": 4,
+                        "startOffset": 2110,
+                        "endColumn": 170,
+                        "endOffset": 2276
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 49,
+                    "startColumn": 4,
+                    "startOffset": 5452,
+                    "endColumn": 176,
+                    "endOffset": 5624
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-fr/values.xml",
+                    "position": {
+                        "startLine": 31,
+                        "startColumn": 4,
+                        "startOffset": 2281,
+                        "endColumn": 176,
+                        "endOffset": 2453
+                    }
+                }
+            }
+        ]
+    }
+]

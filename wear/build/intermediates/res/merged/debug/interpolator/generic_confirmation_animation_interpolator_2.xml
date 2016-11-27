@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pathInterpolator
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:pathData="M 0.0,0.0 c 0.230242651469,0.0 0.415094339623,0.655389695336 0.415094339623,0.655389695336 c 0.0,0.0 0.297922257913,0.344610304664 0.584905660377,0.344610304664 L 1.0,1.0" />
+<!-- From: file:/tmp/tmp-deduplicated574725355717134199/third_party/java_src/android_libs/android_wear/wearable_support/java/android/support/wearable/res/interpolator/generic_confirmation_animation_interpolator_2.xml -->

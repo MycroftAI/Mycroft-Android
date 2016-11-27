@@ -1,0 +1,292 @@
+[
+    {
+        "outputFile": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sw180dp-notround-v23/values-sw180dp-notround-v23.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 61,
+                    "endOffset": 112
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-sw180dp-notround-v23/values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 271,
+                        "endColumn": 61,
+                        "endOffset": 328
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 117,
+                    "endColumn": 59,
+                    "endOffset": 172
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-sw180dp-notround-v23/values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 333,
+                        "endColumn": 59,
+                        "endOffset": 388
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 177,
+                    "endColumn": 59,
+                    "endOffset": 232
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-sw180dp-notround-v23/values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 393,
+                        "endColumn": 59,
+                        "endOffset": 448
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 237,
+                    "endColumn": 62,
+                    "endOffset": 295
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-sw180dp-notround-v23/values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 453,
+                        "endColumn": 62,
+                        "endOffset": 511
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 300,
+                    "endColumn": 52,
+                    "endOffset": 348
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-sw180dp-notround-v23/values.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 516,
+                        "endColumn": 52,
+                        "endOffset": 564
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 353,
+                    "endColumn": 80,
+                    "endOffset": 429
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-sw180dp-notround-v23/values.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 569,
+                        "endColumn": 80,
+                        "endOffset": 645
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 434,
+                    "endColumn": 86,
+                    "endOffset": 516
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-sw180dp-notround-v23/values.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 650,
+                        "endColumn": 86,
+                        "endOffset": 732
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 521,
+                    "endColumn": 81,
+                    "endOffset": 598
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-sw180dp-notround-v23/values.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 737,
+                        "endColumn": 81,
+                        "endOffset": 814
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 603,
+                    "endColumn": 90,
+                    "endOffset": 689
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-sw180dp-notround-v23/values.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 819,
+                        "endColumn": 90,
+                        "endOffset": 905
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 694,
+                    "endColumn": 76,
+                    "endOffset": 766
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-sw180dp-notround-v23/values.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 910,
+                        "endColumn": 76,
+                        "endOffset": 982
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 771,
+                    "endColumn": 77,
+                    "endOffset": 844
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-sw180dp-notround-v23/values.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 987,
+                        "endColumn": 77,
+                        "endOffset": 1060
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 849,
+                    "endColumn": 75,
+                    "endOffset": 920
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-sw180dp-notround-v23/values.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 1065,
+                        "endColumn": 75,
+                        "endOffset": 1136
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 925,
+                    "endColumn": 85,
+                    "endOffset": 1006
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-sw180dp-notround-v23/values.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 1141,
+                        "endColumn": 85,
+                        "endOffset": 1222
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 1011,
+                    "endColumn": 79,
+                    "endOffset": 1086
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-sw180dp-notround-v23/values.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 1227,
+                        "endColumn": 79,
+                        "endOffset": 1302
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 1091,
+                    "endColumn": 75,
+                    "endOffset": 1162
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/values-sw180dp-notround-v23/values.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 1307,
+                        "endColumn": 75,
+                        "endOffset": 1378
+                    }
+                }
+            }
+        ]
+    }
+]

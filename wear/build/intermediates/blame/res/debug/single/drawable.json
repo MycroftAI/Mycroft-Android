@@ -1,0 +1,62 @@
+[
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_light.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/drawable/common_google_signin_btn_icon_light.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_text_dark.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/drawable/common_plus_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_light.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/drawable/common_google_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable/ic_more_horiz_24dp_wht.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/drawable/ic_more_horiz_24dp_wht.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable/ic_mycroft.png",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/src/main/res/drawable/ic_mycroft.png"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_text_light.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/drawable/common_plus_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_icon_light.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/drawable/common_plus_signin_btn_icon_light.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable/card_background.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/drawable/card_background.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable/action_item_icon_background.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/drawable/action_item_icon_background.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable/close_button.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/drawable/close_button.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable/ic_more_vert_24dp_wht.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/drawable/ic_more_vert_24dp_wht.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_icon_dark.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/drawable/common_plus_signin_btn_icon_dark.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable/action_item_background.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/drawable/action_item_background.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_dark.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/drawable/common_google_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_dark.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/drawable/common_google_signin_btn_icon_dark.xml"
+    }
+]

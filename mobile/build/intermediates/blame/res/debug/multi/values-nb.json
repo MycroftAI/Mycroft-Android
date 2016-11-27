@@ -1,0 +1,767 @@
+[
+    {
+        "outputFile": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/incremental/mergeDebugResources/merged.dir/values-nb/values-nb.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 107,
+                    "endOffset": 208
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 107,
+                        "endOffset": 158
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 213,
+                    "endColumn": 108,
+                    "endOffset": 317
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 163,
+                        "endColumn": 108,
+                        "endOffset": 267
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 322,
+                    "endColumn": 124,
+                    "endOffset": 442
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 272,
+                        "endColumn": 124,
+                        "endOffset": 392
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 447,
+                    "endColumn": 94,
+                    "endOffset": 537
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 397,
+                        "endColumn": 94,
+                        "endOffset": 487
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 542,
+                    "endColumn": 113,
+                    "endOffset": 651
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 492,
+                        "endColumn": 113,
+                        "endOffset": 601
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 656,
+                    "endColumn": 85,
+                    "endOffset": 737
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 606,
+                        "endColumn": 85,
+                        "endOffset": 687
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 742,
+                    "endColumn": 99,
+                    "endOffset": 837
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 692,
+                        "endColumn": 99,
+                        "endOffset": 787
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 842,
+                    "endColumn": 112,
+                    "endOffset": 950
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 792,
+                        "endColumn": 112,
+                        "endOffset": 900
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 955,
+                    "endColumn": 75,
+                    "endOffset": 1026
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 905,
+                        "endColumn": 75,
+                        "endOffset": 976
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 1031,
+                    "endColumn": 75,
+                    "endOffset": 1102
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 981,
+                        "endColumn": 75,
+                        "endOffset": 1052
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1107,
+                    "endColumn": 79,
+                    "endOffset": 1182
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 1057,
+                        "endColumn": 79,
+                        "endOffset": 1132
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 1187,
+                    "endColumn": 102,
+                    "endOffset": 1285
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 1137,
+                        "endColumn": 102,
+                        "endOffset": 1235
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 1290,
+                    "endColumn": 98,
+                    "endOffset": 1384
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 1240,
+                        "endColumn": 98,
+                        "endOffset": 1334
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 1389,
+                    "endColumn": 95,
+                    "endOffset": 1480
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 1339,
+                        "endColumn": 95,
+                        "endOffset": 1430
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 1485,
+                    "endColumn": 103,
+                    "endOffset": 1584
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 1435,
+                        "endColumn": 103,
+                        "endOffset": 1534
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 1589,
+                    "endColumn": 97,
+                    "endOffset": 1682
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 1539,
+                        "endColumn": 97,
+                        "endOffset": 1632
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1687,
+                    "endColumn": 100,
+                    "endOffset": 1783
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 1637,
+                        "endColumn": 100,
+                        "endOffset": 1733
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1788,
+                    "endColumn": 115,
+                    "endOffset": 1899
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 1738,
+                        "endColumn": 115,
+                        "endOffset": 1849
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 1904,
+                    "endColumn": 96,
+                    "endOffset": 1996
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 1854,
+                        "endColumn": 96,
+                        "endOffset": 1946
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 2001,
+                    "endColumn": 106,
+                    "endOffset": 2103
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 329,
+                        "endColumn": 106,
+                        "endOffset": 431
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 2108,
+                    "endColumn": 190,
+                    "endOffset": 2294
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 436,
+                        "endColumn": 190,
+                        "endOffset": 622
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 2299,
+                    "endColumn": 127,
+                    "endOffset": 2422
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 627,
+                        "endColumn": 127,
+                        "endOffset": 750
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 2427,
+                    "endColumn": 132,
+                    "endOffset": 2555
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 755,
+                        "endColumn": 132,
+                        "endOffset": 883
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 2560,
+                    "endColumn": 222,
+                    "endOffset": 2778
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 888,
+                        "endColumn": 222,
+                        "endOffset": 1106
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 2783,
+                    "endColumn": 226,
+                    "endOffset": 3005
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 1111,
+                        "endColumn": 226,
+                        "endOffset": 1333
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 3010,
+                    "endColumn": 131,
+                    "endOffset": 3137
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 1338,
+                        "endColumn": 131,
+                        "endOffset": 1465
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 28,
+                    "startColumn": 4,
+                    "startOffset": 3142,
+                    "endColumn": 131,
+                    "endOffset": 3269
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 1470,
+                        "endColumn": 131,
+                        "endOffset": 1597
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 29,
+                    "startColumn": 4,
+                    "startOffset": 3274,
+                    "endColumn": 248,
+                    "endOffset": 3518
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 331,
+                        "endColumn": 248,
+                        "endOffset": 575
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 30,
+                    "startColumn": 4,
+                    "startOffset": 3523,
+                    "endColumn": 250,
+                    "endOffset": 3769
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 1602,
+                        "endColumn": 250,
+                        "endOffset": 1848
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 31,
+                    "startColumn": 4,
+                    "startOffset": 3774,
+                    "endColumn": 124,
+                    "endOffset": 3894
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 1853,
+                        "endColumn": 124,
+                        "endOffset": 1973
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 32,
+                    "startColumn": 4,
+                    "startOffset": 3899,
+                    "endColumn": 108,
+                    "endOffset": 4003
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 1978,
+                        "endColumn": 108,
+                        "endOffset": 2082
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 33,
+                    "startColumn": 4,
+                    "startOffset": 4008,
+                    "endColumn": 191,
+                    "endOffset": 4195
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 2087,
+                        "endColumn": 191,
+                        "endOffset": 2274
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 34,
+                    "startColumn": 4,
+                    "startOffset": 4200,
+                    "endColumn": 129,
+                    "endOffset": 4325
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 2279,
+                        "endColumn": 129,
+                        "endOffset": 2404
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 35,
+                    "startColumn": 4,
+                    "startOffset": 4330,
+                    "endColumn": 200,
+                    "endOffset": 4526
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 2409,
+                        "endColumn": 200,
+                        "endOffset": 2605
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 36,
+                    "startColumn": 4,
+                    "startOffset": 4531,
+                    "endColumn": 133,
+                    "endOffset": 4660
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 2610,
+                        "endColumn": 133,
+                        "endOffset": 2739
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 37,
+                    "startColumn": 4,
+                    "startOffset": 4665,
+                    "endColumn": 205,
+                    "endOffset": 4866
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 2744,
+                        "endColumn": 205,
+                        "endOffset": 2945
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 38,
+                    "startColumn": 4,
+                    "startOffset": 4871,
+                    "endColumn": 96,
+                    "endOffset": 4963
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 2950,
+                        "endColumn": 96,
+                        "endOffset": 3042
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 39,
+                    "startColumn": 4,
+                    "startOffset": 4968,
+                    "endColumn": 91,
+                    "endOffset": 5055
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 3047,
+                        "endColumn": 91,
+                        "endOffset": 3134
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 40,
+                    "startColumn": 4,
+                    "startOffset": 5060,
+                    "endColumn": 106,
+                    "endOffset": 5162
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/res/values-nb/values.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 3139,
+                        "endColumn": 106,
+                        "endOffset": 3241
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 41,
+                    "startColumn": 4,
+                    "startOffset": 5167,
+                    "endColumn": 100,
+                    "endOffset": 5263
+                },
+                "from": {
+                    "file": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/values-nb/values-nb.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 1951,
+                        "endColumn": 100,
+                        "endOffset": 2047
+                    }
+                }
+            }
+        ]
+    }
+]

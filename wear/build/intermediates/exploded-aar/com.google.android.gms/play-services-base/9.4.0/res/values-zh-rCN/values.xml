@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- From: file:/tmp/tmp-deduplicated2803026416421244449/blaze-out/gcc-4.X.Y-crosstool-v18-hybrid-grtev4-k8-opt/genfiles/java/com/google/android/gmscore/integ/client/base/res/values-zh-rCN/strings.xml -->
+    <eat-comment/>
+    <string msgid="8585111718777012708" name="common_google_play_services_enable_button">"启用"</string>
+    <string msgid="7045129128108380659" name="common_google_play_services_enable_text">"您必须先启用 Google Play 服务，然后才能运行<ns1:g id="APP_NAME">%1$s</ns1:g>。"</string>
+    <string msgid="3147157405986503375" name="common_google_play_services_enable_title">"启用 Google Play 服务"</string>
+    <string msgid="7118643132557593940" name="common_google_play_services_install_button">"获取 Google Play 服务"</string>
+    <string msgid="1666261992894286769" name="common_google_play_services_install_text_phone">"您的手机没有安装 Google Play 服务，因此无法运行<ns1:g id="APP_NAME">%1$s</ns1:g>。"</string>
+    <string msgid="1701766622451829291" name="common_google_play_services_install_text_tablet">"您的平板电脑没有安装 Google Play 服务，因此无法运行<ns1:g id="APP_NAME">%1$s</ns1:g>。"</string>
+    <string msgid="7442193194585196676" name="common_google_play_services_install_title">"获取 Google Play 服务"</string>
+    <string msgid="180394615667698242" name="common_google_play_services_notification_ticker">"Google Play服务出错"</string>
+    <string msgid="1064791666906610763" name="common_google_play_services_unsupported_text">"<ns1:g id="APP_NAME">%1$s</ns1:g>必须搭配使用 Google Play 服务才能运行，但您的设备不支持该服务。请与设备制造商联系以寻求帮助。"</string>
+    <string msgid="539866123733096737" name="common_google_play_services_unsupported_title">"Google Play服务"</string>
+    <string msgid="8172070149091615356" name="common_google_play_services_update_button">"更新"</string>
+    <string msgid="7773943415006962566" name="common_google_play_services_update_text">"您必须先更新 Google Play 服务，然后才能运行<ns1:g id="APP_NAME">%1$s</ns1:g>。"</string>
+    <string msgid="8706675115216073244" name="common_google_play_services_update_title">"更新 Google Play 服务"</string>
+    <string msgid="7894275749778928941" name="common_google_play_services_updating_text">"Google Play 服务当前正在更新，因此您无法运行<ns1:g id="APP_NAME">%1$s</ns1:g>。"</string>
+    <string msgid="2270671469198016014" name="common_google_play_services_updating_title">"Google Play 服务正在更新"</string>
+    <string msgid="2804989272736383918" name="common_google_play_services_wear_update_text">"必须使用新版 Google Play 服务。该服务很快就会自行更新。"</string>
+    <string msgid="5201977337835724196" name="common_open_on_phone">"在手机上打开"</string>
+    <string msgid="3441753203274453993" name="common_signin_button_text">"登录"</string>
+    <string msgid="669893613918351210" name="common_signin_button_text_long">"使用 Google 帐号登录"</string>
+</resources>

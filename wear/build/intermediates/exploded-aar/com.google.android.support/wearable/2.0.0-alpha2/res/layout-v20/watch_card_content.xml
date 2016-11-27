@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="@dimen/card_content_padding_rect_top"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/CardTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="4dp"
+        android:ellipsize="end"
+        android:lines="1" />
+
+    <TextView
+        android:id="@+id/text"
+        style="@style/CardText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout><!-- From: file:/tmp/tmp-deduplicated574725355717134199/third_party/java_src/android_libs/android_wear/wearable_support/java/android/support/wearable/res/layout-v20/watch_card_content.xml -->

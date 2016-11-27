@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable-v21/open_on_phone_animation.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/drawable-v21/open_on_phone_animation.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable-v21/generic_confirmation.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/drawable-v21/generic_confirmation.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable-v21/open_on_phone.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/drawable-v21/open_on_phone.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/drawable-v21/generic_confirmation_animation.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/drawable-v21/generic_confirmation_animation.xml"
+    }
+]

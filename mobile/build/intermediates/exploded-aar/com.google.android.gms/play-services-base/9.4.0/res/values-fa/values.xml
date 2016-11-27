@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- From: file:/tmp/tmp-deduplicated2803026416421244449/blaze-out/gcc-4.X.Y-crosstool-v18-hybrid-grtev4-k8-opt/genfiles/java/com/google/android/gmscore/integ/client/base/res/values-fa/strings.xml -->
+    <eat-comment/>
+    <string msgid="8585111718777012708" name="common_google_play_services_enable_button">"فعال کردن"</string>
+    <string msgid="7045129128108380659" name="common_google_play_services_enable_text">"‏تا وقتی سرویس‌های Google Play را فعال نکنید، <ns1:g id="APP_NAME">%1$s</ns1:g> کار نمی‌کند."</string>
+    <string msgid="3147157405986503375" name="common_google_play_services_enable_title">"‏‫فعال کردن سرویس‌های Google Play"</string>
+    <string msgid="7118643132557593940" name="common_google_play_services_install_button">"‏دریافت سرویس‌های Google Play"</string>
+    <string msgid="1666261992894286769" name="common_google_play_services_install_text_phone">"‏<ns1:g id="APP_NAME">%1$s</ns1:g> بدون سرویس‌های Google Play که در تلفن شما وجود ندارد، اجرا نمی‌شود."</string>
+    <string msgid="1701766622451829291" name="common_google_play_services_install_text_tablet">"‏<ns1:g id="APP_NAME">%1$s</ns1:g> بدون سرویس‌های Google Play که در رایانه لوحی شما وجود ندارد، اجرا نمی‌شود."</string>
+    <string msgid="7442193194585196676" name="common_google_play_services_install_title">"‏دریافت سرویس‌های Google Play"</string>
+    <string msgid="180394615667698242" name="common_google_play_services_notification_ticker">"‏خطا در خدمات Google Play"</string>
+    <string msgid="1064791666906610763" name="common_google_play_services_unsupported_text">"‏<ns1:g id="APP_NAME">%1$s</ns1:g> بر سرویس‌های Google Play متکی است که توسط دستگاهتان پشتیبانی نمی‌شود. برای دریافت کمک با سازنده تماس بگیرید."</string>
+    <string msgid="539866123733096737" name="common_google_play_services_unsupported_title">"‏خدمات Google Play"</string>
+    <string msgid="8172070149091615356" name="common_google_play_services_update_button">"به‌روزرسانی"</string>
+    <string msgid="7773943415006962566" name="common_google_play_services_update_text">"‏تاز مانی که سرویس‌های Google Play را به‌روزرسانی نکنید، <ns1:g id="APP_NAME">%1$s</ns1:g> اجرا نمی‌شود."</string>
+    <string msgid="8706675115216073244" name="common_google_play_services_update_title">"‏‫به‌روزرسانی سرویس‌های Google Play"</string>
+    <string msgid="7894275749778928941" name="common_google_play_services_updating_text">"‏<ns1:g id="APP_NAME">%1$s</ns1:g> بدون سرویس‌های Google Play که درحال حاضر درحال به‌روزرسانی هستند، کار نمی‌کند."</string>
+    <string msgid="2270671469198016014" name="common_google_play_services_updating_title">"‏سرویس‌‌های Google Play درحال به‌روزرسانی"</string>
+    <string msgid="2804989272736383918" name="common_google_play_services_wear_update_text">"‏نسخه جدید سرویس‌های Google Play نیاز است. به‌زودی به‌طور خودکار به‌روزرسانی می‌شود."</string>
+    <string msgid="5201977337835724196" name="common_open_on_phone">"باز کردن در تلفن"</string>
+    <string msgid="3441753203274453993" name="common_signin_button_text">"ورود به سیستم"</string>
+    <string msgid="669893613918351210" name="common_signin_button_text_long">"‏ورود به سیستم با Google‎"</string>
+</resources>

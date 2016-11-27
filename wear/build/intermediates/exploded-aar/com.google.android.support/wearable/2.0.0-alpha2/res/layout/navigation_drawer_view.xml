@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/wearable_support_navigation_drawer_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <android.support.wearable.view.drawer.PageIndicatorView
+        android:id="@+id/wearable_support_navigation_drawer_page_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        app:pageIndicatorDotFadeWhenIdle="false" />
+
+</FrameLayout>
+
+<!-- From: file:/tmp/tmp-deduplicated574725355717134199/third_party/java_src/android_libs/android_wear/wearable_support/java/android/support/wearable/res/layout/navigation_drawer_view.xml -->

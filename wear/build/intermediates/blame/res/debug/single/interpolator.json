@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/interpolator/open_on_phone_animation_interpolator_1.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/interpolator/open_on_phone_animation_interpolator_1.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/interpolator/open_on_phone_animation_interpolator_0.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/interpolator/open_on_phone_animation_interpolator_0.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/interpolator/generic_confirmation_animation_interpolator_0.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/interpolator/generic_confirmation_animation_interpolator_0.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/interpolator/generic_confirmation_animation_interpolator_2.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/interpolator/generic_confirmation_animation_interpolator_2.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/interpolator/generic_confirmation_animation_interpolator_1.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/interpolator/generic_confirmation_animation_interpolator_1.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/res/merged/debug/interpolator/generic_confirmation_animation_interpolator_3.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/2.0.0-alpha2/res/interpolator/generic_confirmation_animation_interpolator_3.xml"
+    }
+]

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- From: file:/tmp/tmp-deduplicated2803026416421244449/blaze-out/gcc-4.X.Y-crosstool-v18-hybrid-grtev4-k8-opt/genfiles/java/com/google/android/gmscore/integ/client/base/res/values-ne/strings.xml -->
+    <eat-comment/>
+    <string msgid="8585111718777012708" name="common_google_play_services_enable_button">"सक्रिय गर्नुहोस्"</string>
+    <string msgid="7045129128108380659" name="common_google_play_services_enable_text">"<ns1:g id="APP_NAME">%1$s</ns1:g> ले तपाईँले Google Play सेवाहरू सक्षम नगरेसम्म काम गर्दैन।"</string>
+    <string msgid="3147157405986503375" name="common_google_play_services_enable_title">"Google Play सेवाहरू सक्षम पार्नुहोस्"</string>
+    <string msgid="7118643132557593940" name="common_google_play_services_install_button">"Google Play सेवाहरू प्राप्त गर्नुहोस्"</string>
+    <string msgid="1666261992894286769" name="common_google_play_services_install_text_phone">"Google Play सेवाहरू बिना <ns1:g id="APP_NAME">%1$s</ns1:g> सञ्‍चालन हुँदैन, जुन तपाईँको फोनमा छैन।"</string>
+    <string msgid="1701766622451829291" name="common_google_play_services_install_text_tablet">"Google Play सेवाहरू बिना <ns1:g id="APP_NAME">%1$s</ns1:g> सञ्‍चालन हुँदैन, जुन तपाईँको ट्याब्लेटमा छैन।"</string>
+    <string msgid="7442193194585196676" name="common_google_play_services_install_title">"Google Play सेवाहरू प्राप्त गर्नुहोस्"</string>
+    <string msgid="180394615667698242" name="common_google_play_services_notification_ticker">"Google Play सेवाहरूका त्रुटि"</string>
+    <string msgid="1064791666906610763" name="common_google_play_services_unsupported_text">"<ns1:g id="APP_NAME">%1$s</ns1:g> Google Play सेवाहरूमा निर्भर छ, जुन तपाईँको यन्त्रद्वारा समथित छैन। सहायताको लागि निर्मातासँग सम्पर्क गर्नुहोस्।"</string>
+    <string msgid="539866123733096737" name="common_google_play_services_unsupported_title">"Google Play सेवाहरू"</string>
+    <string msgid="8172070149091615356" name="common_google_play_services_update_button">"अद्यावधिक गर्नुहोस्"</string>
+    <string msgid="7773943415006962566" name="common_google_play_services_update_text">"<ns1:g id="APP_NAME">%1$s</ns1:g> तपाईंले Google प्ले सेवाहरू अद्यावधिक नगरेसम्म सञ्चालन हुँदैन।"</string>
+    <string msgid="8706675115216073244" name="common_google_play_services_update_title">"Google Play सेवाहरू अद्यावधिक गर्नुहोस्"</string>
+    <string msgid="7894275749778928941" name="common_google_play_services_updating_text">"Google Play सेवाहरू <ns1:g id="APP_NAME">%1$s</ns1:g> बिना सञ्‍चालन हुँदैन, जुन हाल अद्यावधिक भइरहेका छन्।"</string>
+    <string msgid="2270671469198016014" name="common_google_play_services_updating_title">"Google Play सेवाहरू अद्यावधिक भइरहेका छन्"</string>
+    <string msgid="2804989272736383918" name="common_google_play_services_wear_update_text">"Google Play सेवाहरूको नयाँ संस्करण आवश्यक छ। यो आफै छिट्टै नै अद्यावधिक हुनेछ।"</string>
+    <string msgid="5201977337835724196" name="common_open_on_phone">"फोनमा खोल्नुहोस्"</string>
+    <string msgid="3441753203274453993" name="common_signin_button_text">"साइन इन गर्नुहोस्"</string>
+    <string msgid="669893613918351210" name="common_signin_button_text_long">"Google मार्फत साइन‍ इन गर्नुहोस्"</string>
+</resources>

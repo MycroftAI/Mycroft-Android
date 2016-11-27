@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/res/merged/debug/anim-v21/design_appbar_state_list_animator.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/design/24.0.0/res/anim-v21/design_appbar_state_list_animator.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/res/merged/debug/anim-v21/design_bottom_sheet_slide_in.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/design/24.0.0/res/anim-v21/design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/res/merged/debug/anim-v21/design_bottom_sheet_slide_out.xml",
+        "source": "/home/joe/workspaces/mycroft/android/Mycroft-Android/mobile/build/intermediates/exploded-aar/com.android.support/design/24.0.0/res/anim-v21/design_bottom_sheet_slide_out.xml"
+    }
+]

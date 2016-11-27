@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- From: file:/tmp/tmp-deduplicated574725355717134199/third_party/java_src/android_libs/android_wear/wearable_support/java/android/support/wearable/res/values-th/strings.xml -->
+    <eat-comment/>
+    <plurals formatted="false" msgid="7742631289175833205" name="time_difference_short_days">
+      <item quantity="other"><ns1:g id="NUMBER_OF_DAYS_1">%d</ns1:g>วัน</item>
+      <item quantity="one"><ns1:g id="NUMBER_OF_DAYS_0">%d</ns1:g>วัน</item>
+    </plurals>
+    <plurals formatted="false" msgid="5517328857835062796" name="time_difference_short_hours">
+      <item quantity="other"><ns1:g id="NUMBER_OF_HOURS_1">%d</ns1:g>ชม.</item>
+      <item quantity="one"><ns1:g id="NUMBER_OF_HOURS_0">%d</ns1:g>ชม.</item>
+    </plurals>
+    <plurals formatted="false" msgid="7359384479137727610" name="time_difference_short_minutes">
+      <item quantity="other"><ns1:g id="NUMBER_OF_MINUTES_1">%d</ns1:g>นาที</item>
+      <item quantity="one"><ns1:g id="NUMBER_OF_MINUTES_0">%d</ns1:g>นาที</item>
+    </plurals>
+    <plurals formatted="false" msgid="2946369038647898503" name="time_difference_words_days">
+      <item quantity="other"><ns1:g id="NUMBER_OF_DAYS_1">%d</ns1:g> วัน</item>
+      <item quantity="one"><ns1:g id="NUMBER_OF_DAYS_0">%d</ns1:g> วัน</item>
+    </plurals>
+    <plurals formatted="false" msgid="54021993005249478" name="time_difference_words_hours">
+      <item quantity="other"><ns1:g id="NUMBER_OF_HOURS_1">%d</ns1:g> ชั่วโมง</item>
+      <item quantity="one"><ns1:g id="NUMBER_OF_HOURS_0">%d</ns1:g> ชั่วโมง</item>
+    </plurals>
+    <plurals formatted="false" msgid="6039601245972500593" name="time_difference_words_minutes">
+      <item quantity="other"><ns1:g id="NUMBER_OF_MINUTES_1">%d</ns1:g> นาที</item>
+      <item quantity="one"><ns1:g id="NUMBER_OF_MINUTES_0">%d</ns1:g> นาที</item>
+    </plurals>
+    <string msgid="8455537630633057684" name="dismiss_overlay_button_label">"ออก"</string>
+    <string msgid="1674592248188350347" name="time_difference_now">"ขณะนี้"</string>
+    <string msgid="7277518582146396827" name="time_difference_short_days_and_hours">"<ns1:g id="SHORT_DAYS">%1$s</ns1:g> <ns1:g id="SHORT_HOURS">%2$s</ns1:g>"</string>
+    <string msgid="4986220553102177066" name="time_difference_short_hours_and_minutes">"<ns1:g id="SHORT_HOURS">%1$s</ns1:g> <ns1:g id="SHORT_MINUTES">%2$s</ns1:g>"</string>
+</resources>

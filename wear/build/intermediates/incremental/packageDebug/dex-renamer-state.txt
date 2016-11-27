@@ -1,0 +1,7 @@
+#Sun Nov 27 01:28:47 CST 2016
+base.0=/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_630ac493135ba2c397b55c8303007d645be286af
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_0299ca79230b75e1d7b7ed8f78e9721a183e148d/classes.dex
+base.1=/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_0299ca79230b75e1d7b7ed8f78e9721a183e148d
+file.0=/home/joe/workspaces/mycroft/android/Mycroft-Android/wear/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_630ac493135ba2c397b55c8303007d645be286af/classes.dex
