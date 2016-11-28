@@ -1,6 +1,8 @@
 package mycroft.ai;
 
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -25,6 +27,14 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.wearable.CapabilityApi;
+import com.google.android.gms.wearable.CapabilityInfo;
+import com.google.android.gms.wearable.MessageApi;
+import com.google.android.gms.wearable.MessageEvent;
+import com.google.android.gms.wearable.Node;
+import com.google.android.gms.wearable.Wearable;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.exceptions.WebsocketNotConnectedException;
@@ -39,22 +49,25 @@ import java.util.Locale;
 import io.fabric.sdk.android.Fabric;
 import mycroft.ai.adapters.MycroftAdapter;
 import mycroft.ai.receivers.NetworkChangeReceiver;
+import mycroft.ai.services.MycroftWearListenerService;
 import mycroft.ai.utils.NetworkAutoDiscoveryUtil;
 import mycroft.ai.utils.NetworkUtil;
 
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     private static final String TAG = "Mycroft";
+
     public WebSocketClient mWebSocketClient;
     private String wsip;
+
+    private int maximumRetries = 1;
 
     private final int REQ_CODE_SPEECH_INPUT = 100;
     TTSManager ttsManager = null;
     private Switch voxSwitch;
-
 
 
     @NonNull
@@ -62,19 +75,25 @@ public class MainActivity extends AppCompatActivity {
 
     MycroftAdapter ma = new MycroftAdapter(utterances);
 
-    NetworkChangeReceiver receiver;
+    NetworkChangeReceiver networkChangeReceiver;
+    BroadcastReceiver wearBroadcastReceiver;
+
+    private boolean isNetworkChangeReceiverRegistered;
+    private boolean isWearBroadcastRevieverRegistered;
 
     RecyclerView recList;
 
-    private boolean isReceiverRegistered;
+
 
     private SharedPreferences sharedPref;
+
     boolean launchedFromWidget = false;
     boolean autopromptForSpeech = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -115,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
         recList.setAdapter(ma);
 
-        registerReceiver();
+        registerReceivers();
 
         ttsManager = new TTSManager(this);
 
@@ -191,20 +210,55 @@ public class MainActivity extends AppCompatActivity {
         recList.smoothScrollToPosition(ma.getItemCount() - 1);
     }
 
-    private void registerReceiver(){
-        if(!isReceiverRegistered) {
+    private void registerReceivers() {
+        registerNetworkReceiver();
+        registerWearBroadcastReceiver();
+    }
+
+    private void registerNetworkReceiver(){
+        if(!isNetworkChangeReceiverRegistered) {
             // set up the dynamic broadcast receiver for maintaining the socket
-            receiver = new NetworkChangeReceiver();
-            receiver.setMainActivityHandler(this);
+            networkChangeReceiver = new NetworkChangeReceiver();
+            networkChangeReceiver.setMainActivityHandler(this);
 
             // set up the intent filters
             IntentFilter connChange = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
             IntentFilter wifiChange = new IntentFilter("android.net.wifi.WIFI_STATE_CHANGED");
-            registerReceiver(receiver, connChange);
-            registerReceiver(receiver, wifiChange);
+            registerReceiver(networkChangeReceiver, connChange);
+            registerReceiver(networkChangeReceiver, wifiChange);
 
-            isReceiverRegistered = true;
+            isNetworkChangeReceiverRegistered = true;
         }
+    }
+
+    private void registerWearBroadcastReceiver() {
+        if(!isWearBroadcastRevieverRegistered) {
+            wearBroadcastReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    String message = intent.getStringExtra(MycroftWearListenerService.MYCROFT_WEAR_REQUEST_MESSAGE);
+                    // send to mycroft
+                    if(message != null) {
+                        Log.d(TAG, "Wear message received: [" + message +"] sending to Mycroft");
+                        sendMessage(message);
+                    }
+                }
+            };
+
+            LocalBroadcastManager.getInstance(this).registerReceiver((wearBroadcastReceiver), new IntentFilter(MycroftWearListenerService.MYCROFT_WEAR_REQUEST));
+            isWearBroadcastRevieverRegistered = true;
+        }
+    }
+
+    private void unregisterReceivers() {
+        unregisterBroadcastReceiver(wearBroadcastReceiver);
+
+        isNetworkChangeReceiverRegistered = false;
+        isWearBroadcastRevieverRegistered = false;
+    }
+
+    private void unregisterBroadcastReceiver(BroadcastReceiver broadcastReceiver) {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
     }
 
 	/**
@@ -235,7 +289,11 @@ public class MainActivity extends AppCompatActivity {
         return uri;
     }
 
-    public void sendMessage(String msg) {
+    public void sendMessage(String msg){
+        sendMessage(msg, 1);
+    }
+
+    public void sendMessage(String msg, int retryCount) {
         // let's keep it simple eh?
         String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [\"" + msg + "\"]}}";
         try {
@@ -249,7 +307,11 @@ public class MainActivity extends AppCompatActivity {
             mWebSocketClient.send(json);
 
         } catch (WebsocketNotConnectedException e) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.websocket_closed), Toast.LENGTH_SHORT).show();
+            if (retryCount > maximumRetries) {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.websocket_closed), Toast.LENGTH_SHORT).show();
+            } else { // retry
+                sendMessage(msg, retryCount++);
+            }
         }
     }
 
@@ -297,33 +359,33 @@ public class MainActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         ttsManager.shutDown();
-        isReceiverRegistered = false;
+        isNetworkChangeReceiverRegistered = false;
+        isWearBroadcastRevieverRegistered = false;
     }
 
     @Override
     public void onStart() {
         super.onStart();
         loadPreferences();
-        registerReceiver();
+        registerReceivers();
+        checkIfLaunchedFromWidget(getIntent());
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        isReceiverRegistered = false;
+
+        unregisterReceivers();
 
         if (launchedFromWidget) {
             autopromptForSpeech = true;
         }
-
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        loadPreferences();
-        registerReceiver();
-        checkIfLaunchedFromWidget(getIntent());
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
     }
 
     private void loadPreferences(){
@@ -347,14 +409,25 @@ public class MainActivity extends AppCompatActivity {
         } else {
             voxSwitch.setVisibility(View.INVISIBLE);
         }
+
+        maximumRetries = Integer.parseInt(sharedPref.getString("maximumRetries", "1"));
     }
 
     protected void checkIfLaunchedFromWidget(Intent intent) {
 
         Bundle extras = getIntent().getExtras();
-        if (extras != null && extras.containsKey("launchedFromWidget") && extras.containsKey("launchedFromWidget")) {
-            launchedFromWidget = extras.getBoolean("launchedFromWidget");
-            autopromptForSpeech = extras.getBoolean("autopromptForSpeech");
+        if (extras != null) {
+            if (extras.containsKey("launchedFromWidget")) {
+                launchedFromWidget = extras.getBoolean("launchedFromWidget");
+                autopromptForSpeech = extras.getBoolean("autopromptForSpeech");
+            }
+
+            if (extras.containsKey("MYCROFT_WEAR_REQUEST")) {
+                Log.d(TAG, "checkIfLaunchedFromWidget - extras contain key: MYCROFT_WEAR_REQUEST");
+                sendMessage(extras.getString("MYCROFT_WEAR_REQUEST"));
+            }
+        } else {
+            Log.d(TAG, "checkIfLaunchedFromWidget - extras are null");
         }
 
         if (autopromptForSpeech) {
@@ -362,4 +435,5 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("autopromptForSpeech", false);
         }
     }
+
 }

@@ -2,6 +2,7 @@ package mycroft.ai;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
 import android.speech.RecognizerIntent;
@@ -40,19 +41,15 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends WearableActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-
-    private static final SimpleDateFormat AMBIENT_DATE_FORMAT = new SimpleDateFormat("HH:mm", Locale.US);
-
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
     private BoxInsetLayout containerView;
     private ImageButton inputImageButton;
 
-    public static final String WEARABLE_MAIN = "WearableMain";
+    private static final String WEARABLE_MAIN = "WearableMain";
     private GoogleApiClient mGoogleApiClient;
     private Node mNode;
     private static final String WEAR_PATH = "/mycroft_query";
-    public  String messages = "weather";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +97,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
     private void updateDisplay() {
         if (isAmbient()) {
-            containerView.setBackgroundColor(getResources().getColor(android.R.color.black));
+            containerView.setBackgroundColor(Color.BLACK);
         } else {
             containerView.setBackground(null);
         }
@@ -146,7 +143,6 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
         }
     }
 
-
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Wearable.NodeApi.getConnectedNodes(mGoogleApiClient).setResultCallback(new ResultCallback<NodeApi.GetConnectedNodesResult>() {
@@ -157,12 +153,12 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
                     if(node != null && node.isNearby())
                     {
                         mNode = node;
-                        Toast.makeText(getApplicationContext(), "Connected To"+ node.getDisplayName(), Toast.LENGTH_SHORT).show();
+                        showToast("Connected To"+ node.getDisplayName());
                         Log.d(WEARABLE_MAIN,"Connected to" + node.getDisplayName());
                     }
                     else
                     {
-                        Toast.makeText(getApplicationContext(), "Not Connected", Toast.LENGTH_SHORT).show();
+                        showToast("Not Connected");
                         Log.d(WEARABLE_MAIN,"NOT CONNECTED");
                     }
                 }
@@ -172,12 +168,12 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
     @Override
     public void onConnectionSuspended(int i) {
-        Toast.makeText(getApplicationContext(), "Connection Suspended", Toast.LENGTH_SHORT).show();
+        showToast("Connection Suspended");
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(getApplicationContext(), "Connection Failed", Toast.LENGTH_SHORT).show();
+        showToast("Connection Failed");
     }
 
     @Override
@@ -199,9 +195,9 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
                         @Override
                         public void onResult(@NonNull MessageApi.SendMessageResult sendMessageResult) {
                             if (!sendMessageResult.getStatus().isSuccess()) {
-                                Toast.makeText(getApplicationContext(), "Message Failed", Toast.LENGTH_SHORT).show();
+                                showToast("Message Failed");
                             } else {
-                                Toast.makeText(getApplicationContext(), "Message Sent", Toast.LENGTH_SHORT).show();
+                                showToast("Message Sent");
                             }
                         }
                     }
@@ -209,7 +205,11 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
         }
         else
         {
-            Toast.makeText(getApplicationContext(), "Unable To Send Message", Toast.LENGTH_SHORT).show();
+            showToast("Unable To Send Message");
         }
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
