@@ -99,7 +99,5 @@
     <string name="hello">Hello World!</string>
     <string name="title">Hello Notification!</string>
     <string name="notification_posted">Notification posted</string>
-    <string name="pref_default_maximum_retries">1</string>
-    <string name="pref_title_maximum_retries">Maximum Retries</string>
 
 </resources>
