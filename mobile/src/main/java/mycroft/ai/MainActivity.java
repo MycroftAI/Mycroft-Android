@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
@@ -49,7 +50,6 @@ import java.util.Locale;
 import io.fabric.sdk.android.Fabric;
 import mycroft.ai.adapters.MycroftAdapter;
 import mycroft.ai.receivers.NetworkChangeReceiver;
-import mycroft.ai.services.MycroftWearListenerService;
 import mycroft.ai.utils.NetworkAutoDiscoveryUtil;
 import mycroft.ai.utils.NetworkUtil;
 
@@ -59,6 +59,10 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 public class MainActivity extends AppCompatActivity  {
 
     private static final String TAG = "Mycroft";
+
+    public static final String MYCROFT_QUERY_MESSAGE_PATH = "/mycroft_query";
+    public static final String MYCROFT_WEAR_REQUEST ="mycroft.ai.wear.request";
+    public static final String MYCROFT_WEAR_REQUEST_MESSAGE ="mycroft.ai.wear.request.message";
 
     public WebSocketClient mWebSocketClient;
     private String wsip;
@@ -236,7 +240,7 @@ public class MainActivity extends AppCompatActivity  {
             wearBroadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    String message = intent.getStringExtra(MycroftWearListenerService.MYCROFT_WEAR_REQUEST_MESSAGE);
+                    String message = intent.getStringExtra(MYCROFT_WEAR_REQUEST_MESSAGE);
                     // send to mycroft
                     if(message != null) {
                         Log.d(TAG, "Wear message received: [" + message +"] sending to Mycroft");
@@ -245,12 +249,13 @@ public class MainActivity extends AppCompatActivity  {
                 }
             };
 
-            LocalBroadcastManager.getInstance(this).registerReceiver((wearBroadcastReceiver), new IntentFilter(MycroftWearListenerService.MYCROFT_WEAR_REQUEST));
+            LocalBroadcastManager.getInstance(this).registerReceiver((wearBroadcastReceiver), new IntentFilter(MYCROFT_WEAR_REQUEST));
             isWearBroadcastRevieverRegistered = true;
         }
     }
 
     private void unregisterReceivers() {
+        unregisterBroadcastReceiver(networkChangeReceiver);
         unregisterBroadcastReceiver(wearBroadcastReceiver);
 
         isNetworkChangeReceiverRegistered = false;
@@ -289,30 +294,29 @@ public class MainActivity extends AppCompatActivity  {
         return uri;
     }
 
-    public void sendMessage(String msg){
-        sendMessage(msg, 1);
-    }
-
-    public void sendMessage(String msg, int retryCount) {
+    public void sendMessage(String msg) {
         // let's keep it simple eh?
-        String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [\"" + msg + "\"]}}";
-        try {
-            if (mWebSocketClient == null || mWebSocketClient.getConnection().isClosed()) {
-                // try and reconnect
-                if (NetworkUtil.getConnectivityStatus(this) == NetworkUtil.NETWORK_STATUS_WIFI) { //TODO: add config to specify wifi only.
-                    connectWebSocket();
+        final String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [\"" + msg + "\"]}}";
+
+            try {
+                if (mWebSocketClient == null || mWebSocketClient.getConnection().isClosed()) {
+                    // try and reconnect
+                    if (NetworkUtil.getConnectivityStatus(this) == NetworkUtil.NETWORK_STATUS_WIFI) { //TODO: add config to specify wifi only.
+                        connectWebSocket();
+                    }
                 }
-            }
 
-            mWebSocketClient.send(json);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        // Actions to do after 1 seconds
+                        mWebSocketClient.send(json);
+                    }
+                }, 1000);
 
-        } catch (WebsocketNotConnectedException e) {
-            if (retryCount > maximumRetries) {
+            } catch (WebsocketNotConnectedException exception) {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.websocket_closed), Toast.LENGTH_SHORT).show();
-            } else { // retry
-                sendMessage(msg, retryCount++);
             }
-        }
     }
 
     /**

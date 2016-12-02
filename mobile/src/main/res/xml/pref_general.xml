@@ -24,14 +24,4 @@
         android:summary="@string/pref_summary_display_app_reader_switch"
         android:defaultValue="true"/>
 
-    <EditTextPreference
-        android:capitalize="none"
-        android:defaultValue="@string/pref_default_maximum_retries"
-        android:inputType="textCapWords"
-        android:key="maximumRetries"
-        android:maxLines="1"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:title="@string/pref_title_maximum_retries" />
-
 </PreferenceScreen>

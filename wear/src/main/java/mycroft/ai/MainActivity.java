@@ -11,8 +11,11 @@ import android.support.annotation.Nullable;
 import android.support.wearable.activity.WearableActivity;
 import android.support.wearable.view.BoxInsetLayout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -153,8 +156,8 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
                     if(node != null && node.isNearby())
                     {
                         mNode = node;
-                        showToast("Connected To"+ node.getDisplayName());
-                        Log.d(WEARABLE_MAIN,"Connected to" + node.getDisplayName());
+                        showToast("Connected To "+ node.getDisplayName());
+                        Log.d(WEARABLE_MAIN,"Connected to " + node.getDisplayName());
                     }
                     else
                     {
@@ -210,6 +213,14 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
     }
 
     private void showToast(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+
+        LinearLayout layout = (LinearLayout) toast.getView();
+        if (layout.getChildCount() > 0) {
+            TextView tv = (TextView) layout.getChildAt(0);
+            tv.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+        }
+
+        toast.show();
     }
 }

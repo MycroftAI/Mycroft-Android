@@ -188,7 +188,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // updated to reflect the new value, per the Android Design
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("ip"));
-            bindPreferenceSummaryToValue(findPreference("maximumRetries"));
         }
 
         @Override
