@@ -1,11 +1,14 @@
 package mycroft.ai;
 
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
@@ -25,6 +28,14 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.wearable.CapabilityApi;
+import com.google.android.gms.wearable.CapabilityInfo;
+import com.google.android.gms.wearable.MessageApi;
+import com.google.android.gms.wearable.MessageEvent;
+import com.google.android.gms.wearable.Node;
+import com.google.android.gms.wearable.Wearable;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.exceptions.WebsocketNotConnectedException;
@@ -45,16 +56,22 @@ import mycroft.ai.utils.NetworkUtil;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     private static final String TAG = "Mycroft";
+
+    public static final String MYCROFT_QUERY_MESSAGE_PATH = "/mycroft_query";
+    public static final String MYCROFT_WEAR_REQUEST ="mycroft.ai.wear.request";
+    public static final String MYCROFT_WEAR_REQUEST_MESSAGE ="mycroft.ai.wear.request.message";
+
     public WebSocketClient mWebSocketClient;
     private String wsip;
+
+    private int maximumRetries = 1;
 
     private final int REQ_CODE_SPEECH_INPUT = 100;
     TTSManager ttsManager = null;
     private Switch voxSwitch;
-
 
 
     @NonNull
@@ -62,19 +79,25 @@ public class MainActivity extends AppCompatActivity {
 
     MycroftAdapter ma = new MycroftAdapter(utterances);
 
-    NetworkChangeReceiver receiver;
+    NetworkChangeReceiver networkChangeReceiver;
+    BroadcastReceiver wearBroadcastReceiver;
+
+    private boolean isNetworkChangeReceiverRegistered;
+    private boolean isWearBroadcastRevieverRegistered;
 
     RecyclerView recList;
 
-    private boolean isReceiverRegistered;
+
 
     private SharedPreferences sharedPref;
+
     boolean launchedFromWidget = false;
     boolean autopromptForSpeech = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -115,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
         recList.setAdapter(ma);
 
-        registerReceiver();
+        registerReceivers();
 
         ttsManager = new TTSManager(this);
 
@@ -191,20 +214,56 @@ public class MainActivity extends AppCompatActivity {
         recList.smoothScrollToPosition(ma.getItemCount() - 1);
     }
 
-    private void registerReceiver(){
-        if(!isReceiverRegistered) {
+    private void registerReceivers() {
+        registerNetworkReceiver();
+        registerWearBroadcastReceiver();
+    }
+
+    private void registerNetworkReceiver(){
+        if(!isNetworkChangeReceiverRegistered) {
             // set up the dynamic broadcast receiver for maintaining the socket
-            receiver = new NetworkChangeReceiver();
-            receiver.setMainActivityHandler(this);
+            networkChangeReceiver = new NetworkChangeReceiver();
+            networkChangeReceiver.setMainActivityHandler(this);
 
             // set up the intent filters
             IntentFilter connChange = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
             IntentFilter wifiChange = new IntentFilter("android.net.wifi.WIFI_STATE_CHANGED");
-            registerReceiver(receiver, connChange);
-            registerReceiver(receiver, wifiChange);
+            registerReceiver(networkChangeReceiver, connChange);
+            registerReceiver(networkChangeReceiver, wifiChange);
 
-            isReceiverRegistered = true;
+            isNetworkChangeReceiverRegistered = true;
         }
+    }
+
+    private void registerWearBroadcastReceiver() {
+        if(!isWearBroadcastRevieverRegistered) {
+            wearBroadcastReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    String message = intent.getStringExtra(MYCROFT_WEAR_REQUEST_MESSAGE);
+                    // send to mycroft
+                    if(message != null) {
+                        Log.d(TAG, "Wear message received: [" + message +"] sending to Mycroft");
+                        sendMessage(message);
+                    }
+                }
+            };
+
+            LocalBroadcastManager.getInstance(this).registerReceiver((wearBroadcastReceiver), new IntentFilter(MYCROFT_WEAR_REQUEST));
+            isWearBroadcastRevieverRegistered = true;
+        }
+    }
+
+    private void unregisterReceivers() {
+        unregisterBroadcastReceiver(networkChangeReceiver);
+        unregisterBroadcastReceiver(wearBroadcastReceiver);
+
+        isNetworkChangeReceiverRegistered = false;
+        isWearBroadcastRevieverRegistered = false;
+    }
+
+    private void unregisterBroadcastReceiver(BroadcastReceiver broadcastReceiver) {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
     }
 
 	/**
@@ -237,20 +296,27 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendMessage(String msg) {
         // let's keep it simple eh?
-        String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [\"" + msg + "\"]}}";
-        try {
-            if (mWebSocketClient == null || mWebSocketClient.getConnection().isClosed()) {
-                // try and reconnect
-                if (NetworkUtil.getConnectivityStatus(this) == NetworkUtil.NETWORK_STATUS_WIFI) { //TODO: add config to specify wifi only.
-                    connectWebSocket();
+        final String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [\"" + msg + "\"]}}";
+
+            try {
+                if (mWebSocketClient == null || mWebSocketClient.getConnection().isClosed()) {
+                    // try and reconnect
+                    if (NetworkUtil.getConnectivityStatus(this) == NetworkUtil.NETWORK_STATUS_WIFI) { //TODO: add config to specify wifi only.
+                        connectWebSocket();
+                    }
                 }
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        // Actions to do after 1 seconds
+                        mWebSocketClient.send(json);
+                    }
+                }, 1000);
+
+            } catch (WebsocketNotConnectedException exception) {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.websocket_closed), Toast.LENGTH_SHORT).show();
             }
-
-            mWebSocketClient.send(json);
-
-        } catch (WebsocketNotConnectedException e) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.websocket_closed), Toast.LENGTH_SHORT).show();
-        }
     }
 
     /**
@@ -297,33 +363,33 @@ public class MainActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         ttsManager.shutDown();
-        isReceiverRegistered = false;
+        isNetworkChangeReceiverRegistered = false;
+        isWearBroadcastRevieverRegistered = false;
     }
 
     @Override
     public void onStart() {
         super.onStart();
         loadPreferences();
-        registerReceiver();
+        registerReceivers();
+        checkIfLaunchedFromWidget(getIntent());
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        isReceiverRegistered = false;
+
+        unregisterReceivers();
 
         if (launchedFromWidget) {
             autopromptForSpeech = true;
         }
-
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        loadPreferences();
-        registerReceiver();
-        checkIfLaunchedFromWidget(getIntent());
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
     }
 
     private void loadPreferences(){
@@ -347,14 +413,25 @@ public class MainActivity extends AppCompatActivity {
         } else {
             voxSwitch.setVisibility(View.INVISIBLE);
         }
+
+        maximumRetries = Integer.parseInt(sharedPref.getString("maximumRetries", "1"));
     }
 
     protected void checkIfLaunchedFromWidget(Intent intent) {
 
         Bundle extras = getIntent().getExtras();
-        if (extras != null && extras.containsKey("launchedFromWidget") && extras.containsKey("launchedFromWidget")) {
-            launchedFromWidget = extras.getBoolean("launchedFromWidget");
-            autopromptForSpeech = extras.getBoolean("autopromptForSpeech");
+        if (extras != null) {
+            if (extras.containsKey("launchedFromWidget")) {
+                launchedFromWidget = extras.getBoolean("launchedFromWidget");
+                autopromptForSpeech = extras.getBoolean("autopromptForSpeech");
+            }
+
+            if (extras.containsKey("MYCROFT_WEAR_REQUEST")) {
+                Log.d(TAG, "checkIfLaunchedFromWidget - extras contain key: MYCROFT_WEAR_REQUEST");
+                sendMessage(extras.getString("MYCROFT_WEAR_REQUEST"));
+            }
+        } else {
+            Log.d(TAG, "checkIfLaunchedFromWidget - extras are null");
         }
 
         if (autopromptForSpeech) {
@@ -362,4 +439,5 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("autopromptForSpeech", false);
         }
     }
+
 }
