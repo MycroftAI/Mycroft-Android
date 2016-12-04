@@ -310,7 +310,11 @@ public class MainActivity extends AppCompatActivity  {
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         // Actions to do after 1 seconds
-                        mWebSocketClient.send(json);
+                        try {
+                            mWebSocketClient.send(json);
+                        } catch (WebsocketNotConnectedException exception) {
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.websocket_closed), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }, 1000);
 
