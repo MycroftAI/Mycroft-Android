@@ -59,4 +59,6 @@ dependencies {
         transitive = true;
     }
     compile 'com.google.android.gms:play-services-wearable:9.4.0'
+
+    wearApp project(':wear')
 }
