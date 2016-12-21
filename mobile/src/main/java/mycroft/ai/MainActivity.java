@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity  {
 
         if (wsip != null && !wsip.isEmpty()) {
             try {
-                uri = new URI("ws://" + wsip + ":8181/events/ws");
+                uri = new URI("ws://" + wsip + ":8181/core");
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
