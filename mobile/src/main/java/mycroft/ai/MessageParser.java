@@ -45,11 +45,13 @@ class MessageParser implements Runnable {
 	@Override
     public void run() {
         Log.i(TAG, message);
-        try {
+		// new format
+		// {"data": {"utterance": "There are only two hard problems in Computer Science: cache invalidation, naming things and off-by-one-errors."}, "type": "speak", "context": null}
+		try {
             JSONObject obj = new JSONObject(message);
-            String msgType = obj.optString("message_type");
+            String msgType = obj.optString("type");
             if (Objects.equals(msgType, "speak")) {
-                String ret = obj.getJSONObject("metadata").getString("utterance");
+                String ret = obj.getJSONObject("data").getString("utterance");
                 MycroftUtterances mu = new MycroftUtterances();
                 mu.utterance = ret;
 				callback.call(mu);

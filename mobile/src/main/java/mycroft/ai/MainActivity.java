@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity  {
 
         if (wsip != null && !wsip.isEmpty()) {
             try {
-                uri = new URI("ws://" + wsip + ":8000/events/ws");
+                uri = new URI("ws://" + wsip + ":8181/events/ws");
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
@@ -296,7 +296,8 @@ public class MainActivity extends AppCompatActivity  {
 
     public void sendMessage(String msg) {
         // let's keep it simple eh?
-        final String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [\"" + msg + "\"]}}";
+        //final String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [\"" + msg + "\"]}}";
+        final String json = "{\"data\": {\"utterances\": [\"" + msg + "\"]}, \"type\": \"recognizer_loop:utterance\", \"context\": null}";
 
             try {
                 if (mWebSocketClient == null || mWebSocketClient.getConnection().isClosed()) {
