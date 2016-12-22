@@ -25,17 +25,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.wearable.CapabilityApi;
-import com.google.android.gms.wearable.CapabilityInfo;
-import com.google.android.gms.wearable.MessageApi;
-import com.google.android.gms.wearable.MessageEvent;
-import com.google.android.gms.wearable.Node;
-import com.google.android.gms.wearable.Wearable;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.exceptions.WebsocketNotConnectedException;
@@ -50,6 +41,8 @@ import java.util.Locale;
 import io.fabric.sdk.android.Fabric;
 import mycroft.ai.adapters.MycroftAdapter;
 import mycroft.ai.receivers.NetworkChangeReceiver;
+import mycroft.ai.shared.utilities.GuiUtilities;
+import mycroft.ai.shared.wear.Constants;
 import mycroft.ai.utils.NetworkAutoDiscoveryUtil;
 import mycroft.ai.utils.NetworkUtil;
 
@@ -59,10 +52,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 public class MainActivity extends AppCompatActivity  {
 
     private static final String TAG = "Mycroft";
-
-    public static final String MYCROFT_QUERY_MESSAGE_PATH = "/mycroft_query";
-    public static final String MYCROFT_WEAR_REQUEST ="mycroft.ai.wear.request";
-    public static final String MYCROFT_WEAR_REQUEST_MESSAGE ="mycroft.ai.wear.request.message";
 
     public WebSocketClient mWebSocketClient;
     private String wsip;
@@ -240,7 +229,7 @@ public class MainActivity extends AppCompatActivity  {
             wearBroadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    String message = intent.getStringExtra(MYCROFT_WEAR_REQUEST_MESSAGE);
+                    String message = intent.getStringExtra(Constants.MYCROFT_WEAR_REQUEST_MESSAGE);
                     // send to mycroft
                     if(message != null) {
                         Log.d(TAG, "Wear message received: [" + message +"] sending to Mycroft");
@@ -249,7 +238,7 @@ public class MainActivity extends AppCompatActivity  {
                 }
             };
 
-            LocalBroadcastManager.getInstance(this).registerReceiver((wearBroadcastReceiver), new IntentFilter(MYCROFT_WEAR_REQUEST));
+            LocalBroadcastManager.getInstance(this).registerReceiver((wearBroadcastReceiver), new IntentFilter(Constants.MYCROFT_WEAR_REQUEST));
             isWearBroadcastRevieverRegistered = true;
         }
     }
@@ -314,13 +303,13 @@ public class MainActivity extends AppCompatActivity  {
                         try {
                             mWebSocketClient.send(json);
                         } catch (WebsocketNotConnectedException exception) {
-                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.websocket_closed), Toast.LENGTH_SHORT).show();
+                            showToast(getResources().getString(R.string.websocket_closed));
                         }
                     }
                 }, 1000);
 
             } catch (WebsocketNotConnectedException exception) {
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.websocket_closed), Toast.LENGTH_SHORT).show();
+                showToast(getResources().getString(R.string.websocket_closed));
             }
     }
 
@@ -337,9 +326,7 @@ public class MainActivity extends AppCompatActivity  {
         try {
             startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
         } catch (ActivityNotFoundException a) {
-            Toast.makeText(getApplicationContext(),
-                    getString(R.string.speech_not_supported),
-                    Toast.LENGTH_SHORT).show();
+            showToast(getString(R.string.speech_not_supported));
         }
     }
 
@@ -356,7 +343,7 @@ public class MainActivity extends AppCompatActivity  {
 
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    // txtSpeechInput.setText(result.get(0));
+
                     sendMessage(result.get(0));
                 }
                 break;
@@ -443,6 +430,10 @@ public class MainActivity extends AppCompatActivity  {
             promptSpeechInput();
             intent.putExtra("autopromptForSpeech", false);
         }
+    }
+
+    private void showToast(String message) {
+        GuiUtilities.showToast(getApplicationContext(), message);
     }
 
 }
