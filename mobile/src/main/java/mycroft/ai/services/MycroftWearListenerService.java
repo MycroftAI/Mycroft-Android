@@ -9,6 +9,7 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.WearableListenerService;
 
 import mycroft.ai.MainActivity;
+import mycroft.ai.shared.wear.Constants;
 
 
 /**
@@ -36,7 +37,7 @@ public class MycroftWearListenerService extends WearableListenerService {
 
         String message = new String(messageEvent.getData());
 
-        if (messageEvent.getPath().equals(MainActivity.MYCROFT_QUERY_MESSAGE_PATH)) {
+        if (messageEvent.getPath().equals(Constants.MYCROFT_QUERY_MESSAGE_PATH)) {
             Log.d(TAG, "MycroftWearRequest Message: " + message);
 
             Intent startIntent = new Intent(this, MainActivity.class);
@@ -57,8 +58,8 @@ public class MycroftWearListenerService extends WearableListenerService {
         Log.d(TAG, "Hand Off Wear Request");
 
         if (message != null) {
-            Intent intent = new Intent(MainActivity.MYCROFT_WEAR_REQUEST);
-            intent.putExtra(MainActivity.MYCROFT_WEAR_REQUEST_MESSAGE, message);
+            Intent intent = new Intent(Constants.MYCROFT_WEAR_REQUEST);
+            intent.putExtra(Constants.MYCROFT_WEAR_REQUEST_MESSAGE, message);
             localBroadcastManager.sendBroadcast(intent);
         }
     }
