@@ -1,3 +1,8 @@
+ext.versionMajor = 1
+ext.versionMinor = 0
+ext.versionPatch = 1
+ext.versionClassifier = "SNAPSHOT"
+
 buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
@@ -14,7 +19,6 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-
 android {
 
     compileSdkVersion 24
@@ -23,8 +27,8 @@ android {
         applicationId "mycroft.ai"
         minSdkVersion 21
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode generateVersionCode()
+        versionName generateVersionName()
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -61,4 +65,16 @@ dependencies {
     compile 'com.google.android.gms:play-services-wearable:9.4.0'
     wearApp project(':wear')
     compile project(':shared')
+}
+
+private Integer generateVersionCode() {
+    return ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
+}
+
+private String generateVersionName() {
+    String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+    if (ext.versionClassifier != null && !ext.versionClassifier.isEmpty()) {
+        versionName = versionName + "-" + ext.versionClassifier
+    }
+    return versionName;
 }
