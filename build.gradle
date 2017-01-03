@@ -1,5 +1,4 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     repositories {
         jcenter()
@@ -16,6 +15,26 @@ allprojects {
     repositories {
         jcenter()
     }
+
+    ext.versionMajor = 1
+    ext.versionMinor = 0
+    ext.versionPatch = 1
+    ext.versionClassifier = "SNAPSHOT"
+
+    ext.versionCode = {
+            return ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
+    }
+
+    ext.versionName = {
+        String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+        if (ext.versionClassifier != null && !ext.versionClassifier.isEmpty()) {
+            versionName = versionName + "-" + ext.versionClassifier
+        }
+        return versionName;
+    }
+
+    project.extensions.add("versionCode", ext.versionCode)
+    project.extensions.add("versionName", ext.versionName)
 }
 
 task clean(type: Delete) {

@@ -9,8 +9,8 @@ android {
         applicationId 'mycroft.ai'
         minSdkVersion 20
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode project.extensions.findByName("versionCode")
+        versionName project.extensions.findByName("versionName")
     }
     buildTypes {
         release {
