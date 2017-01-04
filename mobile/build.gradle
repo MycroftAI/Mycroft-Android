@@ -14,7 +14,6 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-
 android {
 
     compileSdkVersion 24
@@ -23,8 +22,8 @@ android {
         applicationId "mycroft.ai"
         minSdkVersion 21
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode project.extensions.findByName("versionCode")
+        versionName project.extensions.findByName("versionName")
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
