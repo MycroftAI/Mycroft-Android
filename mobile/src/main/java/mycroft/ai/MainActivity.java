@@ -26,7 +26,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.net.Uri;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -59,11 +60,13 @@ import java.util.List;
 import java.util.Locale;
 
 import io.fabric.sdk.android.Fabric;
+import mycroft.ai.activities.AboutActivity;
+import mycroft.ai.activities.HomeMycroftAiActivity;
+import mycroft.ai.activities.SettingsActivity;
 import mycroft.ai.adapters.MycroftAdapter;
 import mycroft.ai.receivers.NetworkChangeReceiver;
 import mycroft.ai.shared.utilities.GuiUtilities;
 import mycroft.ai.shared.wear.Constants;
-import mycroft.ai.utils.NetworkAutoDiscoveryUtil;
 import mycroft.ai.utils.NetworkUtil;
 
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -173,6 +176,10 @@ public class MainActivity extends AppCompatActivity  {
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
             consumed = true;
+        } else if (id == R.id.action_about) {
+            startActivity(new Intent(this, AboutActivity.class));
+        } else if (id == R.id.action_home_mycroft_ai) {
+            startActivity(new Intent(this, HomeMycroftAiActivity.class));
         }
 
         return consumed && super.onOptionsItemSelected(item);
@@ -383,6 +390,7 @@ public class MainActivity extends AppCompatActivity  {
     public void onStart() {
         super.onStart();
         loadPreferences();
+        getVersionInfo();
         registerReceivers();
         checkIfLaunchedFromWidget(getIntent());
     }
@@ -449,6 +457,23 @@ public class MainActivity extends AppCompatActivity  {
         if (autopromptForSpeech) {
             promptSpeechInput();
             intent.putExtra("autopromptForSpeech", false);
+        }
+    }
+
+    private void getVersionInfo() {
+        String versionName = "";
+        int versionCode = -1;
+        try {
+            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            versionName = packageInfo.versionName;
+            versionCode = packageInfo.versionCode;
+
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt("versionCode", versionCode);
+            editor.putString("versionName", versionName);
+            editor.commit();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
         }
     }
 

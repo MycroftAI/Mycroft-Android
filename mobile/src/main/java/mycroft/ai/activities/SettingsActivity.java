@@ -18,7 +18,7 @@
  *
  */
 
-package mycroft.ai;
+package mycroft.ai.activities;
 
 
 import android.annotation.TargetApi;
@@ -42,6 +42,8 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 
 import java.util.List;
+
+import mycroft.ai.R;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
