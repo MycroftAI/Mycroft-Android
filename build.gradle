@@ -21,22 +21,20 @@ allprojects {
     ext.versionPatch = 1
     ext.versionClassifier = "SNAPSHOT"
 
-    ext.versionCode = {
-            return ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
+    project.ext {
+        versionCode = ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
+        versionName = getVersionName()
     }
-
-    ext.versionName = {
-        String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
-        if (ext.versionClassifier != null && !ext.versionClassifier.isEmpty()) {
-            versionName = versionName + "-" + ext.versionClassifier
-        }
-        return versionName;
-    }
-
-    project.extensions.add("versionCode", ext.versionCode)
-    project.extensions.add("versionName", ext.versionName)
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+public String getVersionName() {
+    String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+    if (ext.versionClassifier != null && !ext.versionClassifier.isEmpty()) {
+        versionName = versionName + "-" + ext.versionClassifier
+    }
+    return versionName;
 }

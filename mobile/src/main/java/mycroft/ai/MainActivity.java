@@ -28,6 +28,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -179,7 +180,10 @@ public class MainActivity extends AppCompatActivity  {
         } else if (id == R.id.action_about) {
             startActivity(new Intent(this, AboutActivity.class));
         } else if (id == R.id.action_home_mycroft_ai) {
-            startActivity(new Intent(this, HomeMycroftAiActivity.class));
+            //startActivity(new Intent(this, HomeMycroftAiActivity.class));
+            Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse("https://home.mycroft.ai"));
+            startActivity(intent);
+
         }
 
         return consumed && super.onOptionsItemSelected(item);
