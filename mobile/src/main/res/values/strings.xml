@@ -121,5 +121,16 @@
     <string name="notification_posted">Notification posted</string>
     <string name="pref_default_maximum_retries">1</string>
     <string name="pref_title_maximum_retries">Maximum Retries</string>
+    <string name="action_about">About</string>
+    <string name="action_home_mycroft_ai">Mycroft Management Website</string>
+    <string name="title_activity_about">About</string>
+    <string name="title_activity_home_mycroft_ai">Home.Mycroft.AI</string>
+    <string name="pref_header_about">About</string>
+    <string name="version_code_title">Version Code</string>
+    <string name="version_name_title">Version Name</string>
+    <string name="license_title">License</string>
+    <string name="license_value">GPLv3</string>
+    <string name="pref_default_display_not_set">not set</string>
+    <string name="digit_zero">0</string>
 
 </resources>

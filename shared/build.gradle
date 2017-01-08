@@ -27,8 +27,8 @@ android {
     defaultConfig {
         minSdkVersion 20
         targetSdkVersion 24
-        versionCode project.extensions.findByName("versionCode")
-        versionName project.extensions.findByName("versionName")
+        versionCode project.ext.versionCode
+        versionName project.ext.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 

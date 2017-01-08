@@ -36,6 +36,8 @@ import android.net.nsd.NsdServiceInfo;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 
+import mycroft.ai.R;
+
 @SuppressLint("NewApi")
 public class DiscoveryActivity extends Activity {
 

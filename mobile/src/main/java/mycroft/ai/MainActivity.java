@@ -26,6 +26,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -63,10 +65,12 @@ import mycroft.ai.adapters.MycroftAdapter;
 import mycroft.ai.receivers.NetworkChangeReceiver;
 import mycroft.ai.shared.utilities.GuiUtilities;
 import mycroft.ai.shared.wear.Constants;
-import mycroft.ai.utils.NetworkAutoDiscoveryUtil;
 import mycroft.ai.utils.NetworkUtil;
 
 import android.widget.CompoundButton.OnCheckedChangeListener;
+
+import static mycroft.ai.Constants.VERSION_CODE_PREFERENCE_KEY;
+import static mycroft.ai.Constants.VERSION_NAME_PREFERENCE_KEY;
 
 
 public class MainActivity extends AppCompatActivity  {
@@ -173,6 +177,9 @@ public class MainActivity extends AppCompatActivity  {
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
             consumed = true;
+        } else if (id == R.id.action_home_mycroft_ai) {
+            Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse("https://home.mycroft.ai"));
+            startActivity(intent);
         }
 
         return consumed && super.onOptionsItemSelected(item);
@@ -383,6 +390,7 @@ public class MainActivity extends AppCompatActivity  {
     public void onStart() {
         super.onStart();
         loadPreferences();
+        recordVersionInfo();
         registerReceivers();
         checkIfLaunchedFromWidget(getIntent());
     }
@@ -452,8 +460,24 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
+    private void recordVersionInfo() {
+        String versionName = "";
+        int versionCode = -1;
+        try {
+            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            versionName = packageInfo.versionName;
+            versionCode = packageInfo.versionCode;
+
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt(VERSION_CODE_PREFERENCE_KEY, versionCode);
+            editor.putString(VERSION_NAME_PREFERENCE_KEY, versionName);
+            editor.apply();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void showToast(String message) {
         GuiUtilities.showToast(getApplicationContext(), message);
     }
-
 }

@@ -18,33 +18,9 @@
  *
  */
 
-apply plugin: 'com.android.application'
+package mycroft.ai;
 
-
-android {
-
-    compileSdkVersion 24
-    buildToolsVersion "24.0.0"
-    defaultConfig {
-        applicationId 'mycroft.ai'
-        minSdkVersion 20
-        targetSdkVersion 24
-        versionCode project.ext.versionCode
-        versionName project.ext.versionName
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    productFlavors {
-    }
-}
-
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.google.android.support:wearable:2.0.0-alpha2'
-    compile 'com.google.android.gms:play-services-wearable:9.4.0'
-    compile project(':shared')
+public class Constants {
+    public static String VERSION_NAME_PREFERENCE_KEY = "versionName";
+    public static String VERSION_CODE_PREFERENCE_KEY = "versionCode";
 }
