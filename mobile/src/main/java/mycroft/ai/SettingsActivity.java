@@ -18,7 +18,7 @@
  *
  */
 
-package mycroft.ai.activities;
+package mycroft.ai;
 
 
 import android.annotation.TargetApi;
@@ -31,7 +31,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -45,7 +44,8 @@ import android.view.MenuItem;
 
 import java.util.List;
 
-import mycroft.ai.R;
+import static mycroft.ai.Constants.VERSION_CODE_PREFERENCE_KEY;
+import static mycroft.ai.Constants.VERSION_NAME_PREFERENCE_KEY;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -248,8 +248,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_about);
             setHasOptionsMenu(true);
 
-            bindPreferenceSummaryToValue(findPreference("versionName"));
-            bindPreferenceSummaryToValue(findPreference("versionCode"), true);
+            bindPreferenceSummaryToValue(findPreference(VERSION_NAME_PREFERENCE_KEY));
+            bindPreferenceSummaryToValue(findPreference(VERSION_CODE_PREFERENCE_KEY), true);
 
             Preference licensePreference =  findPreference("license");
 

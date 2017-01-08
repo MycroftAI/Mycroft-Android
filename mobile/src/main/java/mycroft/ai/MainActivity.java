@@ -61,7 +61,6 @@ import java.util.List;
 import java.util.Locale;
 
 import io.fabric.sdk.android.Fabric;
-import mycroft.ai.activities.SettingsActivity;
 import mycroft.ai.adapters.MycroftAdapter;
 import mycroft.ai.receivers.NetworkChangeReceiver;
 import mycroft.ai.shared.utilities.GuiUtilities;
@@ -69,6 +68,9 @@ import mycroft.ai.shared.wear.Constants;
 import mycroft.ai.utils.NetworkUtil;
 
 import android.widget.CompoundButton.OnCheckedChangeListener;
+
+import static mycroft.ai.Constants.VERSION_CODE_PREFERENCE_KEY;
+import static mycroft.ai.Constants.VERSION_NAME_PREFERENCE_KEY;
 
 
 public class MainActivity extends AppCompatActivity  {
@@ -388,8 +390,7 @@ public class MainActivity extends AppCompatActivity  {
     public void onStart() {
         super.onStart();
         loadPreferences();
-        loadVersionInfo();
-        loadLicenseInfo();
+        recordVersionInfo();
         registerReceivers();
         checkIfLaunchedFromWidget(getIntent());
     }
@@ -459,7 +460,7 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
-    private void loadVersionInfo() {
+    private void recordVersionInfo() {
         String versionName = "";
         int versionCode = -1;
         try {
@@ -468,18 +469,12 @@ public class MainActivity extends AppCompatActivity  {
             versionCode = packageInfo.versionCode;
 
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putInt("versionCode", versionCode);
-            editor.putString("versionName", versionName);
-            editor.commit();
+            editor.putInt(VERSION_CODE_PREFERENCE_KEY, versionCode);
+            editor.putString(VERSION_NAME_PREFERENCE_KEY, versionName);
+            editor.apply();
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-    }
-
-    private void loadLicenseInfo(){
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("license", getString(R.string.license_value));
-        editor.commit();
     }
 
     private void showToast(String message) {

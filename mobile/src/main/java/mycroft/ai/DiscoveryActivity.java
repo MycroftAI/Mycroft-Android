@@ -18,7 +18,7 @@
  *
  */
 
-package mycroft.ai.activities;
+package mycroft.ai;
 
 import android.content.Context;
 import android.content.pm.ServiceInfo;

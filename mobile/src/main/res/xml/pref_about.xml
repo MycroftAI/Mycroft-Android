@@ -33,6 +33,6 @@
     <Preference
         android:key="license"
         android:title="@string/license_title"
-        android:defaultValue="@string/pref_default_display_not_set"/>
+        android:defaultValue="@string/license_value"/>
 
 </PreferenceScreen>

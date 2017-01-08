@@ -18,7 +18,7 @@
  *
  */
 
-package mycroft.ai.activities;
+package mycroft.ai;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

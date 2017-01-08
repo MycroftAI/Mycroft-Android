@@ -45,22 +45,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.SettingsActivity"
+            android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mycroft.ai.MainActivity" />
         </activity>
-        <activity
-            android:name=".activities.HomeMycroftAiActivity"
-            android:label="@string/title_activity_home_mycroft_ai"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="mycroft.ai.MainActivity" />
-        </activity>
-        <activity android:name=".activities.DiscoveryActivity" />
+        <activity android:name=".DiscoveryActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
