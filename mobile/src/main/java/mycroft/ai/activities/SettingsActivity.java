@@ -24,12 +24,14 @@ package mycroft.ai.activities;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -127,17 +129,30 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      *
      * @see #sBindPreferenceSummaryToValueListener
      */
-    private static void bindPreferenceSummaryToValue(Preference preference) {
+    private static void bindPreferenceSummaryToValue(Preference preference, Boolean isIntValue) {
         // Set the listener to watch for value changes.
         preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
 
         // Trigger the listener immediately with the preference's
         // current value.
-        sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
-                PreferenceManager
-                        .getDefaultSharedPreferences(preference.getContext())
-                        .getString(preference.getKey(), ""));
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(preference.getContext());
+
+        String stringValue = "";
+        if (isIntValue) {
+            stringValue = String.valueOf(preferences.getInt(preference.getKey(), 0));
+        } else {
+            stringValue = preferences.getString(preference.getKey(), "");
+        }
+
+        sBindPreferenceSummaryToValueListener.onPreferenceChange(preference, stringValue);
     }
+
+    private static void bindPreferenceSummaryToValue(Preference preference) {
+        bindPreferenceSummaryToValue(preference, false);
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,7 +205,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
-                || GeneralPreferenceFragment.class.getName().equals(fragmentName);
+                || GeneralPreferenceFragment.class.getName().equals(fragmentName)
+                || AboutPreferenceFragment.class.getName().equals(fragmentName);
     }
 
     /**
@@ -219,6 +235,46 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
                 return true;
             }
+
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class AboutPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_about);
+            setHasOptionsMenu(true);
+
+            bindPreferenceSummaryToValue(findPreference("versionName"));
+            bindPreferenceSummaryToValue(findPreference("versionCode"), true);
+
+            Preference licensePreference =  findPreference("license");
+
+            licensePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.gnu.org/licenses/gpl-3.0.en.html"));
+                    startActivity(intent);
+
+                    return true;
+                }
+
+            });
+
+            bindPreferenceSummaryToValue(licensePreference);
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+            }
+
             return super.onOptionsItemSelected(item);
         }
     }

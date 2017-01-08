@@ -24,15 +24,20 @@
 
     <header
         android:fragment="mycroft.ai.activities.SettingsActivity$GeneralPreferenceFragment"
-        android:icon="@drawable/ic_info_black_24dp"
+        android:icon="@drawable/mycroft_logo_24dp"
         android:title="@string/pref_header_general" />
 
-    <!-- header
+    <header
+        android:fragment="mycroft.ai.activities.SettingsActivity$AboutPreferenceFragment"
+        android:icon="@drawable/ic_info_black_24dp"
+        android:title="@string/pref_header_about" />
+
+    <!--header
         android:fragment="mycroft.ai.activities.SettingsActivity$NotificationPreferenceFragment"
         android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/pref_header_notifications" />
+        android:title="@string/pref_header_notifications" / -->
 
-    <header
+    <!--header
         android:fragment="mycroft.ai.activities.SettingsActivity$DataSyncPreferenceFragment"
         android:icon="@drawable/ic_sync_black_24dp"
         android:title="@string/pref_header_data_sync" / -->

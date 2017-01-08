@@ -61,8 +61,6 @@ import java.util.List;
 import java.util.Locale;
 
 import io.fabric.sdk.android.Fabric;
-import mycroft.ai.activities.AboutActivity;
-import mycroft.ai.activities.HomeMycroftAiActivity;
 import mycroft.ai.activities.SettingsActivity;
 import mycroft.ai.adapters.MycroftAdapter;
 import mycroft.ai.receivers.NetworkChangeReceiver;
@@ -177,13 +175,9 @@ public class MainActivity extends AppCompatActivity  {
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
             consumed = true;
-        } else if (id == R.id.action_about) {
-            startActivity(new Intent(this, AboutActivity.class));
         } else if (id == R.id.action_home_mycroft_ai) {
-            //startActivity(new Intent(this, HomeMycroftAiActivity.class));
             Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse("https://home.mycroft.ai"));
             startActivity(intent);
-
         }
 
         return consumed && super.onOptionsItemSelected(item);
@@ -394,7 +388,8 @@ public class MainActivity extends AppCompatActivity  {
     public void onStart() {
         super.onStart();
         loadPreferences();
-        getVersionInfo();
+        loadVersionInfo();
+        loadLicenseInfo();
         registerReceivers();
         checkIfLaunchedFromWidget(getIntent());
     }
@@ -464,7 +459,7 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
-    private void getVersionInfo() {
+    private void loadVersionInfo() {
         String versionName = "";
         int versionCode = -1;
         try {
@@ -481,8 +476,13 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
+    private void loadLicenseInfo(){
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("license", getString(R.string.license_value));
+        editor.commit();
+    }
+
     private void showToast(String message) {
         GuiUtilities.showToast(getApplicationContext(), message);
     }
-
 }

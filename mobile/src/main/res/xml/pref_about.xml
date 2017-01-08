@@ -18,21 +18,21 @@
   ~
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="mycroft.ai.MainActivity">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <Preference
+        android:key="versionName"
+        android:title="@string/version_name_title"
+        android:defaultValue="@string/digit_zero" />
 
-    <item
-    android:id="@+id/action_home_mycroft_ai"
-    android:orderInCategory="100"
-    android:title="@string/action_home_mycroft_ai"
-    app:showAsAction="never" />
+    <Preference
+        android:key="versionCode"
+        android:title="@string/version_code_title"
+        android:defaultValue="@string/pref_default_display_not_set"/>
 
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
-</menu>
+    <Preference
+        android:key="license"
+        android:title="@string/license_title"
+        android:defaultValue="@string/pref_default_display_not_set"/>
+
+</PreferenceScreen>
