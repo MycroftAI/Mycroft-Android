@@ -446,9 +446,11 @@ public class MainActivity extends AppCompatActivity  {
                 autopromptForSpeech = extras.getBoolean("autopromptForSpeech");
             }
 
-            if (extras.containsKey("MYCROFT_WEAR_REQUEST")) {
-                Log.d(TAG, "checkIfLaunchedFromWidget - extras contain key: MYCROFT_WEAR_REQUEST");
-                sendMessage(extras.getString("MYCROFT_WEAR_REQUEST"));
+            if (extras.containsKey(Constants.MYCROFT_WEAR_REQUEST_KEY_NAME)) {
+                Log.d(TAG, "checkIfLaunchedFromWidget - extras contain key:" + Constants.MYCROFT_WEAR_REQUEST_KEY_NAME);
+                sendMessage(extras.getString(Constants.MYCROFT_WEAR_REQUEST_KEY_NAME));
+                getIntent().removeExtra(Constants.MYCROFT_WEAR_REQUEST_KEY_NAME);
+
             }
         } else {
             Log.d(TAG, "checkIfLaunchedFromWidget - extras are null");

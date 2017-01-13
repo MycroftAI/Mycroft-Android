@@ -27,5 +27,6 @@ package mycroft.ai.shared.wear;
 public class Constants {
     public static final String MYCROFT_QUERY_MESSAGE_PATH = "/mycroft_query";
     public static final String MYCROFT_WEAR_REQUEST ="mycroft.ai.wear.request";
+    public static final String MYCROFT_WEAR_REQUEST_KEY_NAME = "MYCROFT_WEAR_REQUEST";
     public static final String MYCROFT_WEAR_REQUEST_MESSAGE ="mycroft.ai.wear.request.message";
 }
