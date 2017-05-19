@@ -133,4 +133,11 @@
     <string name="pref_default_display_not_set">not set</string>
     <string name="digit_zero">0</string>
 
+    //Beacon strings
+    <string name="beacon_pref">Beacon Settings</string>
+    <string name="enable_ble_beacon_functionality">Enable BLE beacon functionality.</string>
+    <string name="be_a_becaon">Be a beacon!</string>
+    <string name="pref_title_uuid">Beacon UUID!</string>
+    <string name="default_uuid">234aldf-asdf34-asdf-sdfsdf2</string>
+
 </resources>
