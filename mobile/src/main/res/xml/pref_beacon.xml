@@ -32,7 +32,7 @@
         android:title="@string/pref_title_uuid" />
 
     <SwitchPreference
-        android:key="appReaderSwitch"
+        android:key="beABeaconSwitch"
         android:title="@string/be_a_becaon"
         android:summary="@string/enable_ble_beacon_functionality"
         android:defaultValue="false"/>

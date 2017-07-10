@@ -68,6 +68,7 @@ import mycroft.ai.shared.wear.Constants;
 import mycroft.ai.utils.NetworkUtil;
 
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.Toast;
 
 import static mycroft.ai.Constants.VERSION_CODE_PREFERENCE_KEY;
 import static mycroft.ai.Constants.VERSION_NAME_PREFERENCE_KEY;

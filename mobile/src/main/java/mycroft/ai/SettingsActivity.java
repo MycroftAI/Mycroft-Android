@@ -34,16 +34,21 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.SwitchPreference;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import java.util.List;
 
+import static mycroft.ai.Constants.BE_A_BEACON_PREFERENCE_KEY;
 import static mycroft.ai.Constants.VERSION_CODE_PREFERENCE_KEY;
 import static mycroft.ai.Constants.VERSION_NAME_PREFERENCE_KEY;
 
@@ -103,6 +108,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 }
 
             } else {
+                //FIXME Beacon going here. Fix
                 // For all other preferences, set the summary to the value's
                 // simple string representation.
                 preference.setSummary(stringValue);
@@ -129,7 +135,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      *
      * @see #sBindPreferenceSummaryToValueListener
      */
-    private static void bindPreferenceSummaryToValue(Preference preference, Boolean isIntValue) {
+    private static void bindPreferenceSummaryToValue(Preference preference, int type) {
         // Set the listener to watch for value changes.
         preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
 
@@ -139,20 +145,25 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 PreferenceManager.getDefaultSharedPreferences(preference.getContext());
 
         String stringValue = "";
-        if (isIntValue) {
-            stringValue = String.valueOf(preferences.getInt(preference.getKey(), 0));
-        } else {
-            stringValue = preferences.getString(preference.getKey(), "");
+        switch (type) {
+            case 1:
+                stringValue = String.valueOf(preferences.getInt(preference.getKey(), 0));
+                break;
+            case 2:
+                stringValue = preferences.getString(preference.getKey(), "");
+                break;
+            case 3:
+                stringValue = Boolean.toString(preferences.getBoolean(preference.getKey(), false));
+                break;
+
         }
 
         sBindPreferenceSummaryToValueListener.onPreferenceChange(preference, stringValue);
     }
 
     private static void bindPreferenceSummaryToValue(Preference preference) {
-        bindPreferenceSummaryToValue(preference, false);
+        bindPreferenceSummaryToValue(preference, 2);
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,11 +229,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_beacon);
             setHasOptionsMenu(true);
 
+
+            //need to find a way to bind, may need to rewrite conditional for check.
+
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            //bindPreferenceSummaryToValue(findPreference("ip"));
+            bindPreferenceSummaryToValue(findPreference(BE_A_BEACON_PREFERENCE_KEY), 3);
         }
 
         @Override
@@ -253,7 +267,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("ip"));
+            bindPreferenceSummaryToValue(findPreference("ip"), 2);
         }
 
         @Override
@@ -276,8 +290,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_about);
             setHasOptionsMenu(true);
 
-            bindPreferenceSummaryToValue(findPreference(VERSION_NAME_PREFERENCE_KEY));
-            bindPreferenceSummaryToValue(findPreference(VERSION_CODE_PREFERENCE_KEY), true);
+            bindPreferenceSummaryToValue(findPreference(VERSION_NAME_PREFERENCE_KEY), 2);
+            bindPreferenceSummaryToValue(findPreference(VERSION_CODE_PREFERENCE_KEY), 1);
 
             Preference licensePreference =  findPreference("license");
 
