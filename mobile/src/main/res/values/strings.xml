@@ -134,6 +134,7 @@
     <string name="digit_zero">0</string>
 
     //Beacon strings
+    <string name="location_permission_granted_title">Location Permission set?</string>
     <string name="beacon_pref">Beacon Settings</string>
     <string name="enable_ble_beacon_functionality">Enable BLE beacon functionality.</string>
     <string name="be_a_becaon">Be a beacon!</string>

@@ -19,6 +19,11 @@
   -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <Preference
+        android:key="locationPermissionGranted"
+        android:title="@string/location_permission_granted_title"
+        android:defaultValue="@string/pref_default_display_not_set"/>
+
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <EditTextPreference

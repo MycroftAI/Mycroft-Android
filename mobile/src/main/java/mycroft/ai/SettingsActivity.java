@@ -21,10 +21,12 @@
 package mycroft.ai;
 
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -36,19 +38,18 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.SwitchPreference;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Switch;
-import android.widget.Toast;
 
 import java.util.List;
 
 import static mycroft.ai.Constants.BE_A_BEACON_PREFERENCE_KEY;
+import static mycroft.ai.Constants.LOCATION_PERMISSION_PREFERENCE_KEY;
 import static mycroft.ai.Constants.VERSION_CODE_PREFERENCE_KEY;
 import static mycroft.ai.Constants.VERSION_NAME_PREFERENCE_KEY;
 
@@ -106,9 +107,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                         preference.setSummary(name);
                     }
                 }
+            } else if(preference instanceof SwitchPreference) {
+                //Beacon stuff.
+                if (preference.getKey().equals("beABeaconSwitch")){
+                    preference.setSummary(stringValue);
+
+                    //do something with beacon.
+
+                }
 
             } else {
-                //FIXME Beacon going here. Fix
                 // For all other preferences, set the summary to the value's
                 // simple string representation.
                 preference.setSummary(stringValue);
@@ -230,12 +238,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             setHasOptionsMenu(true);
 
 
-            //need to find a way to bind, may need to rewrite conditional for check.
-
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
+            bindPreferenceSummaryToValue(findPreference(LOCATION_PERMISSION_PREFERENCE_KEY), 2);
             bindPreferenceSummaryToValue(findPreference(BE_A_BEACON_PREFERENCE_KEY), 3);
         }
 
