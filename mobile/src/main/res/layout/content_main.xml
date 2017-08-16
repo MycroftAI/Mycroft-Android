@@ -44,6 +44,5 @@
         android:id="@+id/voxswitch"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:checked="true" />
-
+        android:checked="false" />
 </RelativeLayout>

@@ -34,6 +34,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -108,8 +109,6 @@ public class MainActivity extends AppCompatActivity  {
     private boolean isWearBroadcastRevieverRegistered;
 
     RecyclerView recList;
-
-
 
     private SharedPreferences sharedPref;
 
@@ -206,6 +205,10 @@ public class MainActivity extends AppCompatActivity  {
         } else if (id == R.id.action_home_mycroft_ai) {
             Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse("https://home.mycroft.ai"));
             startActivity(intent);
+        } else if (id == R.id.action_beacons) {
+            Intent intent = new Intent(this, BeaconActivity.class);
+            startActivity(intent);
+            consumed = true;
         }
 
         return consumed && super.onOptionsItemSelected(item);

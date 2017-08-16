@@ -20,7 +20,6 @@
 
 package mycroft.ai;
 
-
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -48,6 +47,8 @@ import android.view.MenuItem;
 
 import java.util.List;
 
+import mycroft.ai.utils.BeaconUtil;
+
 import static mycroft.ai.Constants.BE_A_BEACON_PREFERENCE_KEY;
 import static mycroft.ai.Constants.LOCATION_PERMISSION_PREFERENCE_KEY;
 import static mycroft.ai.Constants.VERSION_CODE_PREFERENCE_KEY;
@@ -65,6 +66,7 @@ import static mycroft.ai.Constants.VERSION_NAME_PREFERENCE_KEY;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
+
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
@@ -110,9 +112,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             } else if(preference instanceof SwitchPreference) {
                 //Beacon stuff.
                 if (preference.getKey().equals("beABeaconSwitch")){
-                    preference.setSummary(stringValue);
+                    //preference.setSummary(stringValue);
+                    //TODO get permit settings for values, for now hardcoded.
 
-                    //do something with beacon.
+                    if (ContextCompat.checkSelfPermission(MycroftApplication.getAppContext(),
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED && value.equals(true)) {
+                        /*BeaconUtil beaconUtil = new BeaconUtil(MycroftApplication.getAppContext());
+                        beaconUtil.broadcastAsBeacon();*/
+                    }
+
+                    preference.setSummary("BLE beacon functionality:" + " " + stringValue);
 
                 }
 
