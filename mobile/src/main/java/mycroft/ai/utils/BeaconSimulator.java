@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by sarahkraynick on 2017-08-16.
  */
-
 public class BeaconSimulator implements org.altbeacon.beacon.simulator.BeaconSimulator {
     protected static final String TAG = "BeaconSimulator";
     private List<Beacon> beacons;
@@ -63,11 +62,8 @@ public class BeaconSimulator implements org.altbeacon.beacon.simulator.BeaconSim
             beacons.add(beacon2);
             beacons.add(beacon3);
             beacons.add(beacon4);
-
-
         }
     }
-
 
     private ScheduledExecutorService scheduleTaskExecutor;
 

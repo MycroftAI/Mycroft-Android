@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-
 import org.altbeacon.beacon.BeaconManager;
 
 /**
@@ -22,14 +21,13 @@ public class BeaconActivity extends AppCompatActivity {
     protected static final String TAG = "MonitoringActivity";
     private static final int PERMISSION_REQUEST_FINE_LOCATION = 1;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beacon);
         verifyBluetooth();
-        logToDisplay("Application just launched");
+        //logToDisplay("Application just launched");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // Android M Permission check
@@ -69,7 +67,6 @@ public class BeaconActivity extends AppCompatActivity {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
                         }
-
                     });
                     builder.show();
                 }
@@ -96,12 +93,12 @@ public class BeaconActivity extends AppCompatActivity {
     }
 
     private void verifyBluetooth() {
-
         try {
             if (!BeaconManager.getInstanceForApplication(this).checkAvailability()) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Bluetooth not enabled");
-                builder.setMessage("Please enable bluetooth in settings and restart this application.");
+                builder.setMessage("Please enable bluetooth in " +
+                        "settings and restart this application.");
                 builder.setPositiveButton(android.R.string.ok, null);
                 builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override

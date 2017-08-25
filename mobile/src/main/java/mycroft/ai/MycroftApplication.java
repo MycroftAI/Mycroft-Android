@@ -60,19 +60,13 @@ public class MycroftApplication extends Application implements BootstrapNotifier
 
     @Override
     public void didEnterRegion(Region arg0) {
-        // In this example, this class sends a notification to the user whenever a Beacon
-        // matching a Region (defined above) are first seen.
         Log.d(TAG, "did enter region.");
         if (!haveDetectedBeaconsSinceBoot) {
             Log.d(TAG, "auto launching MainActivity");
 
-            // The very first time since boot that we detect an beacon, we launch the
-            // MainActivity
             Intent intent = new Intent(this, BeaconActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            // Important:  make sure to add android:launchMode="singleInstance" in the manifest
-            // to keep multiple copies of this activity from getting created if the user has
-            // already manually launched the app.
+
             this.startActivity(intent);
             haveDetectedBeaconsSinceBoot = true;
         } else {

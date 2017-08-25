@@ -56,7 +56,9 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
                 if (beacons.size() > 0) {
                     //EditText editText = (EditText)RangingActivity.this.findViewById(R.id.rangingText);
                     Beacon firstBeacon = beacons.iterator().next();
-                    logToDisplay("The first beacon " + firstBeacon.toString() + " is about " + firstBeacon.getDistance() + " meters away.");
+                    logToDisplay("The first beacon "
+                            + firstBeacon.toString() + " is about "
+                            + firstBeacon.getDistance() + " meters away.");
                 }
             }
 
