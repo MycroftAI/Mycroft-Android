@@ -96,7 +96,6 @@ public class MainActivity extends AppCompatActivity  {
     TTSManager ttsManager = null;
     private Switch voxSwitch;
 
-
     @NonNull
     private final List<MycroftUtterances> utterances = new ArrayList<>();
 
@@ -552,7 +551,6 @@ public class MainActivity extends AppCompatActivity  {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
                         }
-
                     });
                     builder.show();
                 }

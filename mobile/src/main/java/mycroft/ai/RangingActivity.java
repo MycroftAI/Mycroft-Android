@@ -16,7 +16,6 @@ import java.util.Collection;
 /**
  * Created by sarahkraynick on 2017-08-16.
  */
-
 public class RangingActivity extends AppCompatActivity implements BeaconConsumer {
 
     protected static final String TAG = "RangingActivity";

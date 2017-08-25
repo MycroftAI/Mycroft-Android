@@ -21,7 +21,6 @@ import mycroft.ai.utils.BeaconSimulator;
 /**
  * Created by sarahkraynick on 2017-07-29.
  */
-
 public class MycroftApplication extends Application implements BootstrapNotifier {
 
     private static final String TAG = "MycroftApplication";
@@ -46,8 +45,6 @@ public class MycroftApplication extends Application implements BootstrapNotifier
 
         beaconManager.getBeaconParsers().add(new BeaconParser().
         setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24\""));
-        //BeaconManager.setBeaconSimulator(new BeaconSimulator() );
-       //((BeaconSimulator) BeaconManager.getBeaconSimulator()).createTimedSimulatedBeacons();
     }
 
     public static Context getAppContext() {
@@ -75,8 +72,6 @@ public class MycroftApplication extends Application implements BootstrapNotifier
                 // seen on its display
                 beaconActivity.logToDisplay("I see a beacon again" );
             } else {
-                // If we have already seen beacons before, but the monitoring activity is not in
-                // the foreground, we send a notification to the user on subsequent detections.
                 Log.d(TAG, "Sending notification.");
                 sendNotification();
             }
@@ -116,5 +111,4 @@ public class MycroftApplication extends Application implements BootstrapNotifier
                 (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(1, builder.build());
     }
-
 }
