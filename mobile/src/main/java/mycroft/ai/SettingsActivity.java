@@ -49,6 +49,7 @@ import java.util.List;
 
 import mycroft.ai.utils.BeaconUtil;
 
+import static mycroft.ai.Constants.BEACON_MANUFACTURE;
 import static mycroft.ai.Constants.BE_A_BEACON_PREFERENCE_KEY;
 import static mycroft.ai.Constants.LOCATION_PERMISSION_PREFERENCE_KEY;
 import static mycroft.ai.Constants.VERSION_CODE_PREFERENCE_KEY;
@@ -118,12 +119,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     if (ContextCompat.checkSelfPermission(MycroftApplication.getAppContext(),
                             Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED && value.equals(true)) {
+                        //FIXME in future release
                         /*BeaconUtil beaconUtil = new BeaconUtil(MycroftApplication.getAppContext());
                         beaconUtil.broadcastAsBeacon();*/
                     }
 
                     preference.setSummary("BLE beacon functionality:" + " " + stringValue);
-
                 }
 
             } else {
@@ -165,12 +166,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         String stringValue = "";
         switch (type) {
             case 1:
+                //integer
                 stringValue = String.valueOf(preferences.getInt(preference.getKey(), 0));
                 break;
             case 2:
+                //string
                 stringValue = preferences.getString(preference.getKey(), "");
                 break;
             case 3:
+                //boolean
                 stringValue = Boolean.toString(preferences.getBoolean(preference.getKey(), false));
                 break;
 
@@ -250,6 +254,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             bindPreferenceSummaryToValue(findPreference(LOCATION_PERMISSION_PREFERENCE_KEY), 2);
             bindPreferenceSummaryToValue(findPreference(BE_A_BEACON_PREFERENCE_KEY), 3);
+            bindPreferenceSummaryToValue(findPreference(BEACON_MANUFACTURE), 2);
         }
 
         @Override

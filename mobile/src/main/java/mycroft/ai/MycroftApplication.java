@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -44,7 +45,7 @@ public class MycroftApplication extends Application implements BootstrapNotifier
         backgroundPowerSaver = new BackgroundPowerSaver(this);
 
         beaconManager.getBeaconParsers().add(new BeaconParser().
-        setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24\""));
+        setBeaconLayout(PreferenceManager.getDefaultSharedPreferences(this).getString("beaconManufacture", "")));//support multiple types
     }
 
     public static Context getAppContext() {
