@@ -36,6 +36,12 @@
         android:singleLine="true"
         android:title="@string/pref_title_uuid" />
 
+    <ListPreference
+        android:title="@string/beacon_manufacturer"
+        android:entries="@array/beacon_manufacturer_list"
+        android:entryValues="@array/beacon_manufacturer_list"
+        />
+
     <SwitchPreference
         android:id="@+id/beABeacon"
         android:key="beABeaconSwitch"
