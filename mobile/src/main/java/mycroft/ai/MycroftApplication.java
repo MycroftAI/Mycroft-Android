@@ -30,11 +30,12 @@ public class MycroftApplication extends Application implements BootstrapNotifier
     private RegionBootstrap regionBootstrap;
     private BackgroundPowerSaver backgroundPowerSaver;
     private boolean haveDetectedBeaconsSinceBoot = false;
+    private BeaconManager beaconManager;
 
     public void onCreate() {
         super.onCreate();
         MycroftApplication.context = getApplicationContext();
-        BeaconManager beaconManager = org.altbeacon.beacon.BeaconManager.getInstanceForApplication(this);
+        beaconManager = org.altbeacon.beacon.BeaconManager.getInstanceForApplication(this);
 
         Log.d(TAG, "setting up background monitoring for beacons and power saving");
         // wake up the app when a beacon is seen
@@ -43,13 +44,20 @@ public class MycroftApplication extends Application implements BootstrapNotifier
         regionBootstrap = new RegionBootstrap(this, region);
 
         backgroundPowerSaver = new BackgroundPowerSaver(this);
-
-        beaconManager.getBeaconParsers().add(new BeaconParser().
-        setBeaconLayout(PreferenceManager.getDefaultSharedPreferences(this).getString("beaconManufacture", "")));//support multiple types
+        //setBeaconScanPreferenceSettings(PreferenceManager.getDefaultSharedPreferences(this).getString("beaconManufacture", ""));
     }
 
     public static Context getAppContext() {
         return MycroftApplication.context;
+    }
+
+    /**
+     * Set the beacon preference settings for the beacon layout. The are mapped in the string array.
+     */
+    public void setBeaconScanPreferenceSettings(String beaconLayout) {
+        beaconManager.getBeaconParsers().add(new BeaconParser().
+                setBeaconLayout(beaconLayout));
+
     }
 
     public void setMonitoringActivity(BeaconActivity beaconActivity) {
@@ -96,7 +104,7 @@ public class MycroftApplication extends Application implements BootstrapNotifier
     private void sendNotification() {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this)
-                        .setContentTitle("Beacon Reference Application")
+                        .setContentTitle("Mycroft Beacon")
                         .setContentText("An beacon is nearby.")
                         .setSmallIcon(R.drawable.common_plus_signin_btn_icon_dark);
 

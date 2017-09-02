@@ -57,7 +57,8 @@ public class RangingActivity extends AppCompatActivity implements BeaconConsumer
                     Beacon firstBeacon = beacons.iterator().next();
                     logToDisplay("The first beacon "
                             + firstBeacon.toString() + " is about "
-                            + firstBeacon.getDistance() + " meters away.");
+                            + firstBeacon.getDistance() + " meters away."
+                            + firstBeacon.getManufacturer() + " manufacture");
                 }
             }
 

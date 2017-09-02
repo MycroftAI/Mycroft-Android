@@ -33,8 +33,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.ListPreference;
 import android.preference.PreferenceManager;
-import android.preference.SwitchPreference;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -74,7 +74,6 @@ import mycroft.ai.shared.wear.Constants;
 import mycroft.ai.utils.NetworkUtil;
 
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.Toast;
 
 import static mycroft.ai.Constants.LOCATION_PERMISSION_PREFERENCE_KEY;
 import static mycroft.ai.Constants.VERSION_CODE_PREFERENCE_KEY;
@@ -112,7 +111,7 @@ public class MainActivity extends AppCompatActivity  {
     private SharedPreferences sharedPref;
 
     boolean launchedFromWidget = false;
-    boolean autopromptForSpeech = false;
+    boolean autoPromptForSpeech = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,17 +163,17 @@ public class MainActivity extends AppCompatActivity  {
 
 
         if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
+                Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    Manifest.permission.ACCESS_COARSE_LOCATION)) {
             } else {
 
 
                 ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                         PERMISSION_REQUEST_COARSE_LOCATION);
             }
         }
@@ -424,6 +423,9 @@ public class MainActivity extends AppCompatActivity  {
         checkIfLaunchedFromWidget(getIntent());
     }
 
+    /**
+     * For checking the location permission is checked.
+     */
     private void locationPermissionCheckAndSet() {
         try {
             SharedPreferences.Editor editor = sharedPref.edit();
@@ -431,7 +433,7 @@ public class MainActivity extends AppCompatActivity  {
             String valueToSet;
 
             if(ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    Manifest.permission.ACCESS_COARSE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 valueToSet = "Set";
 
@@ -439,7 +441,7 @@ public class MainActivity extends AppCompatActivity  {
                 valueToSet = "Not Set";
             }
             editor.putString(LOCATION_PERMISSION_PREFERENCE_KEY, valueToSet);
-           editor.apply();
+            editor.apply();
         } catch (Exception ex){
             Log.d(TAG, ex.getMessage());
         }
@@ -452,7 +454,7 @@ public class MainActivity extends AppCompatActivity  {
         unregisterReceivers();
 
         if (launchedFromWidget) {
-            autopromptForSpeech = true;
+            autoPromptForSpeech = true;
         }
     }
 
@@ -463,6 +465,7 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     private void loadPreferences(){
+        //Load beacon prefs.
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
         // get mycroft-core ip address
@@ -493,7 +496,7 @@ public class MainActivity extends AppCompatActivity  {
         if (extras != null) {
             if (extras.containsKey("launchedFromWidget")) {
                 launchedFromWidget = extras.getBoolean("launchedFromWidget");
-                autopromptForSpeech = extras.getBoolean("autopromptForSpeech");
+                autoPromptForSpeech = extras.getBoolean("autoPromptForSpeech");
             }
 
             if (extras.containsKey(Constants.MYCROFT_WEAR_REQUEST_KEY_NAME)) {
@@ -506,9 +509,9 @@ public class MainActivity extends AppCompatActivity  {
             Log.d(TAG, "checkIfLaunchedFromWidget - extras are null");
         }
 
-        if (autopromptForSpeech) {
+        if (autoPromptForSpeech) {
             promptSpeechInput();
-            intent.putExtra("autopromptForSpeech", false);
+            intent.putExtra("autoPromptForSpeech", false);
         }
     }
 
@@ -544,7 +547,8 @@ public class MainActivity extends AppCompatActivity  {
                 } else {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("Functionality limited");
-                    builder.setMessage("Since location access has not been granted, this app will not be able to discover beacons when in the background.");
+                    builder.setMessage("Since location access has not been granted, this app will " +
+                            "not be able to discover beacons when in the background.");
                     builder.setPositiveButton(android.R.string.ok, null);
                     builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
 

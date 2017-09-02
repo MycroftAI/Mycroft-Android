@@ -54,6 +54,7 @@ import static mycroft.ai.Constants.BE_A_BEACON_PREFERENCE_KEY;
 import static mycroft.ai.Constants.LOCATION_PERMISSION_PREFERENCE_KEY;
 import static mycroft.ai.Constants.VERSION_CODE_PREFERENCE_KEY;
 import static mycroft.ai.Constants.VERSION_NAME_PREFERENCE_KEY;
+import static mycroft.ai.MycroftApplication.getAppContext;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -67,6 +68,8 @@ import static mycroft.ai.Constants.VERSION_NAME_PREFERENCE_KEY;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
+
+    private SharedPreferences sharedPreferences;
 
     /**
      * A preference value change listener that updates the preference's summary
@@ -88,6 +91,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                         index >= 0
                                 ? listPreference.getEntries()[index]
                                 : null);
+                if (preference.getKey().equals("beaconManufacture")) {
+                    ((ListPreference) preference).setValue(((ListPreference) preference).getValue());
+                }
 
             } else if (preference instanceof RingtonePreference) {
                 // For ringtone preferences, look up the correct display value
@@ -113,11 +119,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             } else if(preference instanceof SwitchPreference) {
                 //Beacon stuff.
                 if (preference.getKey().equals("beABeaconSwitch")){
-                    //preference.setSummary(stringValue);
                     //TODO get permit settings for values, for now hardcoded.
 
-                    if (ContextCompat.checkSelfPermission(MycroftApplication.getAppContext(),
-                            Manifest.permission.ACCESS_FINE_LOCATION)
+                    if (ContextCompat.checkSelfPermission(getAppContext(),
+                            Manifest.permission.ACCESS_COARSE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED && value.equals(true)) {
                         //FIXME in future release
                         /*BeaconUtil beaconUtil = new BeaconUtil(MycroftApplication.getAppContext());
@@ -135,6 +140,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             return true;
         }
     };
+
+    private static void setBeaconScanPreferences(String beaconLayout) {
+        ((MycroftApplication) getAppContext()).setBeaconScanPreferenceSettings(beaconLayout);
+    }
 
     /**
      * Helper method to determine if the device has an extra-large screen. For
@@ -190,6 +199,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences =PreferenceManager.getDefaultSharedPreferences(this);
         setupActionBar();
     }
 
@@ -255,6 +265,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             bindPreferenceSummaryToValue(findPreference(LOCATION_PERMISSION_PREFERENCE_KEY), 2);
             bindPreferenceSummaryToValue(findPreference(BE_A_BEACON_PREFERENCE_KEY), 3);
             bindPreferenceSummaryToValue(findPreference(BEACON_MANUFACTURE), 2);
+
+            setBeaconScanPreferences(PreferenceManager.getDefaultSharedPreferences(getAppContext()).getString("beaconManufacture", ""));
+
         }
 
         @Override
