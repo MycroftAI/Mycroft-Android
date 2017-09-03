@@ -166,4 +166,5 @@
     <string name="verify_bluetooth_not_enabled_message">Please enable bluetooth in settings and restart this application.</string>
     <string name="bluetooth_not_supported_title">Bluetooth LE not available</string>
     <string name="bluetooth_not_supported_message">Sorry, this device does not support Bluetooth LE.</string>
+    <string name="default_beacon_layout">m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24</string>
 </resources>
