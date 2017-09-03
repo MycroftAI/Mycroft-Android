@@ -44,7 +44,7 @@ public class MycroftApplication extends Application implements BootstrapNotifier
         regionBootstrap = new RegionBootstrap(this, region);
 
         backgroundPowerSaver = new BackgroundPowerSaver(this);
-        setBeaconScanPreferenceSettings(getString(R.string.default_beacon_layout));
+        setBeaconScanPreferenceSettings(getString(R.string.beacon_layout));
     }
 
     public static Context getAppContext() {
