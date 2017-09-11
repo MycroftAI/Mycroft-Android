@@ -108,7 +108,6 @@ public class BeaconActivity extends AppCompatActivity {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
                         finish();
-                        System.exit(0);
                     }
                 });
                 builder.show();
