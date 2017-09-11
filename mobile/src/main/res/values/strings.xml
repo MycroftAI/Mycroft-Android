@@ -142,5 +142,12 @@
     <string name="be_a_becaon">Be a beacon!</string>
     <string name="pref_title_uuid">Beacon UUID!</string>
     <string name="default_uuid">234aldf-asdf34-asdf-sdfsdf2</string>
-
+    <string name="location_request_title">This app needs location access</string>
+    <string name="location_request_message">Please grant location access so this app can detect beacons in the background.</string>
+    <string name="location_result_title">Functionality limited</string>
+    <string name="location_result_message">"Since location access has not been granted, this app will not be able to discover beacons when in the background.</string>
+    <string name="verify_bluetooth_not_enabled_title">Bluetooth not enabled</string>
+    <string name="verify_bluetooth_not_enabled_message">Please enable bluetooth in settings and restart this application.</string>
+    <string name="bluetooth_not_supported_title">Bluetooth LE not available</string>
+    <string name="bluetooth_not_supported_message">Sorry, this device does not support Bluetooth LE.</string>
 </resources>
