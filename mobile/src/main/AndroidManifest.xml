@@ -25,18 +25,22 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_mycroft"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".MycroftApplication">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
+            android:launchMode="singleInstance"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,6 +55,23 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mycroft.ai.MainActivity" />
+        </activity>
+        <activity
+            android:name=".BeaconActivity"
+            android:label="@string/beacon_activity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mycroft.ai.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".RangingActivity"
+            android:label="@string/ranging_activity"
+            android:parentActivityName=".BeaconActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mycroft.ai.BeaconActivity" />
         </activity>
         <activity android:name=".DiscoveryActivity" />
 

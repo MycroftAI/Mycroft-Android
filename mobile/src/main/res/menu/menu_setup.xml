@@ -25,14 +25,22 @@
 
 
     <item
-    android:id="@+id/action_home_mycroft_ai"
-    android:orderInCategory="100"
-    android:title="@string/action_home_mycroft_ai"
-    app:showAsAction="never" />
+        android:id="@+id/action_home_mycroft_ai"
+        android:orderInCategory="100"
+        android:title="@string/action_home_mycroft_ai"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_beacons"
+        android:orderInCategory="100"
+        android:title="@string/beacon_activity"
+        app:showAsAction="never" />
+
+
 </menu>

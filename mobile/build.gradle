@@ -37,7 +37,7 @@ repositories {
 android {
 
     compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "mycroft.ai"
         minSdkVersion 21
@@ -56,6 +56,9 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+
+
+    compile 'org.altbeacon:android-beacon-library:2.11'
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.android.support:design:24.0.0'
     compile 'org.java-websocket:Java-WebSocket:1.3.0'

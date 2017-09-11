@@ -20,9 +20,11 @@
 
 package mycroft.ai;
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -32,11 +34,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -68,7 +74,9 @@ import mycroft.ai.shared.wear.Constants;
 import mycroft.ai.utils.NetworkUtil;
 
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.Toast;
 
+import static mycroft.ai.Constants.LOCATION_PERMISSION_PREFERENCE_KEY;
 import static mycroft.ai.Constants.VERSION_CODE_PREFERENCE_KEY;
 import static mycroft.ai.Constants.VERSION_NAME_PREFERENCE_KEY;
 
@@ -76,6 +84,8 @@ import static mycroft.ai.Constants.VERSION_NAME_PREFERENCE_KEY;
 public class MainActivity extends AppCompatActivity  {
 
     private static final String TAG = "Mycroft";
+
+    private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
 
     public WebSocketClient mWebSocketClient;
     private String wsip;
@@ -85,7 +95,6 @@ public class MainActivity extends AppCompatActivity  {
     private final int REQ_CODE_SPEECH_INPUT = 100;
     TTSManager ttsManager = null;
     private Switch voxSwitch;
-
 
     @NonNull
     private final List<MycroftUtterances> utterances = new ArrayList<>();
@@ -99,8 +108,6 @@ public class MainActivity extends AppCompatActivity  {
     private boolean isWearBroadcastRevieverRegistered;
 
     RecyclerView recList;
-
-
 
     private SharedPreferences sharedPref;
 
@@ -155,6 +162,23 @@ public class MainActivity extends AppCompatActivity  {
 
         ttsManager = new TTSManager(this);
 
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+            } else {
+
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        PERMISSION_REQUEST_COARSE_LOCATION);
+            }
+        }
+
         // start the discovery activity (testing only)
         // startActivity(new Intent(this, DiscoveryActivity.class));
     }
@@ -180,6 +204,10 @@ public class MainActivity extends AppCompatActivity  {
         } else if (id == R.id.action_home_mycroft_ai) {
             Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse("https://home.mycroft.ai"));
             startActivity(intent);
+        } else if (id == R.id.action_beacons) {
+            Intent intent = new Intent(this, BeaconActivity.class);
+            startActivity(intent);
+            consumed = true;
         }
 
         return consumed && super.onOptionsItemSelected(item);
@@ -391,8 +419,30 @@ public class MainActivity extends AppCompatActivity  {
         super.onStart();
         loadPreferences();
         recordVersionInfo();
+        locationPermissionCheckAndSet();
         registerReceivers();
         checkIfLaunchedFromWidget(getIntent());
+    }
+
+    private void locationPermissionCheckAndSet() {
+        try {
+            SharedPreferences.Editor editor = sharedPref.edit();
+
+            String valueToSet;
+
+            if(ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                valueToSet = "Set";
+
+            } else {
+                valueToSet = "Not Set";
+            }
+            editor.putString(LOCATION_PERMISSION_PREFERENCE_KEY, valueToSet);
+           editor.apply();
+        } catch (Exception ex){
+            Log.d(TAG, ex.getMessage());
+        }
     }
 
     @Override
@@ -481,5 +531,31 @@ public class MainActivity extends AppCompatActivity  {
 
     private void showToast(String message) {
         GuiUtilities.showToast(getApplicationContext(), message);
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_COARSE_LOCATION: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d(TAG, "Fine location permission granted");
+                } else {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("Functionality limited");
+                    builder.setMessage("Since location access has not been granted, this app will not be able to discover beacons when in the background.");
+                    builder.setPositiveButton(android.R.string.ok, null);
+                    builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                        }
+                    });
+                    builder.show();
+                }
+                return;
+            }
+        }
     }
 }
