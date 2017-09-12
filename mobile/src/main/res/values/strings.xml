@@ -150,4 +150,8 @@
     <string name="verify_bluetooth_not_enabled_message">Please enable bluetooth in settings and restart this application.</string>
     <string name="bluetooth_not_supported_title">Bluetooth LE not available</string>
     <string name="bluetooth_not_supported_message">Sorry, this device does not support Bluetooth LE.</string>
+
+    //Beacon notification
+    <string name="beacon_notification_title">Mycroft Beacon</string>
+    <string name="beacon_notification_content">An beacon is nearby.</string>
 </resources>

@@ -100,9 +100,9 @@ public class MycroftApplication extends Application implements BootstrapNotifier
     private void sendNotification() {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this)
-                        .setContentTitle("Mycroft Beacon")
-                        .setContentText("An beacon is nearby.")
-                        .setSmallIcon(R.drawable.common_plus_signin_btn_icon_dark);
+                        .setContentTitle(getString(R.string.beacon_notification_title))
+                        .setContentText(getString(R.string.beacon_notification_content))
+                        .setSmallIcon(R.drawable.ic_mycroft);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addNextIntent(new Intent(this, BeaconActivity.class));
