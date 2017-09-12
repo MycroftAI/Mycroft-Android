@@ -49,7 +49,7 @@ public class MycroftApplication extends Application implements BootstrapNotifier
     }
 
     /**
-     * Set the beacon preference settings for the beacon layout. The are mapped in the string array.
+     * Set the beacon settings for the beacon layout. The are mapped in the string array.
      */
     public void setBeaconScanSettings(String beaconLayout) {
         beaconManager.getBeaconParsers().add(new BeaconParser().

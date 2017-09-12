@@ -544,9 +544,8 @@ public class MainActivity extends AppCompatActivity  {
                     Log.d(TAG, "Coarse location permission granted");
                 } else {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle("Functionality limited");
-                    builder.setMessage("Since location access has not been granted, this app will " +
-                            "not be able to discover beacons when in the background.");
+                    builder.setTitle(R.string.location_result_title);
+                    builder.setMessage(R.string.location_result_message);
                     builder.setPositiveButton(android.R.string.ok, null);
                     builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
 
