@@ -142,7 +142,6 @@
     <string name="be_a_becaon">Be a beacon!</string>
     <string name="pref_title_uuid">Beacon UUID!</string>
     <string name="default_uuid">234aldf-asdf34-asdf-sdfsdf2</string>
-    <string name="beacon_manufacturer">Beacon Manufacturer</string>
     <string name="location_request_title">This app needs location access</string>
     <string name="location_request_message">Please grant location access so this app can detect beacons in the background.</string>
     <string name="location_result_title">Functionality limited</string>

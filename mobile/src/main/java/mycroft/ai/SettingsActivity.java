@@ -49,7 +49,6 @@ import java.util.List;
 
 import mycroft.ai.utils.BeaconUtil;
 
-import static mycroft.ai.Constants.BEACON_MANUFACTURE;
 import static mycroft.ai.Constants.BE_A_BEACON_PREFERENCE_KEY;
 import static mycroft.ai.Constants.LOCATION_PERMISSION_PREFERENCE_KEY;
 import static mycroft.ai.Constants.VERSION_CODE_PREFERENCE_KEY;
@@ -140,10 +139,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             return true;
         }
     };
-
-    private static void setBeaconScanPreferences(String beaconLayout) {
-        ((MycroftApplication) getAppContext()).setBeaconScanPreferenceSettings(beaconLayout);
-    }
 
     /**
      * Helper method to determine if the device has an extra-large screen. For
@@ -264,9 +259,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             bindPreferenceSummaryToValue(findPreference(LOCATION_PERMISSION_PREFERENCE_KEY), 2);
             bindPreferenceSummaryToValue(findPreference(BE_A_BEACON_PREFERENCE_KEY), 3);
-            bindPreferenceSummaryToValue(findPreference(BEACON_MANUFACTURE), 2);
-
-            setBeaconScanPreferences(PreferenceManager.getDefaultSharedPreferences(getAppContext()).getString("beaconManufacture", ""));
 
         }
 

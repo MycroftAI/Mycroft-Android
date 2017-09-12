@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
-import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -16,8 +15,6 @@ import org.altbeacon.beacon.Region;
 import org.altbeacon.beacon.powersave.BackgroundPowerSaver;
 import org.altbeacon.beacon.startup.BootstrapNotifier;
 import org.altbeacon.beacon.startup.RegionBootstrap;
-
-import mycroft.ai.utils.BeaconSimulator;
 
 /**
  * Created by sarahkraynick on 2017-07-29.
@@ -44,7 +41,7 @@ public class MycroftApplication extends Application implements BootstrapNotifier
         regionBootstrap = new RegionBootstrap(this, region);
 
         backgroundPowerSaver = new BackgroundPowerSaver(this);
-        setBeaconScanPreferenceSettings(getString(R.string.beacon_layout));
+        setBeaconScanSettings(getString(R.string.beacon_layout));
     }
 
     public static Context getAppContext() {
@@ -54,10 +51,9 @@ public class MycroftApplication extends Application implements BootstrapNotifier
     /**
      * Set the beacon preference settings for the beacon layout. The are mapped in the string array.
      */
-    public void setBeaconScanPreferenceSettings(String beaconLayout) {
+    public void setBeaconScanSettings(String beaconLayout) {
         beaconManager.getBeaconParsers().add(new BeaconParser().
                 setBeaconLayout(beaconLayout));
-
     }
 
     public void setMonitoringActivity(BeaconActivity beaconActivity) {
