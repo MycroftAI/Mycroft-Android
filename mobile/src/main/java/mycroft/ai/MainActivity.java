@@ -33,7 +33,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.ListPreference;
 import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
@@ -78,7 +77,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import static mycroft.ai.Constants.LOCATION_PERMISSION_PREFERENCE_KEY;
 import static mycroft.ai.Constants.VERSION_CODE_PREFERENCE_KEY;
 import static mycroft.ai.Constants.VERSION_NAME_PREFERENCE_KEY;
-
 
 public class MainActivity extends AppCompatActivity  {
 
