@@ -16,3 +16,19 @@ in the Settings -> General Options menu. That will then create a websocket conne
 ## To help out
 If you would like to help out on this project, please join the Mycroft community SlackHQ and ask where you can contribute! 
 Design and UI/UX is most needed at this point, but any and all help is greatly appreciated!
+
+
+##Beacon Scanning - Optional!
+Beacon scanning is optional. But the idea was to permit a user to interact with beacons (uses for beacons are numerous). 
+Currently, there is no tts for beacons; only scanning is possible. We will build out the functionality to include
+ more interaction with Mycroft specific use cases. 
+###To USE 
+To beacon scan you will have to set the string res (resource) value for beacon_layout in the build configs. 
+Below are some layouts. Please note, we are currently are getting eddystone to work with Mycroft. The first
+release will support ibeacon and AltBeacon.  Please let us know if there are any issues.
+
+ALTBEACON 	m:2-3=beac,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25  
+EDDYSTONE  TLM 	x,s:0-1=feaa,m:2-2=20,d:3-3,d:4-5,d:6-7,d:8-11,d:12-15  
+EDDYSTONE  UID 	s:0-1=feaa,m:2-2=00,p:3-3:-41,i:4-13,i:14-19  
+EDDYSTONE  URL 	s:0-1=feaa,m:2-2=10,p:3-3:-41,i:4-20v  
+IBEACON 	m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24
