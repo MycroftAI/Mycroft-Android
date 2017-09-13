@@ -422,7 +422,7 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     /**
-     * For checking the location permission is checked.
+     * For caching location permission state.
      */
     private void locationPermissionCheckAndSet() {
         try {

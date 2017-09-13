@@ -120,7 +120,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 if (preference.getKey().equals("beABeaconSwitch")){
                     //TODO get permit settings for values, for now hardcoded.
 
-                    if (ContextCompat.checkSelfPermission(getAppContext(),
+                    if (ContextCompat.checkSelfPermission(preference.getContext(),
                             Manifest.permission.ACCESS_COARSE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED && value.equals(true)) {
                         //FIXME in future release
