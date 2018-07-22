@@ -37,7 +37,7 @@ repositories {
 android {
 
     compileSdkVersion 24
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '27.0.3'
     defaultConfig {
         resValue "string", "beacon_layout", "\"m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24\""
         applicationId "mycroft.ai"
