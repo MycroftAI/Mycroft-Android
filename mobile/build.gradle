@@ -84,4 +84,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-wearable:9.4.0'
     wearApp project(':wear')
     compile project(':shared')
+
+    //kotlin
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
