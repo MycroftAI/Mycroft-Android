@@ -343,7 +343,7 @@ public class MainActivity extends AppCompatActivity  {
             try {
                 if (mWebSocketClient == null || mWebSocketClient.getConnection().isClosed()) {
                     // try and reconnect
-                    if (NetworkUtil.getConnectivityStatus(this) == NetworkUtil.NETWORK_STATUS_WIFI) { //TODO: add config to specify wifi only.
+                    if (NetworkUtil.INSTANCE.getConnectivityStatus(this) == NetworkUtil.INSTANCE.getNETWORK_STATUS_WIFI()) { //TODO: add config to specify wifi only.
                         connectWebSocket();
                     }
                 }

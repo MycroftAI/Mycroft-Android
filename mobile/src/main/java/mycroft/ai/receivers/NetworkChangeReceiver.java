@@ -51,9 +51,9 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
-        int status = NetworkUtil.getConnectivityStatusString(context);
+        int status = NetworkUtil.INSTANCE.getConnectivityStatusString(context);
         if (!"android.net.conn.CONNECTIVITY_CHANGE".equals(intent.getAction())) {
-            if (status == NetworkUtil.NETWORK_STATUS_NOT_CONNECTED) {
+            if (status == NetworkUtil.INSTANCE.getNETWORK_STATUS_NOT_CONNECTED()) {
                 // do something about it.. IDK
             } else if (main != null) {
                 // reconnect websocket
