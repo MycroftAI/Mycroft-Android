@@ -73,7 +73,7 @@ class MessageParser implements Runnable {
             if (Objects.equals(msgType, "speak")) {
                 String ret = obj.getJSONObject("data").getString("utterance");
                 MycroftUtterances mu = new MycroftUtterances();
-                mu.utterance = ret;
+                mu.setUtterance(ret);
 				callback.call(mu);
             }
 

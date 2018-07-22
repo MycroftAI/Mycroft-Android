@@ -250,7 +250,7 @@ public class MainActivity extends AppCompatActivity  {
         utterances.add(mu);
         ma.notifyItemInserted(utterances.size() - 1);
         if (voxSwitch.isChecked()) {
-            ttsManager.addQueue(mu.utterance);
+            ttsManager.addQueue(mu.getUtterance());
         }
         recList.smoothScrollToPosition(ma.getItemCount() - 1);
     }

@@ -51,7 +51,7 @@ public class MycroftAdapter extends RecyclerView.Adapter<MycroftAdapter.Utteranc
     @Override
     public void onBindViewHolder(UtteranceViewHolder utteranceViewHolder, int i) {
         MycroftUtterances ci = utteranceList.get(i);
-        utteranceViewHolder.vUtterance.setText(ci.UTTERANCE_PREFIX + " " + ci.utterance);
+        utteranceViewHolder.vUtterance.setText(ci.Companion.getUTTERANCE_PREFIX() + " " + ci.getUtterance());
     }
 
     @Override

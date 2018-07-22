@@ -18,15 +18,18 @@
  *
  */
 
-package mycroft.ai;
+package mycroft.ai
 
 /**
  * Created by paul on 2016/06/22.
  */
 
-public class MycroftUtterances {
+class MycroftUtterances {
 
-    public String utterance;
+    var utterance: String? = null
 
-    public static final String UTTERANCE_PREFIX = "Mycroft says: ";
+    companion object {
+
+        val UTTERANCE_PREFIX = "Mycroft says: "
+    }
 }
