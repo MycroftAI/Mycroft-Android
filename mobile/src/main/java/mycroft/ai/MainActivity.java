@@ -540,6 +540,7 @@ public class MainActivity extends AppCompatActivity  {
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
             case PERMISSION_REQUEST_COARSE_LOCATION: {
+                //TODO look at why this is throwing an index out of bounds exception.
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.d(TAG, "Coarse location permission granted");
                 } else {
