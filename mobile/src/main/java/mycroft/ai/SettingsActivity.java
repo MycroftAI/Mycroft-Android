@@ -47,13 +47,10 @@ import android.view.MenuItem;
 
 import java.util.List;
 
-import mycroft.ai.utils.BeaconUtil;
-
 import static mycroft.ai.Constants.BE_A_BEACON_PREFERENCE_KEY;
 import static mycroft.ai.Constants.LOCATION_PERMISSION_PREFERENCE_KEY;
 import static mycroft.ai.Constants.VERSION_CODE_PREFERENCE_KEY;
 import static mycroft.ai.Constants.VERSION_NAME_PREFERENCE_KEY;
-import static mycroft.ai.MycroftApplication.getAppContext;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On

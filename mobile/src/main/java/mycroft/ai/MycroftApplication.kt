@@ -102,6 +102,7 @@ class MycroftApplication : Application(), BootstrapNotifier {
         notificationManager.notify(1, builder.build())
     }
 
+    //TODO convert to public member. This will cause problems later.
     companion object {
 
         private val TAG = "MycroftApplication"
