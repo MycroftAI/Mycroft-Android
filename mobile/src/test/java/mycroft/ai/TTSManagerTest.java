@@ -90,7 +90,7 @@ public class TTSManagerTest {
 		TTSManager.TTSListener mockListener = mock(TTSManager.TTSListener.class);
 		ttsManager.setTTSListener(mockListener);
 
-		ttsManager.onInitListener.onInit(TextToSpeech.SUCCESS);
+		ttsManager.getOnInitListener().onInit(TextToSpeech.SUCCESS);
 
 		verify(mockListener, never()).onError(anyString());
 		
@@ -109,7 +109,7 @@ public class TTSManagerTest {
 		TTSManager.TTSListener mockListener = mock(TTSManager.TTSListener.class);
 		ttsManager.setTTSListener(mockListener);
 
-		ttsManager.onInitListener.onInit(TextToSpeech.SUCCESS);
+		ttsManager.getOnInitListener().onInit(TextToSpeech.SUCCESS);
 
 		ttsManager.addQueue("text a");
 
@@ -139,7 +139,7 @@ public class TTSManagerTest {
 		TTSManager.TTSListener mockListener = mock(TTSManager.TTSListener.class);
 		ttsManager.setTTSListener(mockListener);
 
-		ttsManager.onInitListener.onInit(TextToSpeech.ERROR);
+		ttsManager.getOnInitListener().onInit(TextToSpeech.ERROR);
 
 		ttsManager.addQueue("text a");
 
