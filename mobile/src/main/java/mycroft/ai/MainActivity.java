@@ -74,9 +74,9 @@ import mycroft.ai.utils.NetworkUtil;
 
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-import static mycroft.ai.Constants.LOCATION_PERMISSION_PREFERENCE_KEY;
-import static mycroft.ai.Constants.VERSION_CODE_PREFERENCE_KEY;
-import static mycroft.ai.Constants.VERSION_NAME_PREFERENCE_KEY;
+import static mycroft.ai.Constants.MycroftAndroidConstants.LOCATION_PERMISSION_PREFERENCE_KEY;
+import static mycroft.ai.Constants.MycroftAndroidConstants.VERSION_CODE_PREFERENCE_KEY;
+import static mycroft.ai.Constants.MycroftAndroidConstants.VERSION_NAME_PREFERENCE_KEY;
 
 public class MainActivity extends AppCompatActivity  {
 

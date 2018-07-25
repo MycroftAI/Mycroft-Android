@@ -44,11 +44,11 @@ import android.preference.PreferenceManager
 import android.preference.RingtonePreference
 import android.text.TextUtils
 import android.view.MenuItem
+import mycroft.ai.Constants.MycroftAndroidConstants.BE_A_BEACON_PREFERENCE_KEY
+import mycroft.ai.Constants.MycroftAndroidConstants.LOCATION_PERMISSION_PREFERENCE_KEY
+import mycroft.ai.Constants.MycroftAndroidConstants.VERSION_CODE_PREFERENCE_KEY
+import mycroft.ai.Constants.MycroftAndroidConstants.VERSION_NAME_PREFERENCE_KEY
 
-import mycroft.ai.Constants.BE_A_BEACON_PREFERENCE_KEY
-import mycroft.ai.Constants.LOCATION_PERMISSION_PREFERENCE_KEY
-import mycroft.ai.Constants.VERSION_CODE_PREFERENCE_KEY
-import mycroft.ai.Constants.VERSION_NAME_PREFERENCE_KEY
 
 /**
  * A [PreferenceActivity] that presents a set of application settings. On
@@ -125,7 +125,7 @@ class SettingsActivity : AppCompatPreferenceActivity() {
 
 
             bindPreferenceSummaryToValue(findPreference(LOCATION_PERMISSION_PREFERENCE_KEY), 2)
-            bindPreferenceSummaryToValue(findPreference(BE_A_BEACON_PREFERENCE_KEY), 3)
+                    bindPreferenceSummaryToValue(findPreference(BE_A_BEACON_PREFERENCE_KEY), 3)
 
         }
 
