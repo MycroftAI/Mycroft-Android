@@ -21,7 +21,7 @@
 package mycroft.ai
 
 class Constants {
-    object MycroftAndroidConstants {
+    object MycroftMobileConstants {
         //how to properly call constants in kotlin?
         const val VERSION_NAME_PREFERENCE_KEY = "versionName"
         const val VERSION_CODE_PREFERENCE_KEY = "versionCode"

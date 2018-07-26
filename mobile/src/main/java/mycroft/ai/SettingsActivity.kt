@@ -27,7 +27,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.media.Ringtone
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
@@ -38,16 +37,15 @@ import android.preference.PreferenceActivity
 import android.preference.SwitchPreference
 import android.support.v4.app.NavUtils
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.ActionBar
 import android.preference.PreferenceFragment
 import android.preference.PreferenceManager
 import android.preference.RingtonePreference
 import android.text.TextUtils
 import android.view.MenuItem
-import mycroft.ai.Constants.MycroftAndroidConstants.BE_A_BEACON_PREFERENCE_KEY
-import mycroft.ai.Constants.MycroftAndroidConstants.LOCATION_PERMISSION_PREFERENCE_KEY
-import mycroft.ai.Constants.MycroftAndroidConstants.VERSION_CODE_PREFERENCE_KEY
-import mycroft.ai.Constants.MycroftAndroidConstants.VERSION_NAME_PREFERENCE_KEY
+import mycroft.ai.Constants.MycroftMobileConstants.BE_A_BEACON_PREFERENCE_KEY
+import mycroft.ai.Constants.MycroftMobileConstants.LOCATION_PERMISSION_PREFERENCE_KEY
+import mycroft.ai.Constants.MycroftMobileConstants.VERSION_CODE_PREFERENCE_KEY
+import mycroft.ai.Constants.MycroftMobileConstants.VERSION_NAME_PREFERENCE_KEY
 
 
 /**

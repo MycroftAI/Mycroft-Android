@@ -67,9 +67,12 @@ import mycroft.ai.shared.utilities.GuiUtilities
 import mycroft.ai.shared.wear.Constants
 import mycroft.ai.utils.NetworkUtil
 
-import mycroft.ai.Constants.MycroftAndroidConstants.LOCATION_PERMISSION_PREFERENCE_KEY
-import mycroft.ai.Constants.MycroftAndroidConstants.VERSION_CODE_PREFERENCE_KEY
-import mycroft.ai.Constants.MycroftAndroidConstants.VERSION_NAME_PREFERENCE_KEY
+import mycroft.ai.Constants.MycroftMobileConstants.LOCATION_PERMISSION_PREFERENCE_KEY
+import mycroft.ai.Constants.MycroftMobileConstants.VERSION_CODE_PREFERENCE_KEY
+import mycroft.ai.Constants.MycroftMobileConstants.VERSION_NAME_PREFERENCE_KEY
+import mycroft.ai.shared.wear.Constants.MycroftSharedConstants.MYCROFT_WEAR_REQUEST
+import mycroft.ai.shared.wear.Constants.MycroftSharedConstants.MYCROFT_WEAR_REQUEST_KEY_NAME
+import mycroft.ai.shared.wear.Constants.MycroftSharedConstants.MYCROFT_WEAR_REQUEST_MESSAGE
 
 class MainActivity : AppCompatActivity() {
 
@@ -250,7 +253,7 @@ class MainActivity : AppCompatActivity() {
         if (!isWearBroadcastRevieverRegistered) {
             wearBroadcastReceiver = object : BroadcastReceiver() {
                 override fun onReceive(context: Context, intent: Intent) {
-                    val message = intent.getStringExtra(Constants.MYCROFT_WEAR_REQUEST_MESSAGE)
+                    val message = intent.getStringExtra(MYCROFT_WEAR_REQUEST_MESSAGE)
                     // send to mycroft
                     if (message != null) {
                         Log.d(TAG, "Wear message received: [$message] sending to Mycroft")
@@ -259,7 +262,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            LocalBroadcastManager.getInstance(this).registerReceiver(wearBroadcastReceiver, IntentFilter(Constants.MYCROFT_WEAR_REQUEST))
+            LocalBroadcastManager.getInstance(this).registerReceiver(wearBroadcastReceiver, IntentFilter(MYCROFT_WEAR_REQUEST))
             isWearBroadcastRevieverRegistered = true
         }
     }
@@ -461,10 +464,10 @@ class MainActivity : AppCompatActivity() {
                 autoPromptForSpeech = extras.getBoolean("autoPromptForSpeech")
             }
 
-            if (extras.containsKey(Constants.MYCROFT_WEAR_REQUEST_KEY_NAME)) {
-                Log.d(TAG, "checkIfLaunchedFromWidget - extras contain key:" + Constants.MYCROFT_WEAR_REQUEST_KEY_NAME)
-                sendMessage(extras.getString(Constants.MYCROFT_WEAR_REQUEST_KEY_NAME))
-                getIntent().removeExtra(Constants.MYCROFT_WEAR_REQUEST_KEY_NAME)
+            if (extras.containsKey(MYCROFT_WEAR_REQUEST_KEY_NAME)) {
+                Log.d(TAG, "checkIfLaunchedFromWidget - extras contain key:" + MYCROFT_WEAR_REQUEST_KEY_NAME)
+                sendMessage(extras.getString(MYCROFT_WEAR_REQUEST_KEY_NAME))
+                getIntent().removeExtra(MYCROFT_WEAR_REQUEST_KEY_NAME)
 
             }
         } else {

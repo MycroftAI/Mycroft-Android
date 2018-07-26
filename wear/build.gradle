@@ -19,7 +19,7 @@
  */
 
 apply plugin: 'com.android.application'
-
+apply plugin: 'kotlin-android'
 
 android {
 
@@ -47,4 +47,5 @@ dependencies {
     compile 'com.google.android.support:wearable:2.0.0-alpha2'
     compile 'com.google.android.gms:play-services-wearable:9.4.0'
     compile project(':shared')
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

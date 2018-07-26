@@ -31,6 +31,9 @@ import com.google.android.gms.wearable.WearableListenerService
 
 import mycroft.ai.MainActivity
 import mycroft.ai.shared.wear.Constants
+import mycroft.ai.shared.wear.Constants.MycroftSharedConstants.MYCROFT_QUERY_MESSAGE_PATH
+import mycroft.ai.shared.wear.Constants.MycroftSharedConstants.MYCROFT_WEAR_REQUEST
+import mycroft.ai.shared.wear.Constants.MycroftSharedConstants.MYCROFT_WEAR_REQUEST_MESSAGE
 
 /**
  * Created by jpoff on 9/7/2016.
@@ -51,7 +54,7 @@ class MycroftWearListenerService : WearableListenerService() {
 
         val message = String(messageEvent!!.data)
 
-        if (messageEvent.path == Constants.MYCROFT_QUERY_MESSAGE_PATH) {
+        if (messageEvent.path == MYCROFT_QUERY_MESSAGE_PATH) {
             Log.d(TAG, "MycroftWearRequest Message: $message")
 
             val startIntent = Intent(this, MainActivity::class.java)
@@ -71,8 +74,8 @@ class MycroftWearListenerService : WearableListenerService() {
         Log.d(TAG, "Hand Off Wear Request")
 
         if (message != null) {
-            val intent = Intent(Constants.MYCROFT_WEAR_REQUEST)
-            intent.putExtra(Constants.MYCROFT_WEAR_REQUEST_MESSAGE, message)
+            val intent = Intent(MYCROFT_WEAR_REQUEST)
+            intent.putExtra(MYCROFT_WEAR_REQUEST_MESSAGE, message)
             localBroadcastManager!!.sendBroadcast(intent)
         }
     }
