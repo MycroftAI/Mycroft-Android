@@ -18,11 +18,24 @@
  *
  */
 
-package mycroft.ai;
+package mycroft.ai
 
-public class Constants {
-    public static String VERSION_NAME_PREFERENCE_KEY = "versionName";
-    public static String VERSION_CODE_PREFERENCE_KEY = "versionCode";
-    public static String BE_A_BEACON_PREFERENCE_KEY  = "beABeaconSwitch";
-    public static String LOCATION_PERMISSION_PREFERENCE_KEY  = "locationPermissionGranted";
+import java.util.concurrent.Callable
+
+/**
+ * Inversion of the [java.util.concurrent.Callable] interface.
+ *
+ *
+ * Note that the [.call] method in this class is
+ * not allowed to throw exceptions.
+ *
+ *
+ * @author Philip Cohn-Cort
+ */
+interface SafeCallback<T> {
+    /**
+     * Variant of [Callable.call]
+     * @param param any value. May be null.
+     */
+    fun call(param: T)
 }
