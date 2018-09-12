@@ -24,10 +24,10 @@ apply plugin: 'kotlin-android'
 android {
 
     compileSdkVersion 24
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId 'mycroft.ai'
-        minSdkVersion 20
+        minSdkVersion 21
         targetSdkVersion 24
         versionCode project.ext.versionCode
         versionName project.ext.versionName
@@ -43,9 +43,9 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.google.android.support:wearable:2.0.0-alpha2'
-    compile 'com.google.android.gms:play-services-wearable:9.4.0'
-    compile project(':shared')
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.google.android.support:wearable:2.0.0-alpha2'
+    implementation 'com.google.android.gms:play-services-wearable:9.4.0'
+    implementation project(':shared')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
