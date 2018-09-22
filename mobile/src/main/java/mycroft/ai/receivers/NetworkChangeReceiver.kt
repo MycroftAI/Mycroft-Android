@@ -23,6 +23,7 @@ package mycroft.ai.receivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.widget.Toast
 
 import mycroft.ai.MainActivity
 import mycroft.ai.utils.NetworkUtil
@@ -50,7 +51,7 @@ class NetworkChangeReceiver : BroadcastReceiver() {
         val status = NetworkUtil.getConnectivityStatusString(context)
         if ("android.net.conn.CONNECTIVITY_CHANGE" != intent.action) {
             if (status == NetworkUtil.NETWORK_STATUS_NOT_CONNECTED) {
-                // do something about it.. IDK
+                Toast.makeText(main,"You are not connected to network",Toast.LENGTH_SHORT).show()
             } else if (main != null) {
                 // reconnect websocket
                 if (main!!.mWebSocketClient == null || main!!.mWebSocketClient!!.connection.isClosed) {
