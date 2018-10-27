@@ -23,12 +23,12 @@ apply plugin: 'kotlin-android'
 
 android {
 
-    compileSdkVersion 24
-    buildToolsVersion '27.0.3'
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
     defaultConfig {
         applicationId 'mycroft.ai'
-        minSdkVersion 21
-        targetSdkVersion 24
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode project.ext.versionCode
         versionName project.ext.versionName
     }
