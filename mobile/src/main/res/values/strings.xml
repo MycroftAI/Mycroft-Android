@@ -135,7 +135,7 @@
     <string name="pref_default_display_not_set">not set</string>
     <string name="digit_zero">0</string>
 
-    //Beacon strings
+    <!-- Beacon strings -->
     <string name="location_permission_granted_title">Location Permission set?</string>
     <string name="beacon_pref">Beacon Settings</string>
     <string name="enable_ble_beacon_functionality">BLE beacon functionality:</string>
@@ -151,7 +151,7 @@
     <string name="bluetooth_not_supported_title">Bluetooth LE not available</string>
     <string name="bluetooth_not_supported_message">Sorry, this device does not support Bluetooth LE.</string>
 
-    //Beacon notification
+    <!-- Beacon notification -->
     <string name="beacon_notification_title">Mycroft Beacon</string>
     <string name="beacon_notification_content">An beacon is nearby.</string>
 </resources>
