@@ -121,9 +121,8 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             addPreferencesFromResource(R.xml.pref_beacon)
             setHasOptionsMenu(true)
 
-
             bindPreferenceSummaryToValue(findPreference(LOCATION_PERMISSION_PREFERENCE_KEY), 2)
-                    bindPreferenceSummaryToValue(findPreference(BE_A_BEACON_PREFERENCE_KEY), 3)
+            bindPreferenceSummaryToValue(findPreference(BE_A_BEACON_PREFERENCE_KEY), 3)
 
         }
 
@@ -212,7 +211,6 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             if (preference is ListPreference) {
                 // For list preferences, look up the correct display value in
                 // the preference's 'entries' list.
-                val listPreference = preference
                 val index = preference.findIndexOfValue(stringValue)
 
                 // Set the summary to reflect the new value.

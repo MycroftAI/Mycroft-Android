@@ -7,31 +7,30 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="17dp"
-        android:text="Monitoring Events:" />
+        android:text="@string/beacon_monitoring_events" />
 
     <EditText
         android:id="@+id/monitoringText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="36dp"
         android:ems="10"
-        android:gravity="left|top"
+        android:gravity="start|top"
         android:inputType="textMultiLine" >
         <requestFocus />
     </EditText>
 
     <Button
-        android:id="@+id/Button01"
+        android:id="@+id/startRangingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:onClick="onRangingClicked"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/monitoringText"
-        android:text="Start Ranging" />
+        android:text="@string/start_ranging_button_label" />
 
 </RelativeLayout>

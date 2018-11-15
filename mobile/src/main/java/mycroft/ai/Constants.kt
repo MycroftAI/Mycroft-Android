@@ -27,5 +27,6 @@ class Constants {
         const val VERSION_CODE_PREFERENCE_KEY = "versionCode"
         const val BE_A_BEACON_PREFERENCE_KEY = "beABeaconSwitch"
         const val LOCATION_PERMISSION_PREFERENCE_KEY = "locationPermissionGranted"
+        const val PERMISSION_REQUEST_COARSE_LOCATION = 1
     }
 }

@@ -53,7 +53,7 @@ class NetworkChangeReceiver : BroadcastReceiver() {
                 // do something about it.. IDK
             } else if (main != null) {
                 // reconnect websocket
-                if (main!!.mWebSocketClient == null || main!!.mWebSocketClient!!.connection.isClosed) {
+                if (main!!.webSocketClient == null || main!!.webSocketClient!!.connection.isClosed) {
                     main!!.connectWebSocket()
                 }
             }

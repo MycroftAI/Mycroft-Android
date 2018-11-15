@@ -61,7 +61,7 @@ class TTSManager {
      */
     private var mTTSListener: TTSListener? = null
 
-    /* package local */ internal var onInitListener: TextToSpeech.OnInitListener = TextToSpeech.OnInitListener { status ->
+    var onInitListener: TextToSpeech.OnInitListener = TextToSpeech.OnInitListener { status ->
         if (status == TextToSpeech.SUCCESS) {
             val result = mTts.setLanguage(Locale.US)
             isLoaded = true

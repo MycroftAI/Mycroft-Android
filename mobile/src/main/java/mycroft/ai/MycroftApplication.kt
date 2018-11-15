@@ -47,8 +47,12 @@ class MycroftApplication : Application(), BootstrapNotifier {
         beaconManager!!.beaconParsers.add(BeaconParser().setBeaconLayout(beaconLayout))
     }
 
-    fun setMonitoringActivity(beaconActivity: BeaconActivity) {
+    fun setBeaconActivity(beaconActivity: BeaconActivity) {
         this.beaconActivity = beaconActivity
+    }
+
+    fun unsetBeaconActivity() {
+        this.beaconActivity = null
     }
 
     override fun didEnterRegion(arg0: Region) {
