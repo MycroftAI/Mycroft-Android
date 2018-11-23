@@ -34,8 +34,7 @@
         android:icon="@drawable/ic_mycroft"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name=".MycroftApplication">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
@@ -55,23 +54,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mycroft.ai.MainActivity" />
-        </activity>
-        <activity
-            android:name=".BeaconActivity"
-            android:label="@string/beacon_activity"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="mycroft.ai.MainActivity" />
-        </activity>
-
-        <activity
-            android:name=".RangingActivity"
-            android:label="@string/ranging_activity"
-            android:parentActivityName=".BeaconActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="mycroft.ai.BeaconActivity" />
         </activity>
         <activity android:name=".DiscoveryActivity" />
 

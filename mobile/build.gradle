@@ -27,7 +27,6 @@ android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
     defaultConfig {
-        resValue "string", "beacon_layout", "\"m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24\""
         applicationId "mycroft.ai"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
@@ -55,7 +54,6 @@ repositories {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'org.altbeacon:android-beacon-library:2.11'
     implementation "com.android.support:appcompat-v7:$rootProject.supportVersion"
     implementation "com.android.support:design:$rootProject.supportVersion"
 

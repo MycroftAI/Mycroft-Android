@@ -25,7 +25,6 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.media.RingtoneManager
 import android.net.Uri
@@ -36,14 +35,11 @@ import android.preference.Preference
 import android.preference.PreferenceActivity
 import android.preference.SwitchPreference
 import android.support.v4.app.NavUtils
-import android.support.v4.content.ContextCompat
 import android.preference.PreferenceFragment
 import android.preference.PreferenceManager
 import android.preference.RingtonePreference
 import android.text.TextUtils
 import android.view.MenuItem
-import mycroft.ai.Constants.MycroftMobileConstants.BE_A_BEACON_PREFERENCE_KEY
-import mycroft.ai.Constants.MycroftMobileConstants.LOCATION_PERMISSION_PREFERENCE_KEY
 import mycroft.ai.Constants.MycroftMobileConstants.VERSION_CODE_PREFERENCE_KEY
 import mycroft.ai.Constants.MycroftMobileConstants.VERSION_NAME_PREFERENCE_KEY
 
@@ -110,31 +106,7 @@ class SettingsActivity : AppCompatPreferenceActivity() {
     override fun isValidFragment(fragmentName: String): Boolean {
         return (PreferenceFragment::class.java.name == fragmentName
                 || GeneralPreferenceFragment::class.java.name == fragmentName
-                || AboutPreferenceFragment::class.java.name == fragmentName
-                || BeaconPreferenceFragment::class.java.name == fragmentName)
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    class BeaconPreferenceFragment : PreferenceFragment() {
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            addPreferencesFromResource(R.xml.pref_beacon)
-            setHasOptionsMenu(true)
-
-            bindPreferenceSummaryToValue(findPreference(LOCATION_PERMISSION_PREFERENCE_KEY), 2)
-            bindPreferenceSummaryToValue(findPreference(BE_A_BEACON_PREFERENCE_KEY), 3)
-
-        }
-
-        override fun onOptionsItemSelected(item: MenuItem): Boolean {
-            val id = item.itemId
-            if (id == android.R.id.home) {
-                startActivity(Intent(activity, SettingsActivity::class.java))
-                return true
-            }
-
-            return super.onOptionsItemSelected(item)
-        }
+                || AboutPreferenceFragment::class.java.name == fragmentName)
     }
 
     /**
@@ -219,9 +191,6 @@ class SettingsActivity : AppCompatPreferenceActivity() {
                             preference.entries[index]
                         else
                             null)
-                if (preference.getKey() == "beaconManufacture") {
-                    preference.value = preference.value
-                }
 
             } else if (preference is RingtonePreference) {
                 // For ringtone preferences, look up the correct display value
@@ -245,20 +214,7 @@ class SettingsActivity : AppCompatPreferenceActivity() {
                     }
                 }
             } else if (preference is SwitchPreference) {
-                //Beacon stuff.
-                if (preference.getKey() == "beABeaconSwitch") {
-                    //TODO get permit settings for values, for now hardcoded.
-
-                    if (ContextCompat.checkSelfPermission(preference.getContext(),
-                                    Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED && value == true) {
-                        //FIXME in future release
-                        /*BeaconUtil beaconUtil = new BeaconUtil(MycroftApplication.getAppContext());
-                        beaconUtil.broadcastAsBeacon();*/
-                    }
-
-                    preference.setSummary("BLE beacon functionality: $stringValue")
-                }
-
+                // No-op, previously used for beacon preferences
             } else {
                 // For all other preferences, set the summary to the value's
                 // simple string representation.

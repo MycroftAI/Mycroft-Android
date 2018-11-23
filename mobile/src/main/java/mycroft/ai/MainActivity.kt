@@ -20,7 +20,6 @@
 
 package mycroft.ai
 
-import android.Manifest
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.BroadcastReceiver
@@ -34,10 +33,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceManager
 import android.speech.RecognizerIntent
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import android.support.v4.content.LocalBroadcastManager
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -63,8 +59,6 @@ import mycroft.ai.receivers.NetworkChangeReceiver
 import mycroft.ai.shared.utilities.GuiUtilities
 import mycroft.ai.utils.NetworkUtil
 
-import mycroft.ai.Constants.MycroftMobileConstants.LOCATION_PERMISSION_PREFERENCE_KEY
-import mycroft.ai.Constants.MycroftMobileConstants.PERMISSION_REQUEST_COARSE_LOCATION
 import mycroft.ai.Constants.MycroftMobileConstants.VERSION_CODE_PREFERENCE_KEY
 import mycroft.ai.Constants.MycroftMobileConstants.VERSION_NAME_PREFERENCE_KEY
 import mycroft.ai.shared.wear.Constants.MycroftSharedConstants.MYCROFT_WEAR_REQUEST
@@ -125,21 +119,6 @@ class MainActivity : AppCompatActivity() {
 
         registerReceivers()
 
-        if (ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                            Manifest.permission.ACCESS_COARSE_LOCATION)) {
-            } else {
-
-
-                ActivityCompat.requestPermissions(this,
-                        arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                        PERMISSION_REQUEST_COARSE_LOCATION)
-            }
-        }
-
         // start the discovery activity (testing only)
         // startActivity(new Intent(this, DiscoveryActivity.class));
     }
@@ -164,11 +143,6 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(Intent.ACTION_VIEW,
                         Uri.parse(getString(R.string.mycroft_website_url)))
                 startActivity(intent)
-            }
-            R.id.action_beacons -> {
-                val intent = Intent(this, BeaconActivity::class.java)
-                startActivity(intent)
-                consumed = true
             }
         }
 
@@ -368,30 +342,8 @@ class MainActivity : AppCompatActivity() {
     public override fun onStart() {
         super.onStart()
         recordVersionInfo()
-        locationPermissionCheckAndSet()
         registerReceivers()
         checkIfLaunchedFromWidget(intent)
-    }
-
-    /**
-     * For caching location permission state.
-     */
-    private fun locationPermissionCheckAndSet() {
-        try {
-            val editor = sharedPref.edit()
-
-            val valueToSet = if (ContextCompat.checkSelfPermission(this,
-                            Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                "Set"
-            } else {
-                "Not Set"
-            }
-            editor.putString(LOCATION_PERMISSION_PREFERENCE_KEY, valueToSet)
-            editor.apply()
-        } catch (ex: Exception) {
-            Log.d(logTag, ex.message)
-        }
-
     }
 
     public override fun onStop() {
@@ -409,27 +361,7 @@ class MainActivity : AppCompatActivity() {
         setIntent(intent)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>, grantResults: IntArray) {
-        when (requestCode) {
-            PERMISSION_REQUEST_COARSE_LOCATION -> {
-                if (grantResults.isNotEmpty() &&
-                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d(logTag, "Coarse location permission granted")
-                } else {
-                    val builder = AlertDialog.Builder(this)
-                    builder.setTitle(R.string.location_result_title)
-                    builder.setMessage(R.string.location_result_message)
-                    builder.setPositiveButton(android.R.string.ok, null)
-                    builder.setOnDismissListener { }
-                    builder.show()
-                }
-            }
-        }
-    }
-
     private fun loadPreferences() {
-        //Load beacon prefs.
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
 
         // get mycroft-core ip address
