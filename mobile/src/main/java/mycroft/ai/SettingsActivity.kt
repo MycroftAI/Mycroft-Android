@@ -213,8 +213,6 @@ class SettingsActivity : AppCompatPreferenceActivity() {
                         preference.setSummary(name)
                     }
                 }
-            } else if (preference is SwitchPreference) {
-                // No-op, previously used for beacon preferences
             } else {
                 // For all other preferences, set the summary to the value's
                 // simple string representation.
