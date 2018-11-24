@@ -118,9 +118,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         registerReceivers()
-
-        // start the discovery activity (testing only)
-        // startActivity(new Intent(this, DiscoveryActivity.class));
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

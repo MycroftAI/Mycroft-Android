@@ -27,7 +27,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -60,7 +59,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mycroft.ai.MainActivity" />
         </activity>
-        <activity android:name=".DiscoveryActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
