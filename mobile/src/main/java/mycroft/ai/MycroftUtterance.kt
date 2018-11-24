@@ -21,15 +21,6 @@
 package mycroft.ai
 
 /**
- * Created by paul on 2016/06/22.
+ * Data class representing a response from Mycroft
  */
-
-class MycroftUtterances {
-
-    var utterance: String? = null
-
-    companion object {
-
-        val UTTERANCE_PREFIX = "Mycroft says: "
-    }
-}
+data class MycroftUtterance(val utterance: String)

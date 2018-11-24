@@ -21,10 +21,13 @@
 <resources>
     <string name="app_name">Mycroft</string>
     <string name="action_settings">Settings</string>
-    <string name="beacon_activity">Beacon Func</string>
-    <string name="ranging_activity">Beacon Range</string>
     <string name="mycroftai">Mycroft</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="mycroft_website_url">https://home.mycroft.ai</string>
+
+    <!-- Main Activity -->
+    <string name="voice_responses_switch_label">Voice Responses</string>
+    <string name="mycroft_utterance">Mycroft says: %s</string>
 
     <!-- Strings related to Settings -->
 
@@ -134,24 +137,4 @@
     <string name="license_value">GPLv3</string>
     <string name="pref_default_display_not_set">not set</string>
     <string name="digit_zero">0</string>
-
-    //Beacon strings
-    <string name="location_permission_granted_title">Location Permission set?</string>
-    <string name="beacon_pref">Beacon Settings</string>
-    <string name="enable_ble_beacon_functionality">BLE beacon functionality:</string>
-    <string name="be_a_becaon">Be a beacon!</string>
-    <string name="pref_title_uuid">Beacon UUID!</string>
-    <string name="default_uuid">234aldf-asdf34-asdf-sdfsdf2</string>
-    <string name="location_request_title">This app needs location access</string>
-    <string name="location_request_message">Please grant location access so this app can detect beacons in the background.</string>
-    <string name="location_result_title">Functionality limited</string>
-    <string name="location_result_message">"Since location access has not been granted, this app will not be able to discover beacons when in the background.</string>
-    <string name="verify_bluetooth_not_enabled_title">Bluetooth not enabled</string>
-    <string name="verify_bluetooth_not_enabled_message">Please enable bluetooth in settings and restart this application.</string>
-    <string name="bluetooth_not_supported_title">Bluetooth LE not available</string>
-    <string name="bluetooth_not_supported_message">Sorry, this device does not support Bluetooth LE.</string>
-
-    //Beacon notification
-    <string name="beacon_notification_title">Mycroft Beacon</string>
-    <string name="beacon_notification_content">An beacon is nearby.</string>
 </resources>

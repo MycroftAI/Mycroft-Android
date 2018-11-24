@@ -25,11 +25,9 @@ import android.util.Log
 import org.json.JSONException
 import org.json.JSONObject
 
-import java.util.Objects
-
 /**
  * Specialised Runnable that parses the [JSONObject] in [.message]
- * when run. If it contains a [MycroftUtterances] object, the callback
+ * when run. If it contains a [MycroftUtterance] object, the callback
  * defined in [the constructor][.MessageParser] will
  * be [called][SafeCallback.call] with that object as a parameter.
  *
@@ -39,40 +37,22 @@ import java.util.Objects
  *
  * @author Philip Cohn-Cort
  */
-internal class MessageParser
-/**
- * MessageParser is a simple mechanism for parsing a [JSONObject] out
- * of a String in a way conducive to scheduling.
- *
- * @param message any String. Must not be null
- * @param callback will be referenced if a [MycroftUtterances]'
- * [MycroftUtterances.utterance]
- * is found within the message. May not be null
- */
-(private val message: String, private val callback: SafeCallback<MycroftUtterances>) : Runnable {
+internal class MessageParser(private val message: String,
+                             private val callback: SafeCallback<MycroftUtterance>) : Runnable {
+    private val logTag = "MessageParser"
 
     override fun run() {
-        Log.i(TAG, message)
+        Log.i(logTag, message)
         // new format
         // {"data": {"utterance": "There are only two hard problems in Computer Science: cache invalidation, naming things and off-by-one-errors."}, "type": "speak", "context": null}
         try {
             val obj = JSONObject(message)
-            val msgType = obj.optString("type")
-            if (msgType == "speak") {
-                val ret = obj.getJSONObject("data").getString("utterance")
-                val mu = MycroftUtterances()
-                mu.utterance = ret
-                callback.call(mu)
+            if (obj.optString("type") == "speak") {
+                val ret = MycroftUtterance(obj.getJSONObject("data").getString("utterance"))
+                callback.call(ret)
             }
-
         } catch (e: JSONException) {
-            Log.w(TAG, "The response received did not conform to our expected JSON formats.", e)
+            Log.e(logTag, "The response received did not conform to our expected JSON format.", e)
         }
-
-    }
-
-    companion object {
-
-        private val TAG = "MessageParser"
     }
 }

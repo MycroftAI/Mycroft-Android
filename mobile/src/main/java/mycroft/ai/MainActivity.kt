@@ -20,7 +20,6 @@
 
 package mycroft.ai
 
-import android.Manifest
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.BroadcastReceiver
@@ -34,20 +33,13 @@ import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceManager
 import android.speech.RecognizerIntent
-import android.support.design.widget.FloatingActionButton
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import android.support.v4.content.LocalBroadcastManager
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Switch
 
 import com.crashlytics.android.Crashlytics
 
@@ -57,17 +49,16 @@ import org.java_websocket.handshake.ServerHandshake
 
 import java.net.URI
 import java.net.URISyntaxException
-import java.util.ArrayList
 import java.util.Locale
 
 import io.fabric.sdk.android.Fabric
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import mycroft.ai.adapters.MycroftAdapter
 import mycroft.ai.receivers.NetworkChangeReceiver
 import mycroft.ai.shared.utilities.GuiUtilities
-import mycroft.ai.shared.wear.Constants
 import mycroft.ai.utils.NetworkUtil
 
-import mycroft.ai.Constants.MycroftMobileConstants.LOCATION_PERMISSION_PREFERENCE_KEY
 import mycroft.ai.Constants.MycroftMobileConstants.VERSION_CODE_PREFERENCE_KEY
 import mycroft.ai.Constants.MycroftMobileConstants.VERSION_NAME_PREFERENCE_KEY
 import mycroft.ai.shared.wear.Constants.MycroftSharedConstants.MYCROFT_WEAR_REQUEST
@@ -75,86 +66,58 @@ import mycroft.ai.shared.wear.Constants.MycroftSharedConstants.MYCROFT_WEAR_REQU
 import mycroft.ai.shared.wear.Constants.MycroftSharedConstants.MYCROFT_WEAR_REQUEST_MESSAGE
 
 class MainActivity : AppCompatActivity() {
-
-    var mWebSocketClient: WebSocketClient?= null
-    private var wsip: String? = null
-
+    private val logTag = "Mycroft"
+    private val utterances = mutableListOf<MycroftUtterance>()
+    private val reqCodeSpeechInput = 100
     private var maximumRetries = 1
 
-    private val REQ_CODE_SPEECH_INPUT = 100
-    private var ttsManager: TTSManager? = null
-    private var voxSwitch: Switch? = null
+    private var mycroftAdapter = MycroftAdapter(utterances)
+    private var isNetworkChangeReceiverRegistered = false
+    private var isWearBroadcastRevieverRegistered = false
+    private var launchedFromWidget = false
+    private var autoPromptForSpeech = false
 
-    private val utterances = ArrayList<MycroftUtterances>()
-
-    private var ma = MycroftAdapter(utterances)
-
+    private lateinit var ttsManager: TTSManager
+    private lateinit var wsip: String
+    private lateinit var sharedPref: SharedPreferences
     private lateinit var networkChangeReceiver: NetworkChangeReceiver
     private lateinit var wearBroadcastReceiver: BroadcastReceiver
 
-    private var isNetworkChangeReceiverRegistered: Boolean = false
-    private var isWearBroadcastRevieverRegistered: Boolean = false
-
-    private lateinit var recList: RecyclerView
-
-    private var sharedPref: SharedPreferences? = null
-
-    private var launchedFromWidget = false
-    private var autoPromptForSpeech = false
+    var webSocketClient: WebSocketClient? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         Fabric.with(this, Crashlytics())
         setContentView(R.layout.activity_main)
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
-        val fab = findViewById(R.id.fab) as FloatingActionButton
-        fab.setOnClickListener { promptSpeechInput() }
-
-        voxSwitch = findViewById(R.id.voxswitch) as Switch
-
-        //attach a listener to check for changes in state
-        voxSwitch!!.setOnCheckedChangeListener { buttonView, isChecked ->
-            val editor = sharedPref!!.edit()
-            editor.putBoolean("appReaderSwitch", isChecked)
-            editor.commit()
-
-            // stop tts from speaking if app reader disabled
-            if (isChecked == false) {
-                ttsManager!!.initQueue("")
-            }
-        }
-
-        recList = findViewById(R.id.cardList) as RecyclerView
-        recList.setHasFixedSize(true)
-        val llm = LinearLayoutManager(this)
-        llm.stackFromEnd = true
-        llm.orientation = LinearLayoutManager.VERTICAL
-        recList.layoutManager = llm
-
-        recList.adapter = ma
-
-        registerReceivers()
+        loadPreferences()
 
         ttsManager = TTSManager(this)
 
+        fab.setOnClickListener { promptSpeechInput() }
 
-        if (ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        //attach a listener to check for changes in state
+        voxswitch.setOnCheckedChangeListener { _, isChecked ->
+            val editor = sharedPref.edit()
+            editor.putBoolean("appReaderSwitch", isChecked)
+            editor.apply()
 
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                            Manifest.permission.ACCESS_COARSE_LOCATION)) {
-            } else {
-
-
-                ActivityCompat.requestPermissions(this,
-                        arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                        PERMISSION_REQUEST_COARSE_LOCATION)
-            }
+            // stop tts from speaking if app reader disabled
+            if (!isChecked) ttsManager.initQueue("")
         }
+
+        val llm = LinearLayoutManager(this)
+        llm.stackFromEnd = true
+        llm.orientation = LinearLayoutManager.VERTICAL
+        with (cardList) {
+            setHasFixedSize(true)
+            layoutManager = llm
+            adapter = mycroftAdapter
+        }
+
+        registerReceivers()
 
         // start the discovery activity (testing only)
         // startActivity(new Intent(this, DiscoveryActivity.class));
@@ -170,19 +133,17 @@ class MainActivity : AppCompatActivity() {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
-
         var consumed = false
-        if (id == R.id.action_settings) {
-            startActivity(Intent(this, SettingsActivity::class.java))
-            consumed = true
-        } else if (id == R.id.action_home_mycroft_ai) {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://home.mycroft.ai"))
-            startActivity(intent)
-        } else if (id == R.id.action_beacons) {
-            val intent = Intent(this, BeaconActivity::class.java)
-            startActivity(intent)
-            consumed = true
+        when (item.itemId) {
+            R.id.action_settings -> {
+                startActivity(Intent(this, SettingsActivity::class.java))
+                consumed = true
+            }
+            R.id.action_home_mycroft_ai -> {
+                val intent = Intent(Intent.ACTION_VIEW,
+                        Uri.parse(getString(R.string.mycroft_website_url)))
+                startActivity(intent)
+            }
         }
 
         return consumed && super.onOptionsItemSelected(item)
@@ -192,16 +153,16 @@ class MainActivity : AppCompatActivity() {
         val uri = deriveURI()
 
         if (uri != null) {
-            mWebSocketClient = object : WebSocketClient(uri) {
+            webSocketClient = object : WebSocketClient(uri) {
                 override fun onOpen(serverHandshake: ServerHandshake) {
                     Log.i("Websocket", "Opened")
                 }
 
                 override fun onMessage(s: String) {
                     // Log.i(TAG, s);
-                    runOnUiThread(MessageParser(s, object : SafeCallback<MycroftUtterances> {
-                        override fun call(mu: MycroftUtterances) {
-                            addData(mu)
+                    runOnUiThread(MessageParser(s, object : SafeCallback<MycroftUtterance> {
+                        override fun call(param: MycroftUtterance) {
+                            addData(param)
                         }
                     }))
                 }
@@ -215,17 +176,17 @@ class MainActivity : AppCompatActivity() {
                     Log.i("Websocket", "Error " + e.message)
                 }
             }
-            mWebSocketClient!!.connect()
+            webSocketClient!!.connect()
         }
     }
 
-    private fun addData(mu: MycroftUtterances) {
-        utterances.add(mu)
-        ma.notifyItemInserted(utterances.size - 1)
-        if (voxSwitch!!.isChecked) {
-            ttsManager!!.addQueue(mu.utterance!!)
+    private fun addData(mycroftUtterance: MycroftUtterance) {
+        utterances.add(mycroftUtterance)
+        mycroftAdapter.notifyItemInserted(utterances.size - 1)
+        if (voxswitch.isChecked) {
+            ttsManager.addQueue(mycroftUtterance.utterance)
         }
-        recList.smoothScrollToPosition(ma.itemCount - 1)
+        cardList.smoothScrollToPosition(mycroftAdapter.itemCount - 1)
     }
 
     private fun registerReceivers() {
@@ -256,7 +217,7 @@ class MainActivity : AppCompatActivity() {
                     val message = intent.getStringExtra(MYCROFT_WEAR_REQUEST_MESSAGE)
                     // send to mycroft
                     if (message != null) {
-                        Log.d(TAG, "Wear message received: [$message] sending to Mycroft")
+                        Log.d(logTag, "Wear message received: [$message] sending to Mycroft")
                         sendMessage(message)
                     }
                 }
@@ -293,19 +254,16 @@ class MainActivity : AppCompatActivity() {
      * @return a valid uri, or null
      */
     private fun deriveURI(): URI? {
-        var uri: URI? = null
-
-        if (wsip != null && !wsip!!.isEmpty()) {
+        return if (wsip.isNotEmpty()) {
             try {
-                uri = URI("ws://$wsip:8181/core")
+                URI("ws://$wsip:8181/core")
             } catch (e: URISyntaxException) {
-                e.printStackTrace()
+                Log.e(logTag, "Unable to build URI for websocket", e)
+                null
             }
-
         } else {
-            uri = null
+            null
         }
-        return uri
     }
 
     fun sendMessage(msg: String?) {
@@ -314,7 +272,7 @@ class MainActivity : AppCompatActivity() {
         val json = "{\"data\": {\"utterances\": [\"$msg\"]}, \"type\": \"recognizer_loop:utterance\", \"context\": null}"
 
         try {
-            if (mWebSocketClient == null || mWebSocketClient!!.connection.isClosed) {
+            if (webSocketClient == null || webSocketClient!!.connection.isClosed) {
                 // try and reconnect
                 if (NetworkUtil.getConnectivityStatus(this) == NetworkUtil.NETWORK_STATUS_WIFI) { //TODO: add config to specify wifi only.
                     connectWebSocket()
@@ -325,7 +283,7 @@ class MainActivity : AppCompatActivity() {
             handler.postDelayed({
                 // Actions to do after 1 seconds
                 try {
-                    mWebSocketClient!!.send(json)
+                    webSocketClient!!.send(json)
                 } catch (exception: WebsocketNotConnectedException) {
                     showToast(resources.getString(R.string.websocket_closed))
                 }
@@ -348,7 +306,7 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
                 getString(R.string.speech_prompt))
         try {
-            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT)
+            startActivityForResult(intent, reqCodeSpeechInput)
         } catch (a: ActivityNotFoundException) {
             showToast(getString(R.string.speech_not_supported))
         }
@@ -362,7 +320,7 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
-            REQ_CODE_SPEECH_INPUT -> {
+            reqCodeSpeechInput -> {
                 if (resultCode == Activity.RESULT_OK && null != data) {
 
                     val result = data
@@ -376,42 +334,16 @@ class MainActivity : AppCompatActivity() {
 
     public override fun onDestroy() {
         super.onDestroy()
-        ttsManager!!.shutDown()
+        ttsManager.shutDown()
         isNetworkChangeReceiverRegistered = false
         isWearBroadcastRevieverRegistered = false
     }
 
     public override fun onStart() {
         super.onStart()
-        loadPreferences()
         recordVersionInfo()
-        locationPermissionCheckAndSet()
         registerReceivers()
         checkIfLaunchedFromWidget(intent)
-    }
-
-    /**
-     * For caching location permission state.
-     */
-    private fun locationPermissionCheckAndSet() {
-        try {
-            val editor = sharedPref!!.edit()
-
-            val valueToSet: String
-
-            if (ContextCompat.checkSelfPermission(this,
-                            Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                valueToSet = "Set"
-
-            } else {
-                valueToSet = "Not Set"
-            }
-            editor.putString(LOCATION_PERMISSION_PREFERENCE_KEY, valueToSet)
-            editor.apply()
-        } catch (ex: Exception) {
-            Log.d(TAG, ex.message)
-        }
-
     }
 
     public override fun onStop() {
@@ -430,29 +362,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadPreferences() {
-        //Load beacon prefs.
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
 
         // get mycroft-core ip address
-        wsip = sharedPref!!.getString("ip", "")
-        if (wsip!!.isEmpty()) {
+        wsip = sharedPref.getString("ip", "")
+        if (wsip.isEmpty()) {
             // eep, show the settings intent!
             startActivity(Intent(this, SettingsActivity::class.java))
-        } else if (mWebSocketClient == null || mWebSocketClient!!.connection.isClosed) {
+        } else if (webSocketClient == null || webSocketClient!!.connection.isClosed) {
             connectWebSocket()
         }
 
         // set app reader setting
-        voxSwitch!!.isChecked = sharedPref!!.getBoolean("appReaderSwitch", true)
+        voxswitch.isChecked = sharedPref.getBoolean("appReaderSwitch", true)
 
         // determine if app reader should be visible
-        if (sharedPref!!.getBoolean("displayAppReaderSwitch", true)) {
-            voxSwitch!!.visibility = View.VISIBLE
-        } else {
-            voxSwitch!!.visibility = View.INVISIBLE
+        voxswitch.visibility = when {
+            sharedPref.getBoolean("displayAppReaderSwitch", true) -> View.VISIBLE
+            else -> View.INVISIBLE
         }
 
-        maximumRetries = Integer.parseInt(sharedPref!!.getString("maximumRetries", "1"))
+        maximumRetries = Integer.parseInt(sharedPref.getString("maximumRetries", "1"))
     }
 
     private fun checkIfLaunchedFromWidget(intent: Intent) {
@@ -465,13 +395,10 @@ class MainActivity : AppCompatActivity() {
             }
 
             if (extras.containsKey(MYCROFT_WEAR_REQUEST_KEY_NAME)) {
-                Log.d(TAG, "checkIfLaunchedFromWidget - extras contain key:" + MYCROFT_WEAR_REQUEST_KEY_NAME)
+                Log.d(logTag, "checkIfLaunchedFromWidget - extras contain key:$MYCROFT_WEAR_REQUEST_KEY_NAME")
                 sendMessage(extras.getString(MYCROFT_WEAR_REQUEST_KEY_NAME))
                 getIntent().removeExtra(MYCROFT_WEAR_REQUEST_KEY_NAME)
-
             }
-        } else {
-            Log.d(TAG, "checkIfLaunchedFromWidget - extras are null")
         }
 
         if (autoPromptForSpeech) {
@@ -481,52 +408,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun recordVersionInfo() {
-        var versionName = ""
-        var versionCode = -1
         try {
             val packageInfo = packageManager.getPackageInfo(packageName, 0)
-            versionName = packageInfo.versionName
-            versionCode = packageInfo.versionCode
-
-            val editor = sharedPref!!.edit()
-            editor.putInt(VERSION_CODE_PREFERENCE_KEY, versionCode)
-            editor.putString(VERSION_NAME_PREFERENCE_KEY, versionName)
+            val editor = sharedPref.edit()
+            editor.putInt(VERSION_CODE_PREFERENCE_KEY, packageInfo.versionCode)
+            editor.putString(VERSION_NAME_PREFERENCE_KEY, packageInfo.versionName)
             editor.apply()
         } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
+            Log.e(logTag, "Couldn't find package info", e)
         }
-
     }
 
     private fun showToast(message: String) {
         GuiUtilities.showToast(applicationContext, message)
-    }
-
-
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>, grantResults: IntArray) {
-        when (requestCode) {
-            PERMISSION_REQUEST_COARSE_LOCATION -> {
-                //TODO look at why this is throwing an index out of bounds exception.
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d(TAG, "Coarse location permission granted")
-                } else {
-                    val builder = AlertDialog.Builder(this)
-                    builder.setTitle(R.string.location_result_title)
-                    builder.setMessage(R.string.location_result_message)
-                    builder.setPositiveButton(android.R.string.ok, null)
-                    builder.setOnDismissListener { }
-                    builder.show()
-                }
-                return
-            }
-        }
-    }
-
-    companion object {
-
-        private val TAG = "Mycroft"
-
-        private val PERMISSION_REQUEST_COARSE_LOCATION = 1
     }
 }

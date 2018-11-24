@@ -25,7 +25,5 @@ class Constants {
         //how to properly call constants in kotlin?
         const val VERSION_NAME_PREFERENCE_KEY = "versionName"
         const val VERSION_CODE_PREFERENCE_KEY = "versionCode"
-        const val BE_A_BEACON_PREFERENCE_KEY = "beABeaconSwitch"
-        const val LOCATION_PERMISSION_PREFERENCE_KEY = "locationPermissionGranted"
     }
 }

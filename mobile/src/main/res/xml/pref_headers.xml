@@ -21,12 +21,6 @@
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- These settings headers are only used on tablets. -->
-
-    <header
-        android:fragment="mycroft.ai.SettingsActivity$BeaconPreferenceFragment"
-        android:icon="@drawable/mycroft_logo_24dp"
-        android:title="@string/beacon_pref" />
-
     <header
         android:fragment="mycroft.ai.SettingsActivity$GeneralPreferenceFragment"
         android:icon="@drawable/mycroft_logo_24dp"

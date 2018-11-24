@@ -24,23 +24,23 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import kotlinx.android.synthetic.main.card_layout.view.*
 
-import mycroft.ai.MycroftUtterances
+import mycroft.ai.MycroftUtterance
 import mycroft.ai.R
 
 /**
  * Created by paul on 2016/06/22.
  */
-class MycroftAdapter(private val utteranceList: List<MycroftUtterances>) : RecyclerView.Adapter<MycroftAdapter.UtteranceViewHolder>() {
+class MycroftAdapter(private val utteranceList: List<MycroftUtterance>) : RecyclerView.Adapter<MycroftAdapter.UtteranceViewHolder>() {
 
     override fun getItemCount(): Int {
         return utteranceList.size
     }
 
     override fun onBindViewHolder(utteranceViewHolder: UtteranceViewHolder, i: Int) {
-        val ci = utteranceList[i]
-        utteranceViewHolder.vUtterance.setText(MycroftUtterances.UTTERANCE_PREFIX + " " + ci.utterance)
+        utteranceViewHolder.vUtterance.text = utteranceViewHolder.itemView.context
+                .getString(R.string.mycroft_utterance, utteranceList[i].utterance)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): UtteranceViewHolder {
@@ -50,11 +50,6 @@ class MycroftAdapter(private val utteranceList: List<MycroftUtterances>) : Recyc
     }
 
     class UtteranceViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-
-        var vUtterance: TextView
-
-        init {
-            vUtterance = v.findViewById(R.id.utterance) as TextView
-        }
+        val vUtterance = v.utterance
     }
 }
