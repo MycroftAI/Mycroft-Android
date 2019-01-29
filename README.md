@@ -24,7 +24,7 @@ Mycroft.ai is a collaborative, open source project. That means we encourage and 
 
 ### Passthrough (component app)
 1. Pull your own fork, work there
-2. make a branch of whatever you are working on
+2. make a branch of whatever you are working on, makes sure your fork is the latest.
 3. Test!!!!
 4. merge into your master.
 5. make pull request into project master
