@@ -67,7 +67,7 @@ import mycroft.ai.shared.wear.Constants.MycroftSharedConstants.MYCROFT_WEAR_REQU
 
 class MainActivity : AppCompatActivity() {
     private val logTag = "Mycroft"
-    private val utterances = mutableListOf<MycroftUtterance>()
+    private val utterances = mutableListOf<Utterance>()
     private val reqCodeSpeechInput = 100
     private var maximumRetries = 1
 
@@ -160,8 +160,8 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onMessage(s: String) {
                     // Log.i(TAG, s);
-                    runOnUiThread(MessageParser(s, object : SafeCallback<MycroftUtterance> {
-                        override fun call(param: MycroftUtterance) {
+                    runOnUiThread(MessageParser(s, object : SafeCallback<Utterance> {
+                        override fun call(param: Utterance) {
                             addData(param)
                         }
                     }))
@@ -180,7 +180,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun addData(mycroftUtterance: MycroftUtterance) {
+    private fun addData(mycroftUtterance: Utterance) {
         utterances.add(mycroftUtterance)
         mycroftAdapter.notifyItemInserted(utterances.size - 1)
         if (voxswitch.isChecked) {
@@ -266,7 +266,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun sendMessage(msg: String?) {
+    fun sendMessage(msg: String) {
         // let's keep it simple eh?
         //final String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [\"" + msg + "\"]}}";
         val json = "{\"data\": {\"utterances\": [\"$msg\"]}, \"type\": \"recognizer_loop:utterance\", \"context\": null}"
@@ -284,6 +284,7 @@ class MainActivity : AppCompatActivity() {
                 // Actions to do after 1 seconds
                 try {
                     webSocketClient!!.send(json)
+                    addData(Utterance(msg, UtteranceFrom.USER))
                 } catch (exception: WebsocketNotConnectedException) {
                     showToast(resources.getString(R.string.websocket_closed))
                 }

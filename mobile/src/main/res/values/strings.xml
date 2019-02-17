@@ -27,7 +27,6 @@
 
     <!-- Main Activity -->
     <string name="voice_responses_switch_label">Voice Responses</string>
-    <string name="mycroft_utterance">Mycroft says: %s</string>
 
     <!-- Strings related to Settings -->
 
