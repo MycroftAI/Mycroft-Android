@@ -449,12 +449,6 @@ class MainActivity : AppCompatActivity() {
         // set app reader setting
         voxswitch.isChecked = sharedPref.getBoolean("appReaderSwitch", true)
 
-        // determine if app reader should be visible
-        voxswitch.visibility = when {
-            sharedPref.getBoolean("displayAppReaderSwitch", true) -> View.VISIBLE
-            else -> View.INVISIBLE
-        }
-
         maximumRetries = Integer.parseInt(sharedPref.getString("maximumRetries", "1"))
     }
 
