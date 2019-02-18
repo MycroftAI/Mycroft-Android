@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity() {
         sendUtterance.setOnClickListener {
             val utterance = utteranceInput.text.toString()
             if (utterance != "") {
-                sendMessage(utteranceInput.text.toString())
+                sendMessage(utterance)
                 utteranceInput.text.clear()
             }
         }
@@ -186,9 +186,9 @@ class MainActivity : AppCompatActivity() {
             sendMessage(utterances[currentItemPosition].utterance)
         } else if (item.itemId == R.id.user_copy || item.itemId == R.id.mycroft_copy) {
             // Copy utterance to clipboard
-            val cb = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val data = ClipData.newPlainText("text", utterances[currentItemPosition].utterance)
-            cb.primaryClip = data
+            clipboardManager.primaryClip = data
             showToast("Copied to clipboard")
         } else if (item.itemId == R.id.mycroft_share) {
             // Share utterance
