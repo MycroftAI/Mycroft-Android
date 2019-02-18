@@ -21,12 +21,7 @@
 package mycroft.ai
 
 import android.app.Activity
-import android.content.ActivityNotFoundException
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.content.SharedPreferences
+import android.content.*
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -37,9 +32,12 @@ import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
+import android.widget.Toast
 
 import com.crashlytics.android.Crashlytics
 
@@ -70,14 +68,15 @@ class MainActivity : AppCompatActivity() {
     private val utterances = mutableListOf<Utterance>()
     private val reqCodeSpeechInput = 100
     private var maximumRetries = 1
+    private var currentItemPosition = -1
 
-    private var mycroftAdapter = MycroftAdapter(utterances)
     private var isNetworkChangeReceiverRegistered = false
     private var isWearBroadcastRevieverRegistered = false
     private var launchedFromWidget = false
     private var autoPromptForSpeech = false
 
     private lateinit var ttsManager: TTSManager
+    private lateinit var mycroftAdapter: MycroftAdapter
     private lateinit var wsip: String
     private lateinit var sharedPref: SharedPreferences
     private lateinit var networkChangeReceiver: NetworkChangeReceiver
@@ -95,8 +94,17 @@ class MainActivity : AppCompatActivity() {
         loadPreferences()
 
         ttsManager = TTSManager(this)
+        mycroftAdapter = MycroftAdapter(utterances, applicationContext, menuInflater)
+        mycroftAdapter.setOnLongItemClickListener(object: MycroftAdapter.OnLongItemClickListener {
+            override fun itemLongClicked(v: View, position: Int) {
+                currentItemPosition = position
+                v.showContextMenu()
+            }
+        })
 
         fab.setOnClickListener { promptSpeechInput() }
+
+        registerForContextMenu(cardList)
 
         //attach a listener to check for changes in state
         voxswitch.setOnCheckedChangeListener { _, isChecked ->
@@ -147,6 +155,32 @@ class MainActivity : AppCompatActivity() {
         }
 
         return consumed && super.onOptionsItemSelected(item)
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        super.onContextItemSelected(item)
+        if (item.itemId == R.id.user_resend) {
+            // Resend user utterance
+            sendMessage(utterances[currentItemPosition].utterance)
+        } else if (item.itemId == R.id.user_copy || item.itemId == R.id.mycroft_copy) {
+            // Copy utterance to clipboard
+            val cb = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val data = ClipData.newPlainText("text", utterances[currentItemPosition].utterance)
+            cb.primaryClip = data
+            showToast("Copied to clipboard")
+        } else if (item.itemId == R.id.mycroft_share) {
+            // Share utterance
+            val sendIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, utterances[currentItemPosition].utterance)
+                type = "text/plain"
+            }
+            startActivity(Intent.createChooser(sendIntent, resources.getText(R.string.action_share)))
+        } else {
+            return super.onContextItemSelected(item)
+        }
+
+        return true
     }
 
     fun connectWebSocket() {
@@ -387,7 +421,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkIfLaunchedFromWidget(intent: Intent) {
-
         val extras = getIntent().extras
         if (extras != null) {
             if (extras.containsKey("launchedFromWidget")) {

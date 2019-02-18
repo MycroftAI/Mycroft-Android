@@ -62,6 +62,11 @@
         <item>-1</item>
     </string-array>
 
+    <!-- Context menu -->
+    <string name="action_resend">Resend</string>
+    <string name="action_copy">Copy</string>
+    <string name="action_share">Share</string>
+
     <!-- Example settings for Data & Sync -->
     <string name="pref_header_data_sync">Data &amp; sync</string>
 

@@ -20,10 +20,11 @@
 
 package mycroft.ai.adapters
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.AdapterView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.user_card_layout.view.*
 
 import mycroft.ai.Utterance
@@ -33,7 +34,16 @@ import mycroft.ai.UtteranceFrom
 /**
  * Created by paul on 2016/06/22.
  */
-class MycroftAdapter(private val utteranceList: List<Utterance>) : RecyclerView.Adapter<MycroftAdapter.UtteranceViewHolder>() {
+class MycroftAdapter(private val utteranceList: List<Utterance>, private val ctx: Context, private val menuInflater: MenuInflater) : RecyclerView.Adapter<MycroftAdapter.UtteranceViewHolder>() {
+    var onLongClickListener: OnLongItemClickListener? = null
+
+    interface OnLongItemClickListener {
+        fun itemLongClicked(v: View, position: Int)
+    }
+
+    fun setOnLongItemClickListener(listener: OnLongItemClickListener) {
+        onLongClickListener = listener
+    }
 
     override fun getItemCount(): Int {
         return utteranceList.size
@@ -41,6 +51,10 @@ class MycroftAdapter(private val utteranceList: List<Utterance>) : RecyclerView.
 
     override fun onBindViewHolder(utteranceViewHolder: UtteranceViewHolder, i: Int) {
         utteranceViewHolder.vUtterance.text = utteranceList[i].utterance
+        utteranceViewHolder.itemView.setOnLongClickListener {v ->
+            onLongClickListener?.itemLongClicked(v, i)
+            true
+        }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): UtteranceViewHolder {
@@ -50,7 +64,7 @@ class MycroftAdapter(private val utteranceList: List<Utterance>) : RecyclerView.
             else -> throw IndexOutOfBoundsException("No such view id $i")
         }
 
-        return UtteranceViewHolder(itemView)
+        return UtteranceViewHolder(itemView, menuInflater, i)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -58,7 +72,18 @@ class MycroftAdapter(private val utteranceList: List<Utterance>) : RecyclerView.
         return message.from.id
     }
 
-    class UtteranceViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+    class UtteranceViewHolder(v: View, private val menuInflater: MenuInflater, private val i: Int) : RecyclerView.ViewHolder(v), View.OnCreateContextMenuListener {
         val vUtterance = v.utterance
+
+        init {
+            v.setOnCreateContextMenuListener(this)
+        }
+
+        override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
+            when (i) {
+                UtteranceFrom.USER.id -> menuInflater.inflate(R.menu.menu_user_utterance_context, menu)
+                UtteranceFrom.MYCROFT.id -> menuInflater.inflate(R.menu.menu_mycroft_utterance_context, menu)
+            }
+        }
     }
 }
