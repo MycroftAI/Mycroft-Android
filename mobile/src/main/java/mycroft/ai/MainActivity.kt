@@ -102,7 +102,32 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        fab.setOnClickListener { promptSpeechInput() }
+        kbMicSwitch.setOnCheckedChangeListener { _, isChecked ->
+            val editor = sharedPref.edit()
+            editor.putBoolean("kbMicSwitch", isChecked)
+            editor.apply()
+
+            if (isChecked) {
+                // Switch to mic
+                micButton.visibility = View.VISIBLE
+                utteranceInput.visibility = View.INVISIBLE
+                sendUtterance.visibility = View.INVISIBLE
+            } else {
+                // Switch to keyboard
+                micButton.visibility = View.INVISIBLE
+                utteranceInput.visibility = View.VISIBLE
+                sendUtterance.visibility = View.VISIBLE
+            }
+        }
+
+        micButton.setOnClickListener { promptSpeechInput() }
+        sendUtterance.setOnClickListener {
+            val utterance = utteranceInput.text.toString()
+            if (utterance != "") {
+                sendMessage(utteranceInput.text.toString())
+                utteranceInput.text.clear()
+            }
+        }
 
         registerForContextMenu(cardList)
 
@@ -406,6 +431,19 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, SettingsActivity::class.java))
         } else if (webSocketClient == null || webSocketClient!!.connection.isClosed) {
             connectWebSocket()
+        }
+
+        kbMicSwitch.isChecked = sharedPref.getBoolean("kbMicSwitch", true)
+        if (kbMicSwitch.isChecked) {
+            // Switch to mic
+            micButton.visibility = View.VISIBLE
+            utteranceInput.visibility = View.INVISIBLE
+            sendUtterance.visibility = View.INVISIBLE
+        } else {
+            // Switch to keyboard
+            micButton.visibility = View.INVISIBLE
+            utteranceInput.visibility = View.VISIBLE
+            sendUtterance.visibility = View.VISIBLE
         }
 
         // set app reader setting

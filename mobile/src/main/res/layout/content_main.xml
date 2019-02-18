@@ -37,15 +37,68 @@
         android:layout_marginTop="@dimen/card_list_margin_top"
         android:layout_marginBottom="@dimen/card_list_margin_bottom"/>
 
-    <ToggleButton
-        android:id="@+id/voxswitch"
-        android:button="@drawable/volume_toggle"
-        android:background="@android:color/transparent"
-        android:textOn=""
-        android:textOff=""
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:checked="false" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ToggleButton
+            android:id="@+id/voxswitch"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="4dp"
+            android:background="@android:color/transparent"
+            android:button="@drawable/volume_toggle"
+            android:checked="false"
+            android:textOff=""
+            android:textOn="" />
+
+        <ToggleButton
+            android:id="@+id/kbMicSwitch"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="4dp"
+            android:layout_toEndOf="@id/voxswitch"
+            android:background="@android:color/transparent"
+            android:button="@drawable/kb_to_mic"
+            android:checked="true"
+            android:textOff=""
+            android:textOn="" />
+
+        <ImageButton
+            android:id="@+id/micButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_mycroft"
+            android:contentDescription="@string/speech_prompt" />
+
+        <EditText
+            android:id="@+id/utteranceInput"
+            android:visibility="invisible"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@id/kbMicSwitch"
+            android:layout_toStartOf="@id/sendUtterance"
+            android:inputType="textShortMessage" />
+
+        <ImageButton
+            android:id="@+id/sendUtterance"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="4dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_send_black_24dp"
+            android:contentDescription="@string/send_utterance" />
+
+    </RelativeLayout>
+
 </RelativeLayout>
