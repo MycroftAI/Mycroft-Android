@@ -38,10 +38,4 @@
         android:summary="@string/pref_summary_app_reader_switch"
         android:defaultValue="true"/>
 
-    <SwitchPreference
-        android:key="displayAppReaderSwitch"
-        android:title="@string/pref_title_display_app_reader_switch"
-        android:summary="@string/pref_summary_display_app_reader_switch"
-        android:defaultValue="true"/>
-
 </PreferenceScreen>

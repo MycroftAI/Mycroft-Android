@@ -21,12 +21,7 @@
 package mycroft.ai
 
 import android.app.Activity
-import android.content.ActivityNotFoundException
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.content.SharedPreferences
+import android.content.*
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -67,17 +62,18 @@ import mycroft.ai.shared.wear.Constants.MycroftSharedConstants.MYCROFT_WEAR_REQU
 
 class MainActivity : AppCompatActivity() {
     private val logTag = "Mycroft"
-    private val utterances = mutableListOf<MycroftUtterance>()
+    private val utterances = mutableListOf<Utterance>()
     private val reqCodeSpeechInput = 100
     private var maximumRetries = 1
+    private var currentItemPosition = -1
 
-    private var mycroftAdapter = MycroftAdapter(utterances)
     private var isNetworkChangeReceiverRegistered = false
     private var isWearBroadcastRevieverRegistered = false
     private var launchedFromWidget = false
     private var autoPromptForSpeech = false
 
     private lateinit var ttsManager: TTSManager
+    private lateinit var mycroftAdapter: MycroftAdapter
     private lateinit var wsip: String
     private lateinit var sharedPref: SharedPreferences
     private lateinit var networkChangeReceiver: NetworkChangeReceiver
@@ -95,8 +91,42 @@ class MainActivity : AppCompatActivity() {
         loadPreferences()
 
         ttsManager = TTSManager(this)
+        mycroftAdapter = MycroftAdapter(utterances, applicationContext, menuInflater)
+        mycroftAdapter.setOnLongItemClickListener(object: MycroftAdapter.OnLongItemClickListener {
+            override fun itemLongClicked(v: View, position: Int) {
+                currentItemPosition = position
+                v.showContextMenu()
+            }
+        })
 
-        fab.setOnClickListener { promptSpeechInput() }
+        kbMicSwitch.setOnCheckedChangeListener { _, isChecked ->
+            val editor = sharedPref.edit()
+            editor.putBoolean("kbMicSwitch", isChecked)
+            editor.apply()
+
+            if (isChecked) {
+                // Switch to mic
+                micButton.visibility = View.VISIBLE
+                utteranceInput.visibility = View.INVISIBLE
+                sendUtterance.visibility = View.INVISIBLE
+            } else {
+                // Switch to keyboard
+                micButton.visibility = View.INVISIBLE
+                utteranceInput.visibility = View.VISIBLE
+                sendUtterance.visibility = View.VISIBLE
+            }
+        }
+
+        micButton.setOnClickListener { promptSpeechInput() }
+        sendUtterance.setOnClickListener {
+            val utterance = utteranceInput.text.toString()
+            if (utterance != "") {
+                sendMessage(utterance)
+                utteranceInput.text.clear()
+            }
+        }
+
+        registerForContextMenu(cardList)
 
         //attach a listener to check for changes in state
         voxswitch.setOnCheckedChangeListener { _, isChecked ->
@@ -149,6 +179,32 @@ class MainActivity : AppCompatActivity() {
         return consumed && super.onOptionsItemSelected(item)
     }
 
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        super.onContextItemSelected(item)
+        if (item.itemId == R.id.user_resend) {
+            // Resend user utterance
+            sendMessage(utterances[currentItemPosition].utterance)
+        } else if (item.itemId == R.id.user_copy || item.itemId == R.id.mycroft_copy) {
+            // Copy utterance to clipboard
+            val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val data = ClipData.newPlainText("text", utterances[currentItemPosition].utterance)
+            clipboardManager.primaryClip = data
+            showToast("Copied to clipboard")
+        } else if (item.itemId == R.id.mycroft_share) {
+            // Share utterance
+            val sendIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, utterances[currentItemPosition].utterance)
+                type = "text/plain"
+            }
+            startActivity(Intent.createChooser(sendIntent, resources.getText(R.string.action_share)))
+        } else {
+            return super.onContextItemSelected(item)
+        }
+
+        return true
+    }
+
     fun connectWebSocket() {
         val uri = deriveURI()
 
@@ -160,8 +216,8 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onMessage(s: String) {
                     // Log.i(TAG, s);
-                    runOnUiThread(MessageParser(s, object : SafeCallback<MycroftUtterance> {
-                        override fun call(param: MycroftUtterance) {
+                    runOnUiThread(MessageParser(s, object : SafeCallback<Utterance> {
+                        override fun call(param: Utterance) {
                             addData(param)
                         }
                     }))
@@ -180,7 +236,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun addData(mycroftUtterance: MycroftUtterance) {
+    private fun addData(mycroftUtterance: Utterance) {
         utterances.add(mycroftUtterance)
         mycroftAdapter.notifyItemInserted(utterances.size - 1)
         if (voxswitch.isChecked) {
@@ -266,7 +322,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun sendMessage(msg: String?) {
+    fun sendMessage(msg: String) {
         // let's keep it simple eh?
         //final String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [\"" + msg + "\"]}}";
         val json = "{\"data\": {\"utterances\": [\"$msg\"]}, \"type\": \"recognizer_loop:utterance\", \"context\": null}"
@@ -284,6 +340,7 @@ class MainActivity : AppCompatActivity() {
                 // Actions to do after 1 seconds
                 try {
                     webSocketClient!!.send(json)
+                    addData(Utterance(msg, UtteranceFrom.USER))
                 } catch (exception: WebsocketNotConnectedException) {
                     showToast(resources.getString(R.string.websocket_closed))
                 }
@@ -373,20 +430,26 @@ class MainActivity : AppCompatActivity() {
             connectWebSocket()
         }
 
+        kbMicSwitch.isChecked = sharedPref.getBoolean("kbMicSwitch", true)
+        if (kbMicSwitch.isChecked) {
+            // Switch to mic
+            micButton.visibility = View.VISIBLE
+            utteranceInput.visibility = View.INVISIBLE
+            sendUtterance.visibility = View.INVISIBLE
+        } else {
+            // Switch to keyboard
+            micButton.visibility = View.INVISIBLE
+            utteranceInput.visibility = View.VISIBLE
+            sendUtterance.visibility = View.VISIBLE
+        }
+
         // set app reader setting
         voxswitch.isChecked = sharedPref.getBoolean("appReaderSwitch", true)
-
-        // determine if app reader should be visible
-        voxswitch.visibility = when {
-            sharedPref.getBoolean("displayAppReaderSwitch", true) -> View.VISIBLE
-            else -> View.INVISIBLE
-        }
 
         maximumRetries = Integer.parseInt(sharedPref.getString("maximumRetries", "1"))
     }
 
     private fun checkIfLaunchedFromWidget(intent: Intent) {
-
         val extras = getIntent().extras
         if (extras != null) {
             if (extras.containsKey("launchedFromWidget")) {

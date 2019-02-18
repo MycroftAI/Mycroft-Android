@@ -27,7 +27,7 @@ import org.json.JSONObject
 
 /**
  * Specialised Runnable that parses the [JSONObject] in [.message]
- * when run. If it contains a [MycroftUtterance] object, the callback
+ * when run. If it contains a [Utterance] object, the callback
  * defined in [the constructor][.MessageParser] will
  * be [called][SafeCallback.call] with that object as a parameter.
  *
@@ -38,7 +38,7 @@ import org.json.JSONObject
  * @author Philip Cohn-Cort
  */
 internal class MessageParser(private val message: String,
-                             private val callback: SafeCallback<MycroftUtterance>) : Runnable {
+                             private val callback: SafeCallback<Utterance>) : Runnable {
     private val logTag = "MessageParser"
 
     override fun run() {
@@ -48,7 +48,7 @@ internal class MessageParser(private val message: String,
         try {
             val obj = JSONObject(message)
             if (obj.optString("type") == "speak") {
-                val ret = MycroftUtterance(obj.getJSONObject("data").getString("utterance"))
+                val ret = Utterance(obj.getJSONObject("data").getString("utterance"), UtteranceFrom.MYCROFT)
                 callback.call(ret)
             }
         } catch (e: JSONException) {
