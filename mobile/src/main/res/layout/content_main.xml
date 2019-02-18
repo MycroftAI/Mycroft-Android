@@ -37,11 +37,14 @@
         android:layout_marginTop="@dimen/card_list_margin_top"
         android:layout_marginBottom="@dimen/card_list_margin_bottom"/>
 
-    <Switch
+    <ToggleButton
+        android:id="@+id/voxswitch"
+        android:button="@drawable/volume_toggle"
+        android:background="@android:color/transparent"
+        android:textOn=""
+        android:textOff=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/voice_responses_switch_label"
-        android:id="@+id/voxswitch"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:checked="false" />
