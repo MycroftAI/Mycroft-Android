@@ -46,11 +46,14 @@ import java.util.Locale
  */
 
 class TTSManager {
+    val notInitializedErrorMessage = "TTS Not Initialized"
+    val initializationFailedErrorMessage = "Initialization Failed!"
 
     /**
      * Backing TTS for this instance. Should not (ever) be null.
      */
     private lateinit var mTts: TextToSpeech
+
     /**
      * Whether the TTS is available for use (i.e. loaded into memory)
      */
@@ -71,7 +74,7 @@ class TTSManager {
                 logError("This Language is not supported")
             }
         } else {
-            logError("Initialization Failed!")
+            logError(initializationFailedErrorMessage)
         }
     }
 
@@ -108,7 +111,7 @@ class TTSManager {
         if (isLoaded)
             mTts.speak(text, TextToSpeech.QUEUE_ADD, null)
         else {
-            logError("TTS Not Initialized")
+            logError(notInitializedErrorMessage)
         }
     }
 
@@ -117,7 +120,7 @@ class TTSManager {
         if (isLoaded)
             mTts.speak(text, TextToSpeech.QUEUE_FLUSH, null)
         else
-            logError("TTS Not Initialized")
+            logError(notInitializedErrorMessage)
     }
 
     /**
