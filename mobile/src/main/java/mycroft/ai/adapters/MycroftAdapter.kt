@@ -21,10 +21,10 @@
 package mycroft.ai.adapters
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.user_card_layout.view.*
 
 import mycroft.ai.Utterance
