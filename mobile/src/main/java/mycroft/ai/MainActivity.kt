@@ -28,13 +28,14 @@ import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceManager
 import android.speech.RecognizerIntent
-import android.support.v4.content.LocalBroadcastManager
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.crashlytics.android.Crashlytics
 
@@ -86,7 +87,8 @@ class MainActivity : AppCompatActivity() {
 
         Fabric.with(this, Crashlytics())
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar as Toolbar?)
+
 
         loadPreferences()
 
@@ -188,7 +190,7 @@ class MainActivity : AppCompatActivity() {
             // Copy utterance to clipboard
             val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val data = ClipData.newPlainText("text", utterances[currentItemPosition].utterance)
-            clipboardManager.primaryClip = data
+            clipboardManager.setPrimaryClip(data)
             showToast("Copied to clipboard")
         } else if (item.itemId == R.id.mycroft_share) {
             // Share utterance
@@ -422,8 +424,8 @@ class MainActivity : AppCompatActivity() {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
 
         // get mycroft-core ip address
-        wsip = sharedPref.getString("ip", "")
-        if (wsip.isEmpty()) {
+        wsip = sharedPref.getString("ip", "")!!
+        if (wsip!!.isEmpty()) {
             // eep, show the settings intent!
             startActivity(Intent(this, SettingsActivity::class.java))
         } else if (webSocketClient == null || webSocketClient!!.connection.isClosed) {
@@ -446,7 +448,7 @@ class MainActivity : AppCompatActivity() {
         // set app reader setting
         voxswitch.isChecked = sharedPref.getBoolean("appReaderSwitch", true)
 
-        maximumRetries = Integer.parseInt(sharedPref.getString("maximumRetries", "1"))
+        maximumRetries = Integer.parseInt(sharedPref.getString("maximumRetries", "1")!!)
     }
 
     private fun checkIfLaunchedFromWidget(intent: Intent) {
@@ -459,7 +461,7 @@ class MainActivity : AppCompatActivity() {
 
             if (extras.containsKey(MYCROFT_WEAR_REQUEST_KEY_NAME)) {
                 Log.d(logTag, "checkIfLaunchedFromWidget - extras contain key:$MYCROFT_WEAR_REQUEST_KEY_NAME")
-                sendMessage(extras.getString(MYCROFT_WEAR_REQUEST_KEY_NAME))
+                extras.getString(MYCROFT_WEAR_REQUEST_KEY_NAME)?.let { sendMessage(it) }
                 getIntent().removeExtra(MYCROFT_WEAR_REQUEST_KEY_NAME)
             }
         }

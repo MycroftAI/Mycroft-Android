@@ -22,8 +22,8 @@ package mycroft.ai.services
 
 import android.app.Service
 import android.content.Intent
-import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 import com.google.android.gms.wearable.MessageEvent
 import com.google.android.gms.wearable.Node
