@@ -28,6 +28,13 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/bgImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/mycroft_big"
+        android:alpha="0.2"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cardList"
         android:visibility="visible"
@@ -37,13 +44,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/card_list_margin_top"
         android:layout_marginBottom="@dimen/card_list_margin_bottom" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/bgImage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/mycroft_big"
-        android:alpha="0.2"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/defaultMessageTextView"
