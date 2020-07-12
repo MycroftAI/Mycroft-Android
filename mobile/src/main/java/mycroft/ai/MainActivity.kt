@@ -240,6 +240,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun addData(mycroftUtterance: Utterance) {
         utterances.add(mycroftUtterance)
+        defaultMessageTextView.visibility = View.GONE
         mycroftAdapter.notifyItemInserted(utterances.size - 1)
         if (voxswitch.isChecked) {
             ttsManager.addQueue(mycroftUtterance.utterance)
