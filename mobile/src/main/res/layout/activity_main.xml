@@ -27,6 +27,7 @@
     android:fitsSystemWindows="true"
     android:src="@drawable/mycroft_big"
     android:scaleType = "centerCrop"
+    app:statusBarBackground=""
     tools:context="mycroft.ai.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -39,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.NoActionBar" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
