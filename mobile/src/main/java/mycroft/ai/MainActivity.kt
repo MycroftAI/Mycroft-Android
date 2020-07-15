@@ -32,6 +32,8 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -119,14 +121,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        micButton.setOnClickListener { promptSpeechInput() }
-        sendUtterance.setOnClickListener {
-            val utterance = utteranceInput.text.toString()
-            if (utterance != "") {
-                sendMessage(utterance)
-                utteranceInput.text.clear()
+        utteranceInput.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+            if(actionId == EditorInfo.IME_ACTION_DONE){
+                sendUtterance()
+                true
+            } else {
+                false
             }
-        }
+        })
+        micButton.setOnClickListener { promptSpeechInput() }
+        sendUtterance.setOnClickListener { sendUtterance() }
 
         registerForContextMenu(cardList)
 
@@ -207,6 +211,14 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    fun sendUtterance() {
+        val utterance = utteranceInput.text.toString()
+        if (utterance != "") {
+            sendMessage(utterance)
+            utteranceInput.text.clear()
+        }
+    }
+
     fun connectWebSocket() {
         val uri = deriveURI()
 
@@ -240,6 +252,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun addData(mycroftUtterance: Utterance) {
         utterances.add(mycroftUtterance)
+        defaultMessageTextView.visibility = View.GONE
         mycroftAdapter.notifyItemInserted(utterances.size - 1)
         if (voxswitch.isChecked) {
             ttsManager.addQueue(mycroftUtterance.utterance)

@@ -142,4 +142,5 @@
     <string name="license_value">GPLv3</string>
     <string name="pref_default_display_not_set">not set</string>
     <string name="digit_zero">0</string>
+    <string name="landing_default_message">Nothing to show yet.. your conversations with Mycroft will appear here</string>
 </resources>

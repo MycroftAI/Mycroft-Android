@@ -19,7 +19,7 @@
   ~
   -->
 
-<android.support.v7.widget.CardView
+<androidx.cardview.widget.CardView
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,13 +35,22 @@
     card_view:cardCornerRadius="4dp"
     card_view:cardElevation="2dp"
     >
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/mycroft_logo_24dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="3dp"
+        />
+
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:paddingEnd="16dp"
         >
-
         <TextView
             android:id="@+id/utterance"
             android:layout_width="match_parent"
@@ -59,4 +68,4 @@
 
 
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>
