@@ -48,8 +48,8 @@ public class LogAnswer implements Answer<Integer> {
 
 	@Override
 	public Integer answer(InvocationOnMock invocation) throws Throwable {
-		String tag = invocation.getArgumentAt(0, String.class);
-		String msg = invocation.getArgumentAt(1, String.class);
+		String tag = invocation.getArgument(0, String.class);
+		String msg = invocation.getArgument(1, String.class);
 
 		String name = invocation.getMethod().getName();
 

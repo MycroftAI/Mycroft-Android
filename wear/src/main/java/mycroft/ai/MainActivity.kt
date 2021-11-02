@@ -62,9 +62,9 @@ class MainActivity : WearableActivity(), GoogleApiClient.ConnectionCallbacks, Go
                 .addOnConnectionFailedListener(this)
                 .build()
 
-        containerView = findViewById(R.id.container) as BoxInsetLayout
+        containerView = findViewById(R.id.container)
 
-        inputImageButton = findViewById(R.id.inputImageButton) as ImageButton
+        inputImageButton = findViewById(R.id.inputImageButton)
         inputImageButton!!.setOnClickListener {
             try {
                 promptSpeechInput()
