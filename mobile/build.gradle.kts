@@ -47,8 +47,6 @@ android {
 	buildFeatures {
 		dataBinding = true
 		viewBinding = true
-		// for view binding :
-		// viewBinding = true
 	}
 }
 
