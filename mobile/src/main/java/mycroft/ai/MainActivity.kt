@@ -339,8 +339,6 @@ class MainActivity : AppCompatActivity() {
 	}
 
 	fun sendMessage(msg: String) {
-		// let's keep it simple eh?
-		//final String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [\"" + msg + "\"]}}";
 		val json =
 			"{\"data\": {\"utterances\": [\"$msg\"]}, \"type\": \"recognizer_loop:utterance\", \"context\": null}"
 
