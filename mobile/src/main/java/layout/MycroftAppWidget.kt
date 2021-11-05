@@ -63,6 +63,8 @@ class MycroftAppWidget : AppWidgetProvider() {
             val intent = Intent(context, MainActivity::class.java)
             intent.putExtra("launchedFromWidget", true)
             intent.putExtra("autopromptForSpeech", true)
+
+            // TODO Errors will occur in android 12 and above due to below
             val pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
             // Construct the RemoteViews object

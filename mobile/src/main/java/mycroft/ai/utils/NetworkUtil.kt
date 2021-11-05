@@ -39,6 +39,7 @@ object NetworkUtil {
     fun getConnectivityStatus(context: Context): Int {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
+        // TODO Deprecated connection api below, update please
         val activeNetwork = cm.activeNetworkInfo
         if (null != activeNetwork) {
             if (activeNetwork.type == ConnectivityManager.TYPE_WIFI)

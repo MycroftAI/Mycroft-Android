@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~  Copyright (c) 2017. Mycroft AI, Inc.
   ~
   ~  This file is part of Mycroft-Android a client for Mycroft Core.
@@ -25,8 +24,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:scaleType="centerCrop"
     android:src="@drawable/mycroft_big"
-    android:scaleType = "centerCrop"
     app:statusBarBackground="@color/colorPrimary"
     tools:context="mycroft.ai.MainActivity">
 
@@ -44,6 +43,8 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <include
+        android:id="@+id/content_main"
+        layout="@layout/content_main" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
