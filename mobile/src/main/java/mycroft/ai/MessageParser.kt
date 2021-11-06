@@ -21,12 +21,13 @@
 package mycroft.ai
 
 import android.util.Log
-
-import org.json.JSONException
-import org.json.JSONObject
+import kotlinx.serialization.SerializationException
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import mycroft.ai.entity.JSONMessage
 
 /**
- * Specialised Runnable that parses the [JSONObject] in [.message]
+ * Specialised Runnable that parses the JSONObject in [.message]
  * when run. If it contains a [Utterance] object, the callback
  * defined in [the constructor][.MessageParser] will
  * be [called][SafeCallback.call] with that object as a parameter.
@@ -37,22 +38,23 @@ import org.json.JSONObject
  *
  * @author Philip Cohn-Cort
  */
-internal class MessageParser(private val message: String,
-                             private val callback: SafeCallback<Utterance>) : Runnable {
-    private val logTag = "MessageParser"
+internal class MessageParser(
+	private val message: String,
+	private val callback: SafeCallback<Utterance>
+) : Runnable {
+	private val logTag = "MessageParser"
 
-    override fun run() {
-        Log.i(logTag, message)
-        // new format
-        // {"data": {"utterance": "There are only two hard problems in Computer Science: cache invalidation, naming things and off-by-one-errors."}, "type": "speak", "context": null}
-        try {
-            val obj = JSONObject(message)
-            if (obj.optString("type") == "speak") {
-                val ret = Utterance(obj.getJSONObject("data").getString("utterance"), UtteranceFrom.MYCROFT)
-                callback.call(ret)
-            }
-        } catch (e: JSONException) {
-            Log.e(logTag, "The response received did not conform to our expected JSON format.", e)
-        }
-    }
+	override fun run() {
+		Log.i(logTag, message)
+		// new format
+		// {"data": {"utterance": "There are only two hard problems in Computer Science: cache invalidation, naming things and off-by-one-errors."}, "type": "speak", "context": null}
+		try {
+			val messageObj = Json.decodeFromString<JSONMessage>(message)
+			if (messageObj.type == "speak") {
+				callback.call(Utterance(messageObj.data.utterance, UtteranceFrom.MYCROFT))
+			}
+		} catch (e: SerializationException) {
+			Log.e(logTag, "The response received did not conform to our expected JSON format.", e)
+		}
+	}
 }

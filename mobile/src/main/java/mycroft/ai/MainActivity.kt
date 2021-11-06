@@ -38,10 +38,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import mycroft.ai.Constants.MycroftMobileConstants.VERSION_CODE_PREFERENCE_KEY
 import mycroft.ai.Constants.MycroftMobileConstants.VERSION_NAME_PREFERENCE_KEY
 import mycroft.ai.adapters.MycroftAdapter
 import mycroft.ai.databinding.ActivityMainBinding
+import mycroft.ai.entity.JSONSendMessage
+import mycroft.ai.entity.JSONSendMessageData
 import mycroft.ai.receivers.NetworkChangeReceiver
 import mycroft.ai.shared.utilities.GuiUtilities
 import mycroft.ai.shared.wear.Constants.MycroftSharedConstants.MYCROFT_WEAR_REQUEST
@@ -339,9 +343,11 @@ class MainActivity : AppCompatActivity() {
 	}
 
 	fun sendMessage(msg: String) {
-		val json =
-			"{\"data\": {\"utterances\": [\"$msg\"]}, \"type\": \"recognizer_loop:utterance\", \"context\": null}"
-
+		val json = JSONSendMessage(
+			JSONSendMessageData(listOf(msg)),
+			"recognizer_loop:utterance",
+			null
+		)
 		try {
 			if (webSocketClient == null || webSocketClient!!.connection.isClosed) {
 				// try and reconnect
@@ -354,7 +360,7 @@ class MainActivity : AppCompatActivity() {
 			handler.postDelayed({
 				// Actions to do after 1 seconds
 				try {
-					webSocketClient!!.send(json)
+					webSocketClient!!.send(Json.encodeToString(json))
 					addData(Utterance(msg, UtteranceFrom.USER))
 				} catch (exception: WebsocketNotConnectedException) {
 					showToast(resources.getString(R.string.websocket_closed))
