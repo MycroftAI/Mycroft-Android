@@ -23,6 +23,7 @@ plugins {
 	id("com.google.firebase.crashlytics")
 	kotlin("android")
 	id("com.google.gms.google-services")
+	kotlin("plugin.serialization")
 }
 android {
 
@@ -96,4 +97,7 @@ dependencies {
 	implementation("org.java-websocket:Java-WebSocket:1.5.2")
 
 	implementation("androidx.legacy:legacy-support-core-utils:1.0.0")
+
+	// kotlinx
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
 }
